@@ -24,14 +24,14 @@ html, body, section {
 }
 
 .app-body .app-message {
-    font: bolder 7.8vw "Josefin Sans";
+    font: normal 7em "Josefin Sans";
     text-align: center;
     margin-top: 0;
     margin-bottom: 0;
 }
 
-.app-body .app-message > .app-one {
-    font: 6.3vw "Roboto Mono";
+.app-body .app-message .app-one {
+    font: bold 6.3vw "Roboto Mono";
     margin-bottom: 0;
 }
 
