@@ -9,7 +9,8 @@ export default class Util {
         "Something something machine learning",
         "import tensorflow",
         "Ad astra per aspera",
-        "downloading your personal information..."
+        "downloading your personal information...",
+        "zucc is coming for your data!!"
     ];
 
     selectGreeting() {
