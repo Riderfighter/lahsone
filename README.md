@@ -14,20 +14,27 @@
 
 **Setup**
 
-React doesn't support sources outside of /src/*, so you'll need to make a symbolic link.
+This project comes with its own CLI, which automates some task. Follow these steps to start using it.
+
 > git clone {repo}
 
-> sudo ln -s path/to/lahsone/common path/to/lahsone/web/src
+> cd lahsone
 
-> sudo ln -s path/to/lahsone/common path/to/lahsone/app/src
+> chmod 700 lahsone
 
-On Mac this should show up as an aliased folder titled "common" directly under the "src" folders.
+> ./lahsone init # Initialize dependencies
+
+> ./lahsone run web # Start the project on the web.
+
+Note: If you're system doesn't support bash scripts, you're screwed. Good luck, soldier.
 
 
 **Running**
 
+For any target platform, you'll need to ``cd`` to the root lahsone/
+
 @lahsone/web
-> yarn start
+> ./lahsone run web
 
 @lahsone/app
-> echo "not yet implemented"
+> ./lahsone run [ios|android]
