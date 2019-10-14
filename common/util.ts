@@ -8,7 +8,8 @@ export default class Util {
         "Powered by react",
         "Something something machine learning",
         "import tensorflow",
-        "Ad astra per aspera"
+        "Ad astra per aspera",
+        "downloading your personal information..."
     ];
 
     selectGreeting() {

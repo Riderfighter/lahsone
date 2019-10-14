@@ -20,34 +20,47 @@ case "$1" in
 		printf "${GREEN}Finished initializing!${ENDL}"
 	;;
 	"run")
-	case "$2" in
-		"web")
-			printf "${GREEN}Starting ${BLUE}@lahsone${YELLOW}/web${GREEN}...${ENDL}"
-			rsync -r --delete common/. web/src/common # Force sync initially
-			cd web # Change context
-			yarn start # Start with yarn
-		;;
-		"ios")
-			echo "Running for ios!" #TODO
-		;;
-		"android")
-			echo "Running for android" #TODO
-		;;
-		*)
-			echo "Need to select a target: web | ios | android"
-			exit 1
+		case "$2" in
+			"web")
+				printf "${GREEN}Starting ${BLUE}@lahsone${YELLOW}/web${GREEN}...${ENDL}"
+				rsync -r --delete common/. web/src/common # Force sync initially
+				cd web # Change context
+				yarn start # Start with yarn
 			;;
-	esac
+			"ios")
+				echo "Running for ios!" #TODO
+			;;
+			"android")
+				echo "Running for android" #TODO
+			;;
+			*)
+				echo "Need to select a target: web | ios | android"
+				exit 1
+				;;
+		esac
 	;;
 	"sync")
 		rsync -r --delete common/. web/src/common
 	;;
 	"help")
-	
-		echo "@lahsone/lahsone is a CLI(Command Line Interface) developed to automate some tasks in this project."
-		echo "Use \"./lahsone help [action]\" to get specific help about an action."
-		echo "Here's the list of actions:"
-		printf "\t- help\n\t- init\n\t- run\n\t- sync\n"
+		case "$2" in
+			"")
+			printf "${BLUE}@lahsone${YELLOW}/lahsone${GREEN} is a CLI(Command Line Interface) developed to automate some tasks in this project.${ENDL}"
+			echo "Use \"./lahsone help [action]\" to get specific help about an action."
+			echo "Here's the list of actions:"
+			printf "\t- help\n\t- init\n\t- run\n\t- sync\n"
+			;;
+			"help") echo "List of actions."
+			;;
+			"init") echo "Initialize or update dependencies and the project files."
+			;;
+			"run") echo "Run the project in debug mode."
+			;;
+			"sync") echo "Synchronize the content in @lahsone/common to @lahsone/*"
+			;;
+			*) echo "Unrecognized command. Use \"./lahsone help\" without arguments for a list of actions."
+			;;
+		esac
 	;;
 	*)
 		echo "Unrecognized command. Use \"./lahsone help\" for help"
