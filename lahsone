@@ -1,0 +1,41 @@
+#!/bin/bash
+
+case "$1" in
+	"init")
+		echo "Initializing @lahsone/web..."
+		cd web
+		echo "Downloading dependencies."
+		yarn
+		echo "Done."
+		echo "Initializing @lahsone/app" #TODO
+		echo "Done."
+		echo "Finished initializing!"
+	;;
+	"run")
+	case "$2" in
+		"web")
+			echo "Starting @lahsone/web..."
+			cd web # Change context
+			rsync -r --delete common/. web/src/common # Force sync initially
+			yarn start # Start with yarn
+		;;
+		"ios")
+			echo "Running for ios!" #TODO
+		;;
+		"android")
+			echo "Running for android" #TODO
+		;;
+		*)
+			echo "Need to select a target: web | ios | android"
+			exit 1
+			;;
+	esac
+	;;
+	"sync")
+		rsync -r --delete common/. web/src/common
+	;;
+	*)
+		echo "Unrecognized command. Use \"./lahsone help\" for help"
+	;;
+esac
+
