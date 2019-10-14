@@ -82,3 +82,13 @@ html, body, section {
     font-weight: bold;
     background-color: rgba(0, 0, 0, 0.1);
 }
+
+.navbar-scroll-divider {
+    width: 4px;
+    height: 50%;
+    position: relative;
+    display: block;
+    margin: 14px auto;
+    border-radius: 3px;
+    background: rgba(220, 220, 220, 0.35);
+}

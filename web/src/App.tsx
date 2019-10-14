@@ -46,16 +46,19 @@ const App: React.FC = () => {
                             Announcements
                         </Link>
                     </li>
+                    <div className="navbar-scroll-divider"/>
                     <li>
                         <Link to="/Schedule">
                             Bell Schedule
                         </Link>
                     </li>
+                    <div className="navbar-scroll-divider"/>
                     <li>
                         <Link to="/Gradebook">
                             Gradebook
                         </Link>
                     </li>
+                    <div className="navbar-scroll-divider"/>
                     <li>
                         <Link to="/Appointments">
                             Tutorial appointment
