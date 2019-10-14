@@ -1,22 +1,84 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,600,700|Karla:400,700|Roboto+Mono:700&display=swap');
+
+html, body, section {
+    background: rgb(243, 243, 243);
+    height: 100vh;
+    width: 100vw;
 }
 
-.App-logo {
-  height: 40vmin;
+.flex-section {
+    display: flex;
+    flex-flow: column;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.app-body {
+    flex: 2;
+    user-select: none;
+    cursor: default;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.App-link {
-  color: #09d3ac;
+.app-body .app-message {
+    font: bolder 7.8vw "Josefin Sans";
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.app-body .app-message > .app-one {
+    font: 7vw "Roboto Mono";
+    margin-bottom: 0;
+}
+
+.app-body .app-description {
+    font: normal 3.5vw "Josefin Sans";
+    color: rgba(0, 0, 0, 0.7);
+    margin-top: 3%;
+    padding-top: 5px;
+}
+
+.nav-bar {
+    align-self: center;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 5px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.09);
+    display: flex;
+    font: normal 1.25vw "Karla";
+    flex-flow: row;
+    list-style-type: none;
+    min-height: 4.6vh;
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+    user-select: none;
+    width: 50%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+.nav-bar li {
+    flex-grow: 1;
+    float: left;
+}
+
+.nav-bar a {
+    font-size: 100%;
+    vertical-align: middle;
+    height: 100%;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 1rem;
+    text-decoration: none;
+}
+
+.nav-bar a:hover {
+    cursor: pointer;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.1);
 }
