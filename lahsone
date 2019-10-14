@@ -15,8 +15,8 @@ case "$1" in
 	case "$2" in
 		"web")
 			echo "Starting @lahsone/web..."
-			cd web # Change context
 			rsync -r --delete common/. web/src/common # Force sync initially
+			cd web # Change context
 			yarn start # Start with yarn
 		;;
 		"ios")
