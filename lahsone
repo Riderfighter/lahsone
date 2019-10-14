@@ -1,20 +1,28 @@
 #!/bin/bash
 
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+LIGHTGREEN='\033[1;32m'
+NC='\033[0m' # No Color
+
+ENDL="${NC}\n"
+
 case "$1" in
 	"init")
-		echo "Initializing @lahsone/web..."
-		cd web
-		echo "Downloading dependencies."
-		yarn
-		echo "Done."
-		echo "Initializing @lahsone/app" #TODO
-		echo "Done."
-		echo "Finished initializing!"
+		printf "${GREEN}Initializing ${BLUE}@lahsone${YELLOW}/web${GREEN}...${ENDL}"
+		cd web # Change context
+		printf "${LIGHTGREEN}Downloading dependencies.${ENDL}"
+		yarn # Download dependencies
+		printf "${LIGHTGREEN}Done.${ENDL}"
+		printf "${GREEN}Initializing ${BLUE}@lahsone${YELLOW}/app${GREEN}...${ENDL}" #TODO
+		printf "${LIGHTGREEN}Done.${ENDL}"
+		printf "${GREEN}Finished initializing!${ENDL}"
 	;;
 	"run")
 	case "$2" in
 		"web")
-			echo "Starting @lahsone/web..."
+			printf "${GREEN}Starting ${BLUE}@lahsone${YELLOW}/web${GREEN}...${ENDL}"
 			rsync -r --delete common/. web/src/common # Force sync initially
 			cd web # Change context
 			yarn start # Start with yarn
@@ -33,6 +41,13 @@ case "$1" in
 	;;
 	"sync")
 		rsync -r --delete common/. web/src/common
+	;;
+	"help")
+	
+		echo "@lahsone/lahsone is a CLI(Command Line Interface) developed to automate some tasks in this project."
+		echo "Use \"./lahsone help [action]\" to get specific help about an action."
+		echo "Here's the list of actions:"
+		printf "\t- help\n\t- init\n\t- run\n\t- sync\n"
 	;;
 	*)
 		echo "Unrecognized command. Use \"./lahsone help\" for help"
