@@ -2,17 +2,6 @@ import React from "react";
 
 export class Logo extends React.Component<React.SVGProps<SVGSVGElement>>
 {
-    constructor(props: any)
-    {
-        super(props);
-        this.state = { width: props.width };
-    }
-
-    componentWillMount()
-    {
-        this.setState({width: window.innerWidth })
-    }
-
     render()
     {
         

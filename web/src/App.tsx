@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 import './App.css';
 import Mainpage from "./mainpage";
 import { Logo } from './components/Logo';
+import { NavigationBar } from './components/NavigationBar';
 
 const App: React.FC = () => {
     
@@ -43,6 +44,7 @@ const App: React.FC = () => {
                         </div>
                     </Route>
                 </Switch>
+                <NavigationBar/>
                 <ul className="nav-bar">
                     <li>
                         <Link to="/Announcements">
