@@ -2,10 +2,13 @@ import React from 'react';
 import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
 import './App.css';
 import Mainpage from "./mainpage";
+import { Logo } from './components/Logo';
 
 const App: React.FC = () => {
+    
     return (
         <Router>
+            <Logo/>
             <section className="flex-section">
                 <Switch>
                     <Route exact path="/">

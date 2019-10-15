@@ -24,13 +24,22 @@ html, body, section {
 }
 
 .app-body .app-message {
-    font: normal 7em "Josefin Sans";
+    font: normal 7vw "Josefin Sans";
     text-align: center;
     margin-top: 0;
     margin-bottom: 0;
 }
 
-.app-body .app-message .app-one {
+.logo-lahs {
+    font: inherit;
+    text-align: inherit;
+    color: #434343;
+    margin-top: inherit;
+    margin-bottom: inherit;
+}
+
+.app-body .app-message .logo-one {
+    color: black;
     font: bold 6.3vw "Roboto Mono";
     margin-bottom: 0;
 }
