@@ -6,10 +6,8 @@ export class Logo extends React.Component<React.SVGProps<SVGSVGElement>>
     {
         
         return (
-            <svg version="1.1" width="50vw" viewBox="0.0 0.0 170.91601049868765 100.0" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10" xmlns="http://www.w3.org/2000/svg">
-                <clipPath id="p.0">
-                    <path d="m0 0l170.91602 0l0 100.0l-170.91602 0l0 -100.0z" clip-rule="nonzero"/>
-                </clipPath>
+            <svg version="1.1" height="20vh" viewBox="0.0 0.0 170.91601049868765 100.0" fill="none" stroke="none" stroke-linecap="square" stroke-miterlimit="10" xmlns="http://www.w3.org/2000/svg">
+                
                 <g clip-path="url(#p.0)">
                     <path fill="#000000" fill-opacity="0.0" d="m0 0l170.91602 0l0 100.0l-170.91602 0z" fill-rule="evenodd"/>
                     <path fill="#000000" fill-opacity="0.0" d="m0 0l170.92914 0l0 100.0l-170.92914 0z" fill-rule="evenodd"/>

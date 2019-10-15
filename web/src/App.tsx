@@ -44,7 +44,6 @@ const App: React.FC = () => {
                         </div>
                     </Route>
                 </Switch>
-                <NavigationBar/>
                 <ul className="nav-bar">
                     <li>
                         <Link to="/Announcements">
@@ -71,7 +70,9 @@ const App: React.FC = () => {
                     </li>
                 </ul>
             </section>
+            <NavigationBar/>
         </Router>
+        
     );
 };
 

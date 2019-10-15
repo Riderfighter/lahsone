@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,600,700|Karla:400,700|Roboto+Mono:700&display=swap');
 
-html, body, section {
+html, body {
     background: rgb(243, 243, 243);
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
+}
+
+section {
+    height: 70vh;
 }
 
 .flex-section {
