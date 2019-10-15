@@ -1,12 +1,12 @@
 import React from 'react';
 import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
-import './App.css';
-import Mainpage from "./mainpage";
-import { Logo } from './components/Logo';
-import { NavigationBar } from './components/NavigationBar';
+import './styles/App.css';
+import Mainpage from "./Mainpage";
+import { Logo } from './Logo';
+import { NavigationBar } from './NavigationBar';
 
 const App: React.FC = () => {
-    
+
     return (
         <Router>
             <Logo/>
@@ -72,7 +72,7 @@ const App: React.FC = () => {
             </section>
             <NavigationBar/>
         </Router>
-        
+
     );
 };
 
