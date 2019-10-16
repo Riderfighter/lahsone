@@ -1,7 +1,12 @@
+/* Dependencies */
 import React from 'react';
-import {BrowserRouter as Router, Link, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+
+/* Styles */
 import '../styles/App.scss';
-import Mainpage from "./Mainpage";
+
+/* Components */
+import { Mainpage } from "./Mainpage";
 import { Logo } from './Logo';
 import { NavigationBar } from './NavigationBar';
 import { Announcements } from './Announcements';
@@ -10,7 +15,6 @@ import { Gradebook } from './Gradebook';
 import { Appointments } from './Appointments';
 
 const App: React.FC = () => {
-
     return (
         <Router>
             <Logo/>
