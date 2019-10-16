@@ -3,7 +3,7 @@ import "../styles/NavigationBar.scss"
 
 export class NavigationBar extends React.Component
 {
-    private selectedTab = 2; // 0-3
+    private selectedTab = 3; // 0-3
     private totalTabs = 4;
 
     private generateNavBar(): string {
@@ -44,16 +44,30 @@ export class NavigationBar extends React.Component
                         {/** Selected tab gradient */}
                         <linearGradient id="NavBarGradient" x1="0%" y1="0%" x2="0%" y2="100%">
                             <stop offset="0%"   stopColor="#F3F3F300"/>
-                            <stop offset="100%" stopColor="#F305F3"/>
+                            <stop offset="100%" stopColor="#F3F3F3"/>
                         </linearGradient>
                         
                         {/** Unselected tab shadow */}
-                        <filter id="NavBarUnselectedTab" x="0" y="0" width="200%" height="200%">
-                            <feDropShadow dx="0.2" dy="-40" stdDeviation="20"/>
+                        <filter id="NavBarUnselectedTab" x="0" y="-1.4vh" width="100%" height="200%">
+                            <feDropShadow stdDeviation="20" floodOpacity="0.4"/>
                         </filter>
                     </defs>
-                    <path d={this.generateNavBar()} fill="url(#NavBarGradient)" onClick={() => console.log("Clicked!")}/>
-                    <rect width={window.innerWidth / this.totalTabs} height="25vh" y={80} filter="url(#NavBarUnselectedTab)"/>
+
+                    {/** Button 1 */}
+                    <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} filter="url(#NavBarUnselectedTab)"/>
+
+                    {/** Button 2 */}
+                    <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 1} filter="url(#NavBarUnselectedTab)"/>
+
+                    {/** Button 3 */}
+                    <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 2} filter="url(#NavBarUnselectedTab)"/>
+
+                    {/** Button 4 */}
+                    <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 3} filter="url(#NavBarUnselectedTab)"/>
+
+
+                    {/** Selected Tab */}
+                    <path d={this.generateNavBar()} fill="url(#NavBarGradient)"  onClick={() => console.log("Clicked!")}/>
                 </svg>
             </div>
         );
