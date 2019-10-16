@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 export class NavigationBar extends React.Component
 {
     private totalTabs = 4;
-    private baseHeight = 53;
+    private baseHeight = window.innerHeight / 15; // 53 on h: 800
 
     componentWillMount()
     {
         this.setSelectedTab(-2);
-
+        console.log(window.innerHeight / 15)
     }
 
     public getSelectedTab(): number
