@@ -8,7 +8,7 @@ export class NavigationBar extends React.Component
 
     componentWillMount()
     {
-        this.setSelectedTab(0);
+        this.setSelectedTab(-2);
 
     }
 

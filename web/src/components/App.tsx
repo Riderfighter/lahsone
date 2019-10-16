@@ -4,6 +4,10 @@ import '../styles/App.scss';
 import Mainpage from "./Mainpage";
 import { Logo } from './Logo';
 import { NavigationBar } from './NavigationBar';
+import { Announcements } from './Announcements';
+import { Schedule } from './Schedule';
+import { Gradebook } from './Gradebook';
+import { Appointments } from './Appointments';
 
 const App: React.FC = () => {
 
@@ -16,59 +20,18 @@ const App: React.FC = () => {
                         <Mainpage/>
                     </Route>
                     <Route path="/Announcements">
-                        <div className="app-body">
-                            <p className="app-message">
-                                Soon to be Announcements
-                            </p>
-                        </div>
+                        <Announcements/>
                     </Route>
                     <Route path="/Schedule">
-                        <div className="app-body">
-                            <p className="app-message">
-                                Soon to be the Schedule
-                            </p>
-                        </div>
+                        <Schedule/>
                     </Route>
                     <Route path="/Gradebook">
-                        <div className="app-body">
-                            <p className="app-message">
-                                Soon to be the Gradebook
-                            </p>
-                        </div>
+                        <Gradebook/>
                     </Route>
                     <Route path="/Appointments">
-                        <div className="app-body">
-                            <p className="app-message">
-                                Soon to be the Tutorial Appointments
-                            </p>
-                        </div>
+                        <Appointments/>
                     </Route>
                 </Switch>
-                <ul className="nav-bar">
-                    <li>
-                        <Link to="/Announcements">
-                            Announcements
-                        </Link>
-                    </li>
-                    <div className="navbar-scroll-divider"/>
-                    <li>
-                        <Link to="/Schedule">
-                            Bell Schedule
-                        </Link>
-                    </li>
-                    <div className="navbar-scroll-divider"/>
-                    <li>
-                        <Link to="/Gradebook">
-                            Gradebook
-                        </Link>
-                    </li>
-                    <div className="navbar-scroll-divider"/>
-                    <li>
-                        <Link to="/Appointments">
-                            Tutorial appointment
-                        </Link>
-                    </li>
-                </ul>
             </section>
             <NavigationBar/>
         </Router>
