@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 export class NavigationBar extends React.Component
 {
     private totalTabs = 4;
+    private baseHeight = 53;
 
     componentWillMount()
     {
@@ -39,7 +40,7 @@ export class NavigationBar extends React.Component
             This only generates the top bit, the rest is actual html buttons
         */
 
-        const baseheight = 80 + 1/** Slightly more */, topheight = 0;
+        const baseheight = this.baseHeight + 1/** Slightly more */, topheight = 0;
 
         const ab = `M${(this.getSelectedTab() - 0.5) * this.getTabSize()} ${baseheight} C${(this.getSelectedTab() - 0.25) * this.getTabSize()} ${baseheight} ${this.getSelectedTab() * this.getTabSize()} ${baseheight} ${this.getSelectedTab() * this.getTabSize()} ${topheight}`;
         const bc = `L${(this.getSelectedTab() + 1) * this.getTabSize()} ${topheight}`;
@@ -58,7 +59,7 @@ export class NavigationBar extends React.Component
     {
         return (
             <div>
-                <svg version="1.1" width={window.innerWidth} height="30vh">
+                <svg version="1.1" width={window.innerWidth} height="20vh">
                     <defs>
                         {/** Selected tab gradient */}
                         <linearGradient id="NavBarGradient" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -68,30 +69,30 @@ export class NavigationBar extends React.Component
                         
                         {/** Unselected tab shadow */}
                         <filter id="NavBarUnselectedTab" x="0" y="-1.4vh" width="100%" height="200%">
-                            <feDropShadow stdDeviation="30" floodOpacity="0.2"/>
+                            <feDropShadow stdDeviation="20" floodOpacity="0.2"/>
                         </filter>
                     </defs>
 
-                    <rect width="100%" height="25vh" y={80} filter="url(#NavBarUnselectedTab)"/>
+                    <rect width="100%" height="25vh" y={this.baseHeight} filter="url(#NavBarUnselectedTab)"/>
 
                     {/** Button 1 */}
                     <Link to="/Announcements">
-                        <rect onClick={() => this.setSelectedTab(0)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80}/>
+                        <rect onClick={() => this.setSelectedTab(0)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight}/>
                     </Link>
                     
                     {/** Button 2 */}
                     <Link to="/Schedule">
-                        <rect onClick={() => this.setSelectedTab(1)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 1}/>
+                        <rect onClick={() => this.setSelectedTab(1)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 1}/>
                     </Link>
 
                     {/** Button 3 */}
                     <Link to="/Gradebook">
-                        <rect onClick={() => this.setSelectedTab(2)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 2}/>
+                        <rect onClick={() => this.setSelectedTab(2)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 2}/>
                     </Link>
 
                     {/** Button 4 */}
                     <Link to="/Appointments">
-                        <rect onClick={() => this.setSelectedTab(3)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 3}/>
+                        <rect onClick={() => this.setSelectedTab(3)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 3}/>
                     </Link>
 
                     {/** Selected Tab */}
