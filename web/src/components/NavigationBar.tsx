@@ -38,7 +38,7 @@ export class NavigationBar extends React.Component
             This only generates the top bit, the rest is actual html buttons
         */
 
-        const baseheight = 80, topheight = 0;
+        const baseheight = 80 + 1/** Slightly more */, topheight = 0;
 
         const ab = `M${(this.getSelectedTab() - 0.5) * this.getTabSize()} ${baseheight} C${(this.getSelectedTab() - 0.25) * this.getTabSize()} ${baseheight} ${this.getSelectedTab() * this.getTabSize()} ${baseheight} ${this.getSelectedTab() * this.getTabSize()} ${topheight}`;
         const bc = `L${(this.getSelectedTab() + 1) * this.getTabSize()} ${topheight}`;
@@ -71,17 +71,19 @@ export class NavigationBar extends React.Component
                         </filter>
                     </defs>
 
+                    <rect width="100%" height="25vh" y={80} filter="url(#NavBarUnselectedTab)"/>
+
                     {/** Button 1 */}
-                    <rect onClick={() => this.setSelectedTab(0)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} filter="url(#NavBarUnselectedTab)"/>
+                    <rect onClick={() => this.setSelectedTab(0)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80}/>
 
                     {/** Button 2 */}
-                    <rect onClick={() => this.setSelectedTab(1)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 1} filter="url(#NavBarUnselectedTab)"/>
+                    <rect onClick={() => this.setSelectedTab(1)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 1}/>
 
                     {/** Button 3 */}
-                    <rect onClick={() => this.setSelectedTab(2)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 2} filter="url(#NavBarUnselectedTab)"/>
+                    <rect onClick={() => this.setSelectedTab(2)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 2}/>
 
                     {/** Button 4 */}
-                    <rect onClick={() => this.setSelectedTab(3)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 3} filter="url(#NavBarUnselectedTab)"/>
+                    <rect onClick={() => this.setSelectedTab(3)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 3}/>
 
 
                     {/** Selected Tab */}
