@@ -76,23 +76,42 @@ export class NavigationBar extends React.Component
                     <rect width="100%" height="25vh" y={this.baseHeight} filter="url(#NavBarUnselectedTab)"/>
 
                     {/** Button 1 */}
-                    <Link to="/Announcements">
-                        <rect onClick={() => this.setSelectedTab(0)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight}/>
+                    <Link to="/Announcements" onClick={() => this.setSelectedTab(0)}>
+                        <g>
+                            <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight}/>
+                            
+                            {/** Announcements Icon */}
+                            <circle cx={this.getTabSize() * 0.5} cy={this.baseHeight * 2} r='3.75vh' fill='#7185C3' />
+                        </g>
                     </Link>
-                    
                     {/** Button 2 */}
-                    <Link to="/Schedule">
-                        <rect onClick={() => this.setSelectedTab(1)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 1}/>
+                    <Link to="/Schedule" onClick={() => this.setSelectedTab(1)}>
+                        <g>
+                            <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 1}/>
+                        
+                            {/** Bell Schedule Icon */}
+                            <circle cx={this.getTabSize() * 1.5} cy={this.baseHeight * 2} r='3.75vh' fill='#74A863'/>
+                        </g>
                     </Link>
 
                     {/** Button 3 */}
-                    <Link to="/Gradebook">
-                        <rect onClick={() => this.setSelectedTab(2)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 2}/>
+                    <Link to="/Gradebook" onClick={() => this.setSelectedTab(2)}>
+                        <g>
+                            <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 2}/>
+                            
+                            {/** Grades Icon */}
+                            <circle cx={this.getTabSize() * 2.5} cy={this.baseHeight * 2} r='3.75vh' fill='#ECC460'/>
+                        </g>
                     </Link>
 
                     {/** Button 4 */}
-                    <Link to="/Appointments">
-                        <rect onClick={() => this.setSelectedTab(3)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 3}/>
+                    <Link to="/Appointments" onClick={() => this.setSelectedTab(3)}>
+                        <g>
+                            <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 3}/>
+                            
+                            {/** Appointments Icon */}
+                            <circle cx={this.getTabSize() * 3.5} cy={this.baseHeight * 2} r='3.75vh' fill='#CB4B4D'/>
+                        </g>
                     </Link>
 
                     {/** Selected Tab */}
