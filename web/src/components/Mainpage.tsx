@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import Util from '../common/util';
-import { ReactComponent as Sketch } from '../common/sketch.svg'
 
-export default class Mainpage extends Component {
+export class Mainpage extends Component
+{
     private utilities = new Util();
 
-    render() {
+    render()
+    {
         return (
             <div className="app-body">
                 <p className="app-message">
@@ -15,6 +16,7 @@ export default class Mainpage extends Component {
                 <p className="app-description">
                     {this.utilities.selectGreeting()}
                 </p>
-            </div>)
+            </div>
+        );
     }
 }

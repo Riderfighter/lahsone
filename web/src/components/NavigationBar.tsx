@@ -1,12 +1,32 @@
 import React from "react";
-import "./styles/NavigationBar.css"
+import "../styles/NavigationBar.scss"
+import { Link } from "react-router-dom";
 
-export class NavigationBar extends React.Component<React.SVGProps<SVGSVGElement>>
+export class NavigationBar extends React.Component
 {
-    private selectedTab = 2; // 0-3
     private totalTabs = 4;
+    private baseHeight = 53;
 
-    private generateNavBar(): string {
+    componentWillMount()
+    {
+        this.setSelectedTab(-2);
+
+    }
+
+    public getSelectedTab(): number
+    {
+        var s:any = this.state;
+
+        return s.selectedTab;
+    }
+
+    public setSelectedTab(i: number)
+    {
+        this.setState({ selectedTab: i});
+    }
+
+    private generateNavBar(): string
+    {
         /*
               B-------C
               |       |
@@ -20,31 +40,84 @@ export class NavigationBar extends React.Component<React.SVGProps<SVGSVGElement>
             This only generates the top bit, the rest is actual html buttons
         */
 
-        const tabSize = window.innerWidth / this.totalTabs;
+        const baseheight = this.baseHeight + 1/** Slightly more */, topheight = 0;
 
-        const baseheight = 0.5 * tabSize, topheight = 0;
-
-        const ab = `M${(this.selectedTab - 0.5) * tabSize} ${baseheight} C${(this.selectedTab - 0.25) * tabSize} ${baseheight} ${this.selectedTab * tabSize} ${baseheight} ${this.selectedTab * tabSize} ${topheight}`;
-        const bc = `L${(this.selectedTab + 1) * tabSize} ${topheight}`;
-        const cd = `C${(this.selectedTab + 1) * tabSize} ${baseheight} ${(this.selectedTab+1.25) * tabSize} ${baseheight}  ${(this.selectedTab + 1.5) *  tabSize} ${baseheight}`;
+        const ab = `M${(this.getSelectedTab() - 0.5) * this.getTabSize()} ${baseheight} C${(this.getSelectedTab() - 0.25) * this.getTabSize()} ${baseheight} ${this.getSelectedTab() * this.getTabSize()} ${baseheight} ${this.getSelectedTab() * this.getTabSize()} ${topheight}`;
+        const bc = `L${(this.getSelectedTab() + 1) * this.getTabSize()} ${topheight}`;
+        const cd = `C${(this.getSelectedTab() + 1) * this.getTabSize()} ${baseheight} ${(this.getSelectedTab()+1.25) * this.getTabSize()} ${baseheight}  ${(this.getSelectedTab() + 1.5) *  this.getTabSize()} ${baseheight}`;
         const da = 'Z';
 
         return ab + bc + cd + da;
     }
 
+    private getTabSize(): number
+    {
+        return window.innerWidth / this.totalTabs;
+    }
+
     render()
     {
         return (
-            
-            <svg version="1.1" width={window.innerWidth} height="10vh">
-                <defs>
-                    <linearGradient id="navBarGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%"   stop-color="#F3F3F300"/>
-                    <stop offset="100%" stop-color="#F305F3"/>
-                    </linearGradient>
-                </defs>
-                <path d={this.generateNavBar()} fill="url(#navBarGradient)"/>
-            </svg>
+            <div>
+                <svg version="1.1" width={window.innerWidth} height="20vh">
+                    <defs>
+                        {/** Selected tab gradient */}
+                        <linearGradient id="NavBarGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%"   stopColor="#F3F3F300"/>
+                            <stop offset="50%" stopColor="#F3F3F3"/>
+                        </linearGradient>
+                        
+                        {/** Unselected tab shadow */}
+                        <filter id="NavBarUnselectedTab" x="0" y="-1.4vh" width="100%" height="200%">
+                            <feDropShadow stdDeviation="20" floodOpacity="0.2"/>
+                        </filter>
+                    </defs>
+
+                    <rect width="100%" height="25vh" y={this.baseHeight} filter="url(#NavBarUnselectedTab)"/>
+
+                    {/** Button 1 */}
+                    <Link to="/Announcements" onClick={() => this.setSelectedTab(0)}>
+                        <g>
+                            <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight}/>
+                            
+                            {/** Announcements Icon */}
+                            <circle cx={this.getTabSize() * 0.5} cy={this.baseHeight * 2} r='3.75vh' fill='#7185C3' />
+                        </g>
+                    </Link>
+                    {/** Button 2 */}
+                    <Link to="/Schedule" onClick={() => this.setSelectedTab(1)}>
+                        <g>
+                            <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 1}/>
+                        
+                            {/** Bell Schedule Icon */}
+                            <circle cx={this.getTabSize() * 1.5} cy={this.baseHeight * 2} r='3.75vh' fill='#74A863'/>
+                        </g>
+                    </Link>
+
+                    {/** Button 3 */}
+                    <Link to="/Gradebook" onClick={() => this.setSelectedTab(2)}>
+                        <g>
+                            <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 2}/>
+                            
+                            {/** Grades Icon */}
+                            <circle cx={this.getTabSize() * 2.5} cy={this.baseHeight * 2} r='3.75vh' fill='#ECC460'/>
+                        </g>
+                    </Link>
+
+                    {/** Button 4 */}
+                    <Link to="/Appointments" onClick={() => this.setSelectedTab(3)}>
+                        <g>
+                            <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 3}/>
+                            
+                            {/** Appointments Icon */}
+                            <circle cx={this.getTabSize() * 3.5} cy={this.baseHeight * 2} r='3.75vh' fill='#CB4B4D'/>
+                        </g>
+                    </Link>
+
+                    {/** Selected Tab */}
+                    <path d={this.generateNavBar()} fill="url(#NavBarGradient)"/>
+                </svg>
+            </div>
         );
     }
 }
