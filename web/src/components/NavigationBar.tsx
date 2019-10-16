@@ -3,10 +3,28 @@ import "../styles/NavigationBar.scss"
 
 export class NavigationBar extends React.Component
 {
-    private selectedTab = 3; // 0-3
     private totalTabs = 4;
 
-    private generateNavBar(): string {
+    componentWillMount()
+    {
+        this.setSelectedTab(0);
+
+    }
+
+    public getSelectedTab(): number
+    {
+        var s:any = this.state;
+
+        return s.selectedTab;
+    }
+
+    public setSelectedTab(i: number)
+    {
+        this.setState({ selectedTab: i});
+    }
+
+    private generateNavBar(): string
+    {
         /*
               B-------C
               |       |
@@ -22,9 +40,9 @@ export class NavigationBar extends React.Component
 
         const baseheight = 80, topheight = 0;
 
-        const ab = `M${(this.selectedTab - 0.5) * this.getTabSize()} ${baseheight} C${(this.selectedTab - 0.25) * this.getTabSize()} ${baseheight} ${this.selectedTab * this.getTabSize()} ${baseheight} ${this.selectedTab * this.getTabSize()} ${topheight}`;
-        const bc = `L${(this.selectedTab + 1) * this.getTabSize()} ${topheight}`;
-        const cd = `C${(this.selectedTab + 1) * this.getTabSize()} ${baseheight} ${(this.selectedTab+1.25) * this.getTabSize()} ${baseheight}  ${(this.selectedTab + 1.5) *  this.getTabSize()} ${baseheight}`;
+        const ab = `M${(this.getSelectedTab() - 0.5) * this.getTabSize()} ${baseheight} C${(this.getSelectedTab() - 0.25) * this.getTabSize()} ${baseheight} ${this.getSelectedTab() * this.getTabSize()} ${baseheight} ${this.getSelectedTab() * this.getTabSize()} ${topheight}`;
+        const bc = `L${(this.getSelectedTab() + 1) * this.getTabSize()} ${topheight}`;
+        const cd = `C${(this.getSelectedTab() + 1) * this.getTabSize()} ${baseheight} ${(this.getSelectedTab()+1.25) * this.getTabSize()} ${baseheight}  ${(this.getSelectedTab() + 1.5) *  this.getTabSize()} ${baseheight}`;
         const da = 'Z';
 
         return ab + bc + cd + da;
@@ -54,20 +72,20 @@ export class NavigationBar extends React.Component
                     </defs>
 
                     {/** Button 1 */}
-                    <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} filter="url(#NavBarUnselectedTab)"/>
+                    <rect onClick={() => this.setSelectedTab(0)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} filter="url(#NavBarUnselectedTab)"/>
 
                     {/** Button 2 */}
-                    <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 1} filter="url(#NavBarUnselectedTab)"/>
+                    <rect onClick={() => this.setSelectedTab(1)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 1} filter="url(#NavBarUnselectedTab)"/>
 
                     {/** Button 3 */}
-                    <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 2} filter="url(#NavBarUnselectedTab)"/>
+                    <rect onClick={() => this.setSelectedTab(2)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 2} filter="url(#NavBarUnselectedTab)"/>
 
                     {/** Button 4 */}
-                    <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 3} filter="url(#NavBarUnselectedTab)"/>
+                    <rect onClick={() => this.setSelectedTab(3)} fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={80} x={this.getTabSize() * 3} filter="url(#NavBarUnselectedTab)"/>
 
 
                     {/** Selected Tab */}
-                    <path d={this.generateNavBar()} fill="url(#NavBarGradient)"  onClick={() => console.log("Clicked!")}/>
+                    <path d={this.generateNavBar()} fill="url(#NavBarGradient)"/>
                 </svg>
             </div>
         );
