@@ -28,22 +28,24 @@ section {
   align-items: center;
 
   .app-message {
-    font: normal 7vw "Josefin Sans";
+    font: normal 10vw "Josefin Sans";
     text-align: center;
     margin-top: 0;
     margin-bottom: 0;
 
     .logo-one {
       color: black;
-      font: bold 6.3vw "Roboto Mono";
+      font: bold 93% "Roboto Mono";
     }
   }
 
   .app-description {
-    font: normal 3.5vw "Josefin Sans";
+    font: normal 4.5vw "Josefin Sans";
     color: rgba(0, 0, 0, 0.7);
     margin-top: 3%;
     padding-top: 5px;
+    width: 75%;
+    text-align: center;
   }
 }
 
@@ -53,21 +55,22 @@ section {
   border-radius: 5px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.09);
   display: flex;
-  font: normal 1.25vw "Karla";
+  font: normal 12px "Karla";
   flex-flow: row;
   list-style-type: none;
-  min-height: 4.6vh;
+  max-height: 10vh;
   overflow: hidden;
   position: relative;
   padding: 0;
   user-select: none;
-  width: 50%;
+  width: 90%;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
 
   li {
     flex-grow: 1;
     float: left;
+    width: 25%;
   }
 
   a {
@@ -77,8 +80,9 @@ section {
     display: block;
     color: black;
     text-align: center;
-    padding: 1rem;
+    padding: 0 1rem;
     text-decoration: none;
+    word-break: break-all;
   }
 
   a:hover {
@@ -89,8 +93,8 @@ section {
 }
 
 .navbar-scroll-divider {
-  width: 4px;
-  height: 50%;
+  width: 2px;
+  height: 1em;
   position: relative;
   display: block;
   margin: 14px auto;
