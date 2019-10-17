@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Util from '../common/util';
+import './styles/App.scss';
+
 
 export class Mainpage extends Component
 {
