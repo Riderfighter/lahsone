@@ -61,7 +61,7 @@ export class NavigationBar extends React.Component
     render()
     {
         return (
-            <div>
+            <div className="navigation-bar">
                 <svg version="1.1" width={window.innerWidth} height="20vh">
                     <defs>
                         {/** Selected tab gradient */}
