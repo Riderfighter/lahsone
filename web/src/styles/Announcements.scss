@@ -3,10 +3,10 @@
   flex-flow: column;
   height: 90%;
   width: 80%;
-  font: bolder 18px "Roboto Mono";
-  border-radius: 5px;
+  font: bolder 3.25vw "Roboto Mono";
+  border-radius: 1px;
   justify-content: center;
-  box-shadow: 0 0 5px 10px rgba(0,0,0, 0.01);
+  box-shadow: 0 0 5px 10px rgba(0, 0, 0, 0.02);
   .announcement-title {
     margin: 0;
     width: 100%;
@@ -19,9 +19,9 @@
     color: rgb(67, 67, 67);
     padding: 0 4%;
     font-family: "Karla", serif;
-    font-size: 24px;
+    font-size: 4.5vw;
     height: 100%;
-    text-align: left;
+    text-align: justify;
     overflow-y: scroll;
   }
 }
