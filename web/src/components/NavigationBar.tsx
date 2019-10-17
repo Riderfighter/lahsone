@@ -7,23 +7,25 @@ export class NavigationBar extends React.Component
     private totalTabs = 4;
     private baseHeight = window.innerHeight / 15; // 53 on h: 800
 
+    private static instance: NavigationBar;
+
     componentWillMount()
     {
-        this.setSelectedTab(-2);
-        console.log(window.innerHeight + " vs " + window.outerHeight)
-        console.log(Math.sqrt(0.431506 * window.innerHeight) + 1.30962)
+        NavigationBar.instance = this;
+
+        NavigationBar.setSelectedTab(-2);
     }
 
-    public getSelectedTab(): number
+    public static getSelectedTab(): number
     {
-        var s:any = this.state;
+        var s:any = this.instance.state;
 
         return s.selectedTab;
     }
 
-    public setSelectedTab(i: number)
+    public static setSelectedTab(i: number)
     {
-        this.setState({ selectedTab: i});
+        this.instance.setState({ selectedTab: i});
     }
 
     private generateNavBar(): string
@@ -43,9 +45,9 @@ export class NavigationBar extends React.Component
 
         const baseheight = this.baseHeight + 1/** Slightly more */, topheight = 0;
 
-        const ab = `M${(this.getSelectedTab() - 0.5) * this.getTabSize()} ${baseheight} C${(this.getSelectedTab() - 0.25) * this.getTabSize()} ${baseheight} ${this.getSelectedTab() * this.getTabSize()} ${baseheight} ${this.getSelectedTab() * this.getTabSize()} ${topheight}`;
-        const bc = `L${(this.getSelectedTab() + 1) * this.getTabSize()} ${topheight}`;
-        const cd = `C${(this.getSelectedTab() + 1) * this.getTabSize()} ${baseheight} ${(this.getSelectedTab()+1.25) * this.getTabSize()} ${baseheight}  ${(this.getSelectedTab() + 1.5) *  this.getTabSize()} ${baseheight}`;
+        const ab = `M${(NavigationBar.getSelectedTab() - 0.5) * this.getTabSize()} ${baseheight} C${(NavigationBar.getSelectedTab() - 0.25) * this.getTabSize()} ${baseheight} ${NavigationBar.getSelectedTab() * this.getTabSize()} ${baseheight} ${NavigationBar.getSelectedTab() * this.getTabSize()} ${topheight}`;
+        const bc = `L${(NavigationBar.getSelectedTab() + 1) * this.getTabSize()} ${topheight}`;
+        const cd = `C${(NavigationBar.getSelectedTab() + 1) * this.getTabSize()} ${baseheight} ${(NavigationBar.getSelectedTab()+1.25) * this.getTabSize()} ${baseheight}  ${(NavigationBar.getSelectedTab() + 1.5) *  this.getTabSize()} ${baseheight}`;
         const da = 'Z';
 
         return ab + bc + cd + da;
@@ -78,7 +80,7 @@ export class NavigationBar extends React.Component
                     <rect fill="#F3F3F3" width="100%" height="25vh" y={this.baseHeight} filter="url(#NavBarUnselectedTab)"/>
 
                     {/** Button 1 */}
-                    <Link to="/Announcements" onClick={() => this.setSelectedTab(0)}>
+                    <Link to="/Announcements" onClick={() => NavigationBar.setSelectedTab(0)}>
                         <g>
                             <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight}/>
                             
@@ -87,7 +89,7 @@ export class NavigationBar extends React.Component
                         </g>
                     </Link>
                     {/** Button 2 */}
-                    <Link to="/Schedule" onClick={() => this.setSelectedTab(1)}>
+                    <Link to="/Schedule" onClick={() => NavigationBar.setSelectedTab(1)}>
                         <g>
                             <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 1}/>
                         
@@ -97,7 +99,7 @@ export class NavigationBar extends React.Component
                     </Link>
 
                     {/** Button 3 */}
-                    <Link to="/Gradebook" onClick={() => this.setSelectedTab(2)}>
+                    <Link to="/Gradebook" onClick={() => NavigationBar.setSelectedTab(2)}>
                         <g>
                             <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 2}/>
                             
@@ -107,7 +109,7 @@ export class NavigationBar extends React.Component
                     </Link>
 
                     {/** Button 4 */}
-                    <Link to="/Appointments" onClick={() => this.setSelectedTab(3)}>
+                    <Link to="/Appointments" onClick={() => NavigationBar.setSelectedTab(3)}>
                         <g>
                             <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 3}/>
                             
