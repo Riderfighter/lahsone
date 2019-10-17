@@ -10,7 +10,8 @@ export class NavigationBar extends React.Component
     componentWillMount()
     {
         this.setSelectedTab(-2);
-        console.log(window.innerHeight / 15)
+        console.log(window.innerHeight + " vs " + window.outerHeight)
+        console.log(Math.sqrt(0.431506 * window.innerHeight) + 1.30962)
     }
 
     public getSelectedTab(): number
@@ -69,7 +70,8 @@ export class NavigationBar extends React.Component
                         
                         {/** Unselected tab shadow */}
                         <filter id="NavBarUnselectedTab" x="0" y="-1.5vh" width="100%" height="300%">
-                            <feDropShadow stdDeviation="20" floodOpacity="0.075"/>
+                            {/** see https://www.desmos.com/calculator/x6gt6cuc8g */}
+                            <feDropShadow stdDeviation={Math.sqrt(0.431506 * window.innerHeight) + 1.30962} floodOpacity="0.075"/>
                         </filter>
                     </defs>
 
