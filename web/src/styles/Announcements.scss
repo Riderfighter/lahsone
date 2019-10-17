@@ -1,0 +1,27 @@
+.announcement-body {
+  display: flex;
+  flex-flow: column;
+  height: 90%;
+  width: 80%;
+  font: bolder 18px "Roboto Mono";
+  border-radius: 5px;
+  justify-content: center;
+  box-shadow: 0 0 5px 10px rgba(0,0,0, 0.01);
+  .announcement-title {
+    margin: 0;
+    width: 100%;
+    background-color: rgba(113,133,195, 0.95);
+    text-align: center;
+    height: 1.5em;
+    border-radius: inherit;
+  }
+  .announcement-message {
+    color: rgb(67, 67, 67);
+    padding: 0 4%;
+    font-family: "Karla", serif;
+    font-size: 24px;
+    height: 100%;
+    text-align: left;
+    overflow-y: scroll;
+  }
+}
