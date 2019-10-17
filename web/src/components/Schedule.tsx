@@ -14,8 +14,8 @@ export class Schedule extends React.Component
                         <feDropShadow dx="0" dy="0" stdDeviation="1" floodOpacity="0.04"/>
                     </filter>
 
-                    <circle r="10" cx="10" cy="10" fill="#F3F3F3" filter="url(#SchedulePieShadow)"/>
-                    <circle r="5" cx="10" cy="10" fill="transparent" stroke="#74A863" strokeWidth="10" strokeDasharray={(this.angle * Math.PI / 10) + " " + (Math.PI * 10)} transform="rotate(-90) translate(-20)" />
+                    <circle r="10" cx="10" cy="10" fill="#74A863" filter="url(#SchedulePieShadow)"/>
+                    <circle r="5.1" cx="10" cy="10" fill="transparent" stroke="#F3F3F3" strokeWidth="10" strokeDasharray={(this.angle * Math.PI / 10) + " " + (Math.PI * 10)} transform="rotate(-90) translate(-20)" />
                 </svg>
             </div>
         );
