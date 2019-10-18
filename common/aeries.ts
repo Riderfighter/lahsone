@@ -39,7 +39,9 @@ export default class AeriesUtilities {
         let sha256 = Crypto.createHash("sha256");
         let currentData = dateFormat(new Date(), this.timeFormat);
         sha256.update(this.androidRawSecret + currentData);
-        return {hash: sha256.digest().toString("base64"), date: currentData};
+        return {
+            hash: sha256.digest().toString("base64"),
+            date: currentData
+        }
     }
-
 }
