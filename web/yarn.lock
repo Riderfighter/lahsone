@@ -1244,6 +1244,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/dateformat@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/dateformat/-/dateformat-3.0.1.tgz#98d747a2e5e9a56070c6bf14e27bff56204e34cc"
+  integrity sha512-KlPPdikagvL6ELjWsljbyDIPzNCeliYkqRpI+zea99vBBbCIA5JNshZAwQKTON139c87y9qvTFVgkFd14rtS4g==
+
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
@@ -1309,6 +1314,13 @@
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
+
+"@types/node-rsa@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/node-rsa/-/node-rsa-1.0.0.tgz#4432df6227c5de734f5f0fbea2420ffb51c51e44"
+  integrity sha512-9hTSXhGDKotpq5XCm+r7wMgt5gl6bGH6VS/sV9bsKda4JmJYyOCdTenSkTUh7zsOihm2oCm5o2ZdfpUIGYKLzQ==
+  dependencies:
+    "@types/node" "*"
 
 "@types/node-sass@^4.11.0":
   version "4.11.0"
@@ -1865,7 +1877,7 @@ asn1.js@^4.0.0:
     inherits "^2.0.1"
     minimalistic-assert "^1.0.0"
 
-asn1@~0.2.3:
+asn1@^0.2.4, asn1@~0.2.3:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/asn1/-/asn1-0.2.4.tgz#8d2475dfab553bb33e77b54e59e880bb8ce23136"
   integrity sha512-jxwzQpLQjSmWXgwaCZE9Nz+glAG01yF1QnWgbhGwHI5A6FRIEY6IVqtHhIepHqI7/kyEyQEagBC5mBEFlIYvdg==
@@ -3313,6 +3325,11 @@ date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
   integrity sha1-6vQ5/U1ISK105cx9vvIAZyueNFs=
+
+dateformat@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
+  integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
@@ -7103,6 +7120,13 @@ node-releases@^1.1.29:
   integrity sha512-JGcM/wndCN/2elJlU0IGdVEJQQnJwsLbgPCFd2pY7V0mxf17bZ0Gb/lgOtL29ZQhvEX5shnVhxQyZz3ex94N8w==
   dependencies:
     semver "^6.3.0"
+
+node-rsa@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/node-rsa/-/node-rsa-1.0.6.tgz#47d22eba8b41192cd6f06db15870c67126f00aa4"
+  integrity sha512-v42495lozKpuQmrcIzld9ds/Tn7pwjuh0BHSHnhPrKkAVSyTAyrZodFLFafOfWiUKamLt4lgWdngP8W/LzCm2w==
+  dependencies:
+    asn1 "^0.2.4"
 
 node-sass@^4.12.0:
   version "4.12.0"
