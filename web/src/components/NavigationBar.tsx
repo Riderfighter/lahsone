@@ -1,6 +1,8 @@
 import React from "react";
 import "../styles/NavigationBar.scss"
 import { Link } from "react-router-dom";
+import "./Theme";
+import Theme from "./Theme";
 
 export class NavigationBar extends React.Component
 {
@@ -61,13 +63,13 @@ export class NavigationBar extends React.Component
     render()
     {
         return (
-            <div className="navigation-bar">
+            <div className="navigation-bar" style={{background: Theme.Background}}>
                 <svg version="1.1" width={window.innerWidth} height="20vh">
                     <defs>
                         {/** Selected tab gradient */}
                         <linearGradient id="NavBarGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%"   stopColor="#F3F3F300"/>
-                            <stop offset="50%" stopColor="#F3F3F3"/>
+                            <stop offset="0%"   stopColor={Theme.Background + "00"} opacity="0%"/>
+                            <stop offset="50%" stopColor={Theme.Background}/>
                         </linearGradient>
                         
                         {/** Unselected tab shadow */}
@@ -77,12 +79,12 @@ export class NavigationBar extends React.Component
                         </filter>
                     </defs>
 
-                    <rect fill="#F3F3F3" width="100%" height="25vh" y={this.baseHeight} filter="url(#NavBarUnselectedTab)"/>
+                    <rect fill={Theme.Background} width="100%" height="25vh" y={this.baseHeight} filter="url(#NavBarUnselectedTab)"/>
 
                     {/** Button 1 */}
                     <Link to="/Announcements" onClick={() => NavigationBar.setSelectedTab(0)}>
                         <g>
-                            <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight}/>
+                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight}/>
                             
                             {/** Announcements Icon */}
                             <circle cx={this.getTabSize() * 0.5} cy={this.baseHeight * 2} r='3.75vh' fill='#7185C3' />
@@ -91,7 +93,7 @@ export class NavigationBar extends React.Component
                     {/** Button 2 */}
                     <Link to="/Schedule" onClick={() => NavigationBar.setSelectedTab(1)}>
                         <g>
-                            <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 1}/>
+                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 1}/>
                         
                             {/** Bell Schedule Icon */}
                             <circle cx={this.getTabSize() * 1.5} cy={this.baseHeight * 2} r='3.75vh' fill='#74A863'/>
@@ -101,7 +103,7 @@ export class NavigationBar extends React.Component
                     {/** Button 3 */}
                     <Link to="/Gradebook" onClick={() => NavigationBar.setSelectedTab(2)}>
                         <g>
-                            <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 2}/>
+                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 2}/>
                             
                             {/** Grades Icon */}
                             <circle cx={this.getTabSize() * 2.5} cy={this.baseHeight * 2} r='3.75vh' fill='#ECC460'/>
@@ -111,7 +113,7 @@ export class NavigationBar extends React.Component
                     {/** Button 4 */}
                     <Link to="/Appointments" onClick={() => NavigationBar.setSelectedTab(3)}>
                         <g>
-                            <rect fill="#F3F3F3" width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 3}/>
+                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 3}/>
                             
                             {/** Appointments Icon */}
                             <circle cx={this.getTabSize() * 3.5} cy={this.baseHeight * 2} r='3.75vh' fill='#CB4B4D'/>
