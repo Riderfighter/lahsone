@@ -11,33 +11,35 @@ import {Announcements} from './Announcements';
 import {Schedule} from './Schedule';
 import {Gradebook} from './Gradebook';
 import {Appointments} from './Appointments';
+import Theme from './Theme';
 
 const App: React.FC = () => {
     return (
-        <Router>
-            <Logo/>
-            <section>
-                <Switch>
-                    <Route exact path="/">
-                        <Mainpage/>
-                    </Route>
-                    <Route path="/Announcements">
-                        <Announcements/>
-                    </Route>
-                    <Route path="/Schedule">
-                        <Schedule/>
-                    </Route>
-                    <Route path="/Gradebook">
-                        <Gradebook/>
-                    </Route>
-                    <Route path="/Appointments">
-                        <Appointments/>
-                    </Route>
-                </Switch>
-            </section>
-            <NavigationBar/>
-        </Router>
-
+        <div style={{background: Theme.Background, margin: "0 0 0 0"}}>
+            <Router>
+                <Logo/>
+                <section>
+                    <Switch>
+                        <Route exact path="/">
+                            <Mainpage/>
+                        </Route>
+                        <Route path="/Announcements">
+                            <Announcements/>
+                        </Route>
+                        <Route path="/Schedule">
+                            <Schedule/>
+                        </Route>
+                        <Route path="/Gradebook">
+                            <Gradebook/>
+                        </Route>
+                        <Route path="/Appointments">
+                            <Appointments/>
+                        </Route>
+                    </Switch>
+                </section>
+                <NavigationBar/>
+            </Router>
+        </div>
     );
 };
 

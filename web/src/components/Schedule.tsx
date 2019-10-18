@@ -1,5 +1,6 @@
 import React from "react";
 import '../styles/Schedule.scss';
+import Theme from "./Theme";
 
 export class Schedule extends React.Component
 {
@@ -19,27 +20,28 @@ export class Schedule extends React.Component
                         
 
                         {/** Percentage Pie */}
-                        <circle r="10" cx="10" cy="10" fill="#9CC884" filter="url(#SchedulePieShadow)"/>
-                        <circle r="5.1" cx="10" cy="10" fill="transparent" stroke="#F3F3F3" strokeWidth="10" strokeDasharray={(this.angle * Math.PI / 10) + " " + (Math.PI * 10)} transform="rotate(-90) translate(-20)" />
+                        <circle r="10" cx="10" cy="10" fill={Theme.SchedulePie} filter="url(#SchedulePieShadow)"/>
+                        <circle r="5.1" cx="10" cy="10" fill="transparent" stroke={Theme.Background} strokeWidth="10" strokeDasharray={(this.angle * Math.PI / 10) + " " + (Math.PI * 10)} transform="rotate(-90) translate(-20)" />
                     
                         {/** Time Left */}
-                        <text x="10" y="10" fill="#111111" fontFamily="Karla" fontWeight="bold" fontSize="3" textAnchor="middle">
+                        <text x="10" y="10" fill={Theme.Title} fontFamily="Karla" fontWeight="bold" fontSize="3" textAnchor="middle">
                             00:30:24
                         </text>
 
                         {/** Current Period */}
-                        <text x="3.5" y="10.5" fill="#222222" fontFamily="Karla" fontWeight="bold" fontSize="1.5" alignmentBaseline="hanging">
+                        <text x="3.5" y="10.5" fill={Theme.Subtitle} fontFamily="Karla" fontWeight="bold" fontSize="1.5" alignmentBaseline="hanging">
                             Lunch
                         </text>
 
                         {/** Schedule Name */}
-                        <text x="3.5" y="11.5" fill="#424242" fontFamily="Karla" fontSize="1" fontStyle="italic" alignmentBaseline="hanging">
+                        <text x="3.5" y="11.5" fill={Theme.Content} fontFamily="Karla" fontSize="1" fontStyle="italic" alignmentBaseline="hanging">
                             Tutorial Schedule
                         </text>
                     </svg>  
                 
                     <div className="schedule-periods">
                         {this.periods.map(p => <li key={p.toString()}>{p}</li>)}
+                        <br/>
                     </div>
                 </div>             
             </div>
