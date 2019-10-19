@@ -10,11 +10,6 @@ export class Schedule extends React.Component
     private today: ScheduleDay = new ScheduleDay("regular", "tutorial");
     private gradebook: Gradebook = new Gradebook();
 
-    private getAngle(): number
-    {
-        return 50;
-    }
-
     private periodList(period: SchedulePeriod, index: number)
     {
         if (period.type === 'passing')
@@ -54,7 +49,7 @@ export class Schedule extends React.Component
 
                         {/** Percentage Pie */}
                         <circle r="10" cx="10" cy="10" fill={Theme.SchedulePie} filter="url(#SchedulePieShadow)"/>
-                        <circle r="5.1" cx="10" cy="10" fill="transparent" stroke={Theme.Background} strokeWidth="10" strokeDasharray={(this.getAngle() * Math.PI / 10) + " " + (Math.PI * 10)} transform="rotate(-90) translate(-20)" />
+                        <circle r="5.1" cx="10" cy="10" fill="transparent" stroke={Theme.Background} strokeWidth="10" strokeDasharray={(this.today.getPercentage(new Date()).percentage * Math.PI / 10) + " " + (Math.PI * 10)} transform="rotate(-90) translate(-20)" />
                     
                         {/** Time Left */}
                         <text x="10" y="10" fill={Theme.Title} fontFamily="Karla" fontWeight="bold" fontSize="3" textAnchor="middle">
