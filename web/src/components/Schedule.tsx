@@ -10,7 +10,6 @@ export class Schedule extends React.Component
     private today: ScheduleDay = new ScheduleDay("regular", "tutorial");
     private gradebook: Gradebook = new Gradebook();
 
-<<<<<<< HEAD
     private periodList(period: SchedulePeriod, index: number)
     {
         if (period.type === 'passing')
@@ -34,11 +33,6 @@ export class Schedule extends React.Component
                 </div>
             </li>
         );
-=======
-    private getAngle(): number
-    {
-        return 50;
->>>>>>> 08ea1f72034ae60dd94730568bd807170943e3fa
     }
 
     render()
@@ -78,29 +72,6 @@ export class Schedule extends React.Component
                     </div>
                 </div>
             </div>
-        );
-    }
-
-    private periodList(period: SchedulePeriod, index: number) {
-        if (period.type === 'passing') {
-            return; // Skip passing
-        }
-
-        return (
-            <li
-                key={period.toString()}
-                style={{background: index % 2 === 1 ? Theme.ScheduleHighlight : "inherit", display: 'flex'}}
-            >
-                <div style={{width: '20%', textAlign: 'center', color: Theme.Content}}>
-                    {period.start}
-                </div>
-                <div style={{width: '60%', textAlign: 'center', color: Theme.Subtitle, fontWeight: 'bold'}}>
-                    {period.getName(this.gradebook)}
-                </div>
-                <div style={{width: '20%', textAlign: 'center', color: Theme.Content}}>
-                    {period.end}
-                </div>
-            </li>
         );
     }
 }
