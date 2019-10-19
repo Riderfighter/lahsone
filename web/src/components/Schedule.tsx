@@ -10,6 +10,7 @@ export class Schedule extends React.Component
     private today: ScheduleDay = new ScheduleDay("regular", "tutorial");
     private gradebook: Gradebook = new Gradebook();
 
+<<<<<<< HEAD
     private periodList(period: SchedulePeriod, index: number)
     {
         if (period.type === 'passing')
@@ -33,6 +34,11 @@ export class Schedule extends React.Component
                 </div>
             </li>
         );
+=======
+    private getAngle(): number
+    {
+        return 50;
+>>>>>>> 08ea1f72034ae60dd94730568bd807170943e3fa
     }
 
     render()
@@ -45,7 +51,7 @@ export class Schedule extends React.Component
                             {/** see https://www.desmos.com/calculator/x6gt6cuc8g */}
                             <feDropShadow dx="0" dy="0" stdDeviation="1" floodOpacity="0.075"/>
                         </filter>
-                        
+
 
                         {/** Percentage Pie */}
                         <circle r="10" cx="10" cy="10" fill={Theme.SchedulePie} filter="url(#SchedulePieShadow)"/>
@@ -65,13 +71,36 @@ export class Schedule extends React.Component
                         <text x="3.5" y="11.5" fill={Theme.Content} fontFamily="Karla" fontSize="1" fontStyle="italic" alignmentBaseline="hanging">
                             Tutorial Schedule
                         </text>
-                    </svg>  
-                
+                    </svg>
+
                     <div className="schedule-periods">
                         {this.today.periods.filter(p => p.type !== 'passing').map((p, i) => this.periodList(p, i))}
                     </div>
-                </div>             
+                </div>
             </div>
+        );
+    }
+
+    private periodList(period: SchedulePeriod, index: number) {
+        if (period.type === 'passing') {
+            return; // Skip passing
+        }
+
+        return (
+            <li
+                key={period.toString()}
+                style={{background: index % 2 === 1 ? Theme.ScheduleHighlight : "inherit", display: 'flex'}}
+            >
+                <div style={{width: '20%', textAlign: 'center', color: Theme.Content}}>
+                    {period.start}
+                </div>
+                <div style={{width: '60%', textAlign: 'center', color: Theme.Subtitle, fontWeight: 'bold'}}>
+                    {period.getName(this.gradebook)}
+                </div>
+                <div style={{width: '20%', textAlign: 'center', color: Theme.Content}}>
+                    {period.end}
+                </div>
+            </li>
         );
     }
 }
