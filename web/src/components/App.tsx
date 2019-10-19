@@ -20,7 +20,7 @@ const App: React.FC = () => {
                 <Logo/>
                 <section>
                     <Switch>
-                        <Route exact path="/">
+                        <Route exact path={["", "/"]}>
                             <Mainpage/>
                         </Route>
                         <Route path="/Announcements">

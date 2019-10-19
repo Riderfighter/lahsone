@@ -21,6 +21,9 @@ export default class AeriesUtilities {
         '-----END PRIVATE KEY-----', 'pkcs8-private-pem');
     private readonly clientId = "q3C/7jHXNOSUKze1RfIgE4jOUpCxXqOQE7U8xfSbJED3Qbrl7aYd2DPldruo29YG6LgnO7AC83ktvqLryBGEdKc8zmmw2TrWCASkRcHxDlo=";
     private readonly androidRawSecret = "avP/Uv1WBE01Ki7UynbNDn5OtbBkLZdHfiWDQgb3O9eTpoRdzZoxnSCMDkEE74lS2r+aQnFVIq3wbNYMj/f02Ku6ZP2wt8LQFq+6LTi9au4=";
+    private readonly platform = "android";
+    private readonly appType = "PSP";
+    private readonly userType = "Student";
     private readonly timeFormat = "GMT:yyyy-mm-dd hh:MM TT";
 
     constructor() {
@@ -43,5 +46,20 @@ export default class AeriesUtilities {
             hash: sha256.digest().toString("base64"),
             date: currentData
         }
+    }
+
+    public preparePostBody(email: string, password: string) {
+        const secretHash = this.getSecretHash();
+        let details = {
+            "AppType": this.appType,
+            "ClientId": this.clientId,
+            "DateTimeStamp": secretHash.date,
+            "Password": password,
+            "Platform": this.platform,
+            "SecretKey": secretHash.hash,
+            "UserName": email,
+            "UserType": this.userType
+        };
+        return Object.entries(details).map(([key, value]) => encodeURIComponent(key) + '=' + encodeURIComponent(value)).join('&');
     }
 }
