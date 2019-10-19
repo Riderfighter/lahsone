@@ -7,15 +7,49 @@ import Theme from "./Theme";
 export class NavigationBar extends React.Component
 {
     private totalTabs = 4;
-    private baseHeight = window.innerHeight / 15; // 53 on h: 800
 
     private static instance: NavigationBar;
 
-    UNSAFE_componentWillMount()
+    // UNSAFE_componentWillMount()
+    // {
+    //     NavigationBar.instance = this;
+
+    //     NavigationBar.setSelectedTab(-2);
+    //     this.baseHeight = window.innerHeight / 15;
+    // }
+
+    constructor(props: Readonly<{}>)
+    {
+        super(props);
+        NavigationBar.instance = this;
+        this.state = {
+            selectedTab: -2,
+            width: window.innerWidth,
+            height: window.innerHeight
+        };
+    }
+
+    componentDidMount()
     {
         NavigationBar.instance = this;
-
         NavigationBar.setSelectedTab(-2);
+
+        window.addEventListener('resize', () =>
+        {
+            this.setState(state =>
+            {
+                return {
+                    selectedTab: (state as any).selectedTab,
+                    width: window.innerWidth,
+                    height: window.innerHeight
+                }
+            })
+        });
+    }
+
+    private baseHeight(): number
+    {
+        return (this.state as any).height / 15;
     }
 
     public static getSelectedTab(): number
@@ -27,7 +61,11 @@ export class NavigationBar extends React.Component
 
     public static setSelectedTab(i: number)
     {
-        this.instance.setState({ selectedTab: i});
+        this.instance.setState(state =>
+            {
+                return { selectedTab: i }
+            }
+        );
     }
 
     private generateNavBar(): string
@@ -45,7 +83,7 @@ export class NavigationBar extends React.Component
             This only generates the top bit, the rest is actual html buttons
         */
 
-        const baseheight = this.baseHeight + 1/** Slightly more */, topheight = 0;
+        const baseheight = this.baseHeight() + 1/** Slightly more */, topheight = 0;
 
         const ab = `M${(NavigationBar.getSelectedTab() - 0.5) * this.getTabSize()} ${baseheight} C${(NavigationBar.getSelectedTab() - 0.25) * this.getTabSize()} ${baseheight} ${NavigationBar.getSelectedTab() * this.getTabSize()} ${baseheight} ${NavigationBar.getSelectedTab() * this.getTabSize()} ${topheight}`;
         const bc = `L${(NavigationBar.getSelectedTab() + 1) * this.getTabSize()} ${topheight}`;
@@ -62,9 +100,15 @@ export class NavigationBar extends React.Component
 
     render()
     {
+        if (NavigationBar.instance === undefined)
+        {
+            NavigationBar.instance = this;
+            NavigationBar.setSelectedTab(-2);
+        }
+
         return (
             <div className="navigation-bar" style={{background: Theme.Background}}>
-                <svg version="1.1" width={window.innerWidth} height="20vh">
+                <svg version="1.1" width={(this.state as any).width} height={(this.state as any).height * 0.2}>
                     <defs>
                         {/** Selected tab gradient */}
                         <linearGradient id="NavBarGradient" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -73,50 +117,50 @@ export class NavigationBar extends React.Component
                         </linearGradient>
                         
                         {/** Unselected tab shadow */}
-                        <filter id="NavBarUnselectedTab" x="0" y="-1.5vh" width="100%" height="300%">
+                        <filter id="NavBarUnselectedTab" x="0" y="-1.5vh" width={(this.state as any).width} height="300%">
                             {/** see https://www.desmos.com/calculator/x6gt6cuc8g */}
                             <feDropShadow stdDeviation={Math.sqrt(0.431506 * window.innerHeight) + 1.30962} floodOpacity="0.075"/>
                         </filter>
                     </defs>
 
-                    <rect fill={Theme.Background} width="100%" height="25vh" y={this.baseHeight} filter="url(#NavBarUnselectedTab)"/>
+                    <rect fill={Theme.Background} width={(this.state as any).width} height="25vh" y={this.baseHeight()} filter="url(#NavBarUnselectedTab)"/>
 
                     {/** Button 1 */}
                     <Link to="/Announcements" onClick={() => NavigationBar.setSelectedTab(0)}>
                         <g>
-                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight}/>
+                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight()}/>
                             
                             {/** Announcements Icon */}
-                            <circle cx={this.getTabSize() * 0.5} cy={this.baseHeight * 2} r='3.75vh' fill='#7185C3' />
+                            <circle cx={this.getTabSize() * 0.5} cy={this.baseHeight() * 2} r='3.75vh' fill='#7185C3' />
                         </g>
                     </Link>
                     {/** Button 2 */}
                     <Link to="/Schedule" onClick={() => NavigationBar.setSelectedTab(1)}>
                         <g>
-                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 1}/>
+                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight()} x={this.getTabSize() * 1}/>
                         
                             {/** Bell Schedule Icon */}
-                            <circle cx={this.getTabSize() * 1.5} cy={this.baseHeight * 2} r='3.75vh' fill='#74A863'/>
+                            <circle cx={this.getTabSize() * 1.5} cy={this.baseHeight() * 2} r='3.75vh' fill='#74A863'/>
                         </g>
                     </Link>
 
                     {/** Button 3 */}
                     <Link to="/Gradebook" onClick={() => NavigationBar.setSelectedTab(2)}>
                         <g>
-                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 2}/>
+                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight()} x={this.getTabSize() * 2}/>
                             
                             {/** Grades Icon */}
-                            <circle cx={this.getTabSize() * 2.5} cy={this.baseHeight * 2} r='3.75vh' fill='#ECC460'/>
+                            <circle cx={this.getTabSize() * 2.5} cy={this.baseHeight() * 2} r='3.75vh' fill='#ECC460'/>
                         </g>
                     </Link>
 
                     {/** Button 4 */}
                     <Link to="/Appointments" onClick={() => NavigationBar.setSelectedTab(3)}>
                         <g>
-                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight} x={this.getTabSize() * 3}/>
+                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight()} x={this.getTabSize() * 3}/>
                             
                             {/** Appointments Icon */}
-                            <circle cx={this.getTabSize() * 3.5} cy={this.baseHeight * 2} r='3.75vh' fill='#CB4B4D'/>
+                            <circle cx={this.getTabSize() * 3.5} cy={this.baseHeight() * 2} r='3.75vh' fill='#CB4B4D'/>
                         </g>
                     </Link>
 

@@ -4,10 +4,12 @@ import SchedulesData from "./fetched/schedules.json";
 export default class ScheduleDay
 {
     public periods: SchedulePeriod[];
+    private currentPeriodIndex: number;
 
     constructor(todayID: ScheduleID, tomorrowID: ScheduleID)
     {
         this.periods = [];
+        this.currentPeriodIndex = 0;
         const data = SchedulesData[todayID];
         
         let i = 0;
@@ -17,6 +19,14 @@ export default class ScheduleDay
             i++;
         }
         this.periods[i] = new SchedulePeriod(data[i], SchedulesData[tomorrowID][0]);
+    }
+
+    public getPercentage(now: Date): { period: SchedulePeriod, percentage: number }
+    {
+        return {
+            period: this.periods[this.currentPeriodIndex],
+            percentage: 0
+        };
     }
 }
 
