@@ -1,5 +1,5 @@
 import SchedulePeriod from "./SchedulePeriod";
-import SchedulesData from "./schedules/schedules.json";
+import SchedulesData from "./fetched/schedules.json";
 
 export default class ScheduleDay
 {

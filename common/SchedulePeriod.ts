@@ -1,3 +1,4 @@
+import Gradebook from "./Gradebook";
 
 export default class SchedulePeriod
 {
@@ -14,6 +15,19 @@ export default class SchedulePeriod
 
         this.start = now.start;
         this.end = next.start;
+    }
+
+    public getName(gradebook: Gradebook | undefined): string
+    {
+        const ind = this.name.indexOf("$");
+
+        if (gradebook === undefined || ind < 0)
+        {
+            return this.name;
+        }
+
+        const course = gradebook.getClass(parseInt(this.name.charAt(ind + 1)));
+        return this.name.replace(new RegExp('\\$.', 'g'), course ? course.course : "Free");
     }
 
     toString(): string

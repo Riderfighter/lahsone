@@ -3,11 +3,13 @@ import '../styles/Schedule.scss';
 import Theme from "./Theme";
 import SchedulePeriod from "../common/SchedulePeriod";
 import ScheduleDay from "../common/ScheduleDay";
+import Gradebook from "../common/Gradebook";
 
 export class Schedule extends React.Component
 {
     private angle = 20;
     private today: ScheduleDay = new ScheduleDay("regular", "tutorial");
+    private gradebook: Gradebook = new Gradebook();
 
     private periodList(period: SchedulePeriod, index: number)
     {
@@ -25,7 +27,7 @@ export class Schedule extends React.Component
                     {period.start}
                 </div>
                 <div style={{width: '60%', textAlign: 'center', color: Theme.Subtitle, fontWeight: 'bold'}}>
-                    {period.name}
+                    {period.getName(this.gradebook)}
                 </div>
                 <div style={{width: '20%', textAlign: 'center', color: Theme.Content}}>
                     {period.end}
