@@ -57,21 +57,21 @@ export default class AeriesUtilities {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
             body: postBody
-        }).then(r => console.log(typeof r));
+        }).then(r => console.log(r.text()));
     }
 
     private preparePostBody(email: string, password: string) {
-        const secretHash = this.getSecretHash();
+        const secretHash = this.getNewSecret();
         let details = {
             "AppType": this.appType,
             "ClientId": this.clientId,
             "DateTimeStamp": secretHash.date,
             "Password": password,
             "Platform": this.platform,
-            "SecretKey": secretHash.hash,
+            "SecretKey": secretHash.secretKey,
             "UserName": email,
             "UserType": this.userType
         };
-        return Object.entries(details).map(([key, value]) => encodeURIComponent(key) + '=' + encodeURIComponent(value)).join('&');
+        return new URLSearchParams(details);
     }
 }
