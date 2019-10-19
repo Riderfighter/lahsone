@@ -48,7 +48,19 @@ export default class AeriesUtilities {
         }
     }
 
-    public preparePostBody(email: string, password: string) {
+    public authenticateAeries(email: string, password: string) {
+        const postBody = this.preparePostBody(email, password);
+        fetch("https://mvla.asp.aeries.net/student/mobileapi/v1/authentication", {
+            credentials: "include",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: postBody
+        }).then(r => console.log(typeof r));
+    }
+
+    private preparePostBody(email: string, password: string) {
         const secretHash = this.getSecretHash();
         let details = {
             "AppType": this.appType,
