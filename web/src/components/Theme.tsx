@@ -41,5 +41,10 @@ export default class Theme
      * Default, Dark: #5C7A67
      */
     public static SchedulePie: string = "#9CC884";
+
+    /**
+     * 
+     */
+    public static ScheduleHighlight: string = "#EDEDED";
     
 }
