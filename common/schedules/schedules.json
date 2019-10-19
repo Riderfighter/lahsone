@@ -1,5 +1,5 @@
 {
-    "monday": [
+    "regular": [
         {
             "name": "$0",
             "start": "7:10",
@@ -94,6 +94,18 @@
             "name": "Free",
             "start": "15:30",
             "type": "free"
+        }
+    ],
+    "tutorial": [
+        {
+            "name": "$0",
+            "start": "7:10",
+            "type": "passing"
+        },
+        {
+            "name": "$0",
+            "start": "7:15",
+            "type": "class"
         }
     ]
 }

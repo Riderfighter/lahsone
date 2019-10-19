@@ -1,18 +1,25 @@
-import TimePeriod from './TimePeriod';
 
 export default class SchedulePeriod
 {
     public name: string;
-    public time: TimePeriod;
+    public type: string;
 
-    constructor(name:string, start: string, end: string)
+    public start: string;
+    public end: string;
+
+    constructor(now: PeriodData, next: PeriodData)
     {
-        this.name = name;
-        this.time = new TimePeriod(start, end);
+        this.name = now.name;
+        this.type = now.type;
+
+        this.start = now.start;
+        this.end = next.start;
     }
 
-    toString()
+    toString(): string
     {
-        return `${this.time.start} > ${this.name} > ${this.time.end}`;
+        return this.type + this.name;
     }
 }
+
+type PeriodData = { name: string, start: string, type: string }
