@@ -11,7 +11,7 @@ export class NavigationBar extends React.Component
 
     private static instance: NavigationBar;
 
-    componentWillMount()
+    UNSAFE_componentWillMount()
     {
         NavigationBar.instance = this;
 

@@ -3,6 +3,7 @@ import '../styles/Schedule.scss';
 import Theme from "./Theme";
 import SchedulePeriod from "../common/SchedulePeriod";
 import { Strutil } from "../common/util";
+import ScheduleDay from "../common/ScheduleDay";
 
 export class Schedule extends React.Component
 {
@@ -18,6 +19,8 @@ export class Schedule extends React.Component
         new SchedulePeriod("Period 6", "1:45", "2:35"),
         new SchedulePeriod("Period 7", "2:40", "3:30")
     ];
+
+    private day: ScheduleDay = new ScheduleDay("common/schedules/schedules.txt");
 
     private periodList(period: SchedulePeriod, index: number)
     {
