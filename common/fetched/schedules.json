@@ -1,0 +1,111 @@
+{
+    "regular": [
+        {
+            "name": "$0",
+            "start": "7:10",
+            "type": "passing"
+        },
+        {
+            "name": "$0",
+            "start": "7:15",
+            "type": "class"
+        },
+        {
+            "name": "$1",
+            "start": "8:05",
+            "type": "passing"
+        },
+        {
+            "name": "$1",
+            "start": "8:10",
+            "type": "class"
+        },
+        {
+            "name": "$2",
+            "start": "9:00",
+            "type": "passing"
+        },
+        {
+            "name": "$2",
+            "start": "9:05",
+            "type": "class"
+        },
+        {
+            "name": "Brunch",
+            "start": "10:00",
+            "type": "free"
+        },
+        {
+            "name": "$3",
+            "start": "10:10",
+            "type": "passing"
+        },
+        {
+            "name": "$3",
+            "start": "10:15",
+            "type": "class"
+        },
+        {
+            "name": "$4",
+            "start": "11:05",
+            "type": "passing"
+        },
+        {
+            "name": "$4",
+            "start": "11:10",
+            "type": "class"
+        },
+        {
+            "name": "Lunch",
+            "start": "12:00",
+            "type": "free"
+        },
+        {
+            "name": "$5",
+            "start": "12:45",
+            "type": "passing"
+        },
+        {
+            "name": "$5",
+            "start": "12:50",
+            "type": "class"
+        },
+        {
+            "name": "$6",
+            "start": "13:45",
+            "type": "passing"
+        },
+        {
+            "name": "$6",
+            "start": "13:50",
+            "type": "class"
+        },
+        {
+            "name": "$7",
+            "start": "14:35",
+            "type": "passing"
+        },
+        {
+            "name": "$7",
+            "start": "14:40",
+            "type": "class"
+        },
+        {
+            "name": "Free",
+            "start": "15:30",
+            "type": "free"
+        }
+    ],
+    "tutorial": [
+        {
+            "name": "$0",
+            "start": "7:10",
+            "type": "passing"
+        },
+        {
+            "name": "$0",
+            "start": "7:15",
+            "type": "class"
+        }
+    ]
+}

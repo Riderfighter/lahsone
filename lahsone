@@ -23,7 +23,7 @@ case "$1" in
 		case "$2" in
 			"web")
 				printf "${GREEN}Starting ${BLUE}@lahsone${YELLOW}/web${GREEN}...${ENDL}"
-				rsync -r --delete common/. web/src/common # Force sync initially
+				rsync -r --delete --exclude 'node_modules' --exclude yarn.lock --exclude package.json common/. web/src/common # Force sync initially
 				cd web # Change context
 				yarn start # Start with yarn
 			;;
@@ -40,7 +40,7 @@ case "$1" in
 		esac
 	;;
 	"sync")
-		rsync -r --delete common/. web/src/common
+		rsync -r --delete --exclude 'node_modules' --exclude yarn.lock --exclude package.json common/. web/src/common
 	;;
 	"help")
 		case "$2" in

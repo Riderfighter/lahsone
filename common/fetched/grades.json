@@ -1,0 +1,52 @@
+{
+    "classes": [
+        {
+            "course": "Amer Lit Survey",
+            "period": "2",
+            "teacher": "Johnny Appleseed",
+            "room": "420",
+            "mark": "F-",
+            "grade":  "0%"
+        },
+        {
+            "course": "CS 1B/1C",
+            "period": "3",
+            "teacher": "Johnny Appleseed",
+            "room": "420",
+            "mark": "F-",
+            "grade":  "0%"
+        },
+        {
+            "course": "US History",
+            "period": "4",
+            "teacher": "Johnny Appleseed",
+            "room": "420",
+            "mark": "F-",
+            "grade":  "0%"
+        },
+        {
+            "course": "AP  Physics I",
+            "period": "5",
+            "teacher": "Johnny Appleseed",
+            "room": "420",
+            "mark": "F-",
+            "grade":  "0%"
+        },
+        {
+            "course": "AP Calc BC",
+            "period": "6",
+            "teacher": "Johnny Appleseed",
+            "room": "420",
+            "mark": "F-",
+            "grade":  "0%"
+        },
+        {
+            "course": "Health",
+            "period": "7",
+            "teacher": "Johnny Appleseed",
+            "room": "420",
+            "mark": "F-",
+            "grade":  "0%"
+        }
+    ]
+}

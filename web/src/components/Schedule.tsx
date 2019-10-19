@@ -1,11 +1,40 @@
 import React from "react";
 import '../styles/Schedule.scss';
 import Theme from "./Theme";
+import SchedulePeriod from "../common/SchedulePeriod";
+import ScheduleDay from "../common/ScheduleDay";
+import Gradebook from "../common/Gradebook";
 
 export class Schedule extends React.Component
 {
     private angle = 20;
-    private periods = ["Period 1", "Period 2", "Period 3"]
+    private today: ScheduleDay = new ScheduleDay("regular", "tutorial");
+    private gradebook: Gradebook = new Gradebook();
+
+    private periodList(period: SchedulePeriod, index: number)
+    {
+        if (period.type === 'passing')
+        {
+            return; // Skip passing
+        }
+
+        return (
+            <li
+                key={period.toString()}
+                style={{background: index % 2 === 1 ? Theme.ScheduleHighlight : "inherit", display: 'flex'}}
+            >
+                <div style={{width: '20%', textAlign: 'center', color: Theme.Content}}>
+                    {period.start}
+                </div>
+                <div style={{width: '60%', textAlign: 'center', color: Theme.Subtitle, fontWeight: 'bold'}}>
+                    {period.getName(this.gradebook)}
+                </div>
+                <div style={{width: '20%', textAlign: 'center', color: Theme.Content}}>
+                    {period.end}
+                </div>
+            </li>
+        );
+    }
 
     render()
     {
@@ -40,8 +69,7 @@ export class Schedule extends React.Component
                     </svg>  
                 
                     <div className="schedule-periods">
-                        {this.periods.map(p => <li key={p.toString()}>{p}</li>)}
-                        <br/>
+                        {this.today.periods.filter(p => p.type !== 'passing').map((p, i) => this.periodList(p, i))}
                     </div>
                 </div>             
             </div>
