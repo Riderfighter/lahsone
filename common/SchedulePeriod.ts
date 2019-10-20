@@ -33,7 +33,7 @@ export default class SchedulePeriod
         }
 
         const course = gradebook.getClass(parseInt(this.name.charAt(ind + 1)));
-        return this.name.replace(new RegExp('\\$.', 'g'), course ? course.course : "Free");
+        return this.name.replace(new RegExp('\\$.', 'g'), course ? course.classname : "Free");
     }
 
     public startToDate(now: Date): Date

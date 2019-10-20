@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Util from '../common/util';
+import Util from '../common/Utilities';
 
 export class Mainpage extends Component
 {
