@@ -39,10 +39,26 @@ export default class SchedulePeriod
             return this.name;
         }
 
-        const course = gradebook.getClass(parseInt(this.name.charAt(ind + 1)));
-        return this.name.replace(new RegExp('\\$.', 'g'), course ? course.classname : "Free");
+        const periodNum = parseInt(this.name.charAt(ind + 1));
+        const course = gradebook.getClass(periodNum);
+        return this.name.replace(new RegExp('\\$.', 'g'), course ? course.classname : this.getDefaultName(periodNum));
     }
 
+    private getDefaultName(period: number): string
+    {
+        switch (this.type)
+        {
+            case "class":
+                return `Period ${period}`;
+            case "free":
+                return `Free`;
+            case "passing":
+                return `Passing to ${period}`;
+            default:
+                return `Unknown`;
+        }
+    }
+    
     public percent(time: Date): number
     {
         return 1 *

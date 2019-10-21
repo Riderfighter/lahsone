@@ -69,8 +69,14 @@ export default class GradebookClass {
     }
 
     public getClass(period: number): Class | undefined {
-        //@ts-ignore
+        if (this.currentStudent === undefined
+            ||  this.currentStudent.classes === undefined)
+        {
+            return undefined;
+        }
+
         return this.currentStudent.classes.find(element => element.period === period);
+        
     }
 }
 
