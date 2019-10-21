@@ -16,7 +16,7 @@ export default class Period
         this.name = schedule.periods[index].name;
         this.type = schedule.periods[index].type;
         this.start = parseTime(schedule.periods[index].start, schedule.date);
-        this.start.setSeconds(this.start.getSeconds() - 1);
+        this.start.setMilliseconds(this.start.getMilliseconds() - 1100);
 
         this.index = index;
         this.schedule = schedule;
