@@ -1,5 +1,5 @@
 import PeriodStream, { Schedule } from "./PeriodStream";
-import { parseTime } from "./Dutil";
+import { parseTime, TimeSpan, subtract } from "./Dutil";
 
 export default class Period
 {
@@ -21,14 +21,39 @@ export default class Period
         this.schedule = schedule;
     }
 
-    public timeLeft(date: Date): Date
+    /**
+     * Get the time left in the period
+     * @param date Date within the period
+     */
+    public timeLeft(date: Date): TimeSpan
     {
         if (this.next === undefined)
         {
             throw "next wasn't initialized";
         }
 
-        //alert(date.getHours());
-        return new Date(this.next.start.getTime() - date.getTime());
+        return subtract(this.next.start, date);
+    }
+
+    /**
+     * Get the total time of this period
+     */
+    public totalTime(): TimeSpan
+    {
+        if (this.next === undefined)
+        {
+            throw "next wasn't initialized";
+        }
+
+        return subtract(this.next.start, this.start);
+    }
+
+    /**
+     * Percent of the period complete
+     * @param date Date within the period
+     */
+    public percent(date: Date): number
+    {
+        return 100 - 100 * (this.timeLeft(date).toSeconds() / this.totalTime().toSeconds());
     }
 }

@@ -8,13 +8,31 @@ import LAHSSchedules from '../common/fetched/lahs-schedules.json';
 import LAHSCalendar from '../common/fetched/lahs-calendar.json';
 import { Stream } from "stream";
 import Period from "../common/Period";
+import { setInterval } from "timers";
 
 export class Schedule extends React.Component
 {
     private periods: PeriodStream = new PeriodStream(LAHSCalendar, LAHSSchedules, new Date());
     private gradebook: Gradebook = new Gradebook();
 
-    private periodList(period: Period, index: number)
+    constructor(props: Readonly<{}>)
+    {
+        super(props);
+        
+        this.state = { period: this.periods.get(new Date()) };
+    }
+
+    componentDidMount()
+    {
+        setInterval(() => {
+            this.setState(state =>
+                ({
+                    period: this.periods.get(new Date())
+                }));
+        }, 1000);
+    }
+
+    private periodList(period: {name: string, start: string }, index: number)
     {
         return (
             <li
@@ -28,7 +46,7 @@ export class Schedule extends React.Component
                     {period.name}
                 </div>
                 <div style={{width: '20%', textAlign: 'center', color: Theme.Content}}>
-                    {period.schedule.name}
+                    {period.start}
                 </div>
             </li>
         );
@@ -48,15 +66,11 @@ export class Schedule extends React.Component
 
                         {/** Percentage Pie */}
                         <circle r="10" cx="10" cy="10" fill={Theme.SchedulePie} filter="url(#SchedulePieShadow)"/>
-                        <circle r="5.1" cx="10" cy="10" fill="transparent" stroke={Theme.Background} strokeWidth="10" strokeDasharray={(34 * Math.PI / 10) + " " + (Math.PI * 10)} transform="rotate(-90) translate(-20)" />
+                        <circle r="5.1" cx="10" cy="10" fill="transparent" stroke={Theme.Background} strokeWidth="10" strokeDasharray={((this.state as any).period.percent(new Date()) * Math.PI / 10) + " " + (Math.PI * 10)} transform="rotate(-90) translate(-20)" />
                     
                         {/** Time Left */}
                         <text x="10" y="10" fill={Theme.Title} fontFamily="Karla" fontWeight="bold" fontSize="3" textAnchor="middle">
-                            {this.periods.get(new Date()).timeLeft(new Date()).getHours()}
-                            :
-                            {this.periods.get().timeLeft(new Date()).getMinutes()}
-                            :
-                            {this.periods.get().timeLeft(new Date()).getSeconds()}
+                            {(this.state as any).period.timeLeft(new Date()).toString()}
                         </text>
 
                         {/** Current Period */}
@@ -71,7 +85,11 @@ export class Schedule extends React.Component
                     </svg>
 
                     <div className="schedule-periods">
-                        "Schedule here"
+                        {
+                            this.periods.get(new Date()).schedule.periods
+                                .filter(p => p.type !== 'passing')
+                                .map((p, i) => this.periodList(p, i))
+                        }
                     </div>
                 </div>
             </div>

@@ -92,3 +92,55 @@ export function yesterdayOf(date: Date)
 
     return date;
 }
+
+/**
+ * Subtracts b from a
+ * @param a +Date
+ * @param b -Date
+ */
+export function subtract(a: Date, b: Date): TimeSpan
+{
+    let ab = (a.getTime() - b.getTime()) / 1000;
+    
+    const hh = Math.floor(ab / 3600);
+    ab = ab % 3600;
+
+    const mm = Math.floor(ab / 60);
+    ab = ab % 60;
+
+    const ss = Math.round(ab);
+
+    return new TimeSpan(hh, mm, ss);
+}
+
+/**
+ * A span of time with second precision
+ */
+export class TimeSpan
+{
+    public h: number;
+    public m: number;
+    public s: number;
+
+    constructor(h: number, m: number ,s: number)
+    {
+        this.h = h;
+        this.m = m;
+        this.s = s;
+    }
+
+    /**
+     * Converts the time span to seconds
+     */
+    public toSeconds(): number
+    {
+        return this.h * 3600 + this.m * 60 + this.s;
+    }
+
+    toString()
+    {
+        return this.h.toString().padStart(2, '0') + ":"
+            + this.m.toString().padStart(2, '0') + ":"
+            + this.s.toString().padStart(2, '0');
+    }
+}
