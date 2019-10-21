@@ -1,5 +1,5 @@
-import PeriodStream, { Schedule } from "./PeriodStream";
-import { parseTime, TimeSpan, subtract } from "./Dutil";
+import {Schedule} from "./PeriodStream";
+import {parseTime, subtract, TimeSpan} from "./Dutil";
 
 export default class Period
 {
@@ -16,6 +16,7 @@ export default class Period
         this.name = schedule.periods[index].name;
         this.type = schedule.periods[index].type;
         this.start = parseTime(schedule.periods[index].start, schedule.date);
+        this.start.setSeconds(this.start.getSeconds() - 1);
 
         this.index = index;
         this.schedule = schedule;

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/crypto-js": "^3.1.43",
     "@types/dateformat": "^3.0.1",
     "@types/jest": "24.0.18",
     "@types/node": "12.7.12",
@@ -11,6 +12,7 @@
     "@types/react": "16.9.5",
     "@types/react-dom": "16.9.1",
     "@types/react-router-dom": "^5.1.0",
+    "crypto-js": "^3.1.9-1",
     "dateformat": "^3.0.3",
     "node-rsa": "^1.0.6",
     "node-sass": "^4.12.0",
