@@ -76,14 +76,14 @@ export default class GradebookClass {
         }
 
         return this.currentStudent.classes.find(element => element.period === period);
-        
+
     }
 }
 
 type Student = {
     studentid: number
     name: string
-    classes?: Class[]
+    classes: Class[]
 }
 
 type Class = {
@@ -96,7 +96,7 @@ type Class = {
     grade: string
     gradepercent: number
     missingassignments: number
-    gradebook?: Category[]
+    gradebook: Category[]
 };
 
 type Category = {
@@ -105,7 +105,7 @@ type Category = {
     grade: string
     pointsearned: number
     pointspossible: number
-    assignments?: Assignment[]
+    assignments: Assignment[]
 }
 
 type Assignment = {

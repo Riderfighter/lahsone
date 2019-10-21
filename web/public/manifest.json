@@ -11,8 +11,7 @@
   "permissions": [
     "*://mvla.asp.aeries.net/*",
     "webRequest",
-    "webRequestBlocking",
-    "cookies"
+    "webRequestBlocking"
   ],
   "background": {
     "scripts": [

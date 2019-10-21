@@ -11,10 +11,11 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
                 i--;
             }
         }
-        headers.push({
-            name: "User-Agent",
-            value: "Aeries_StudentParent/2.2.3 (com.aeries.psp1; build:4117; iOS 13.1.2) Alamofire/4.5.0"
-        });
+        if (details.url.includes("aeries"))
+            headers.push({
+                name: "User-Agent",
+                value: "Aeries_StudentParent/2.2.3 (com.aeries.psp1; build:4117; iOS 13.1.2) Alamofire/4.5.0"
+            });
         return {requestHeaders: headers};
     },
     {urls: ['*://mvla.asp.aeries.net/*'], types: ["xmlhttprequest"]},
