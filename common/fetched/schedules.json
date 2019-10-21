@@ -107,5 +107,12 @@
             "start": "7:15",
             "type": "class"
         }
+    ],
+    "weekend": [
+        {
+            "name": "Free",
+            "start": "3:30",
+            "type": "free"
+        }
     ]
 }

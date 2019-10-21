@@ -7,7 +7,7 @@ import Gradebook from "../common/Gradebook";
 
 export class Schedule extends React.Component
 {
-    private today: ScheduleDay = new ScheduleDay("regular", "tutorial");
+    private today: ScheduleDay = new ScheduleDay("regular", "regular", new Date());
     private gradebook: Gradebook = new Gradebook();
 
     private periodList(period: SchedulePeriod, index: number)
@@ -53,12 +53,16 @@ export class Schedule extends React.Component
                     
                         {/** Time Left */}
                         <text x="10" y="10" fill={Theme.Title} fontFamily="Karla" fontWeight="bold" fontSize="3" textAnchor="middle">
-                            00:30:24
+                            {this.today.getPercentage(new Date()).left.getHours().toString().padStart(2, '0')}
+                            :
+                            {this.today.getPercentage(new Date()).left.getMinutes().toString().padStart(2, '0')}
+                            :
+                            {this.today.getPercentage(new Date()).left.getSeconds().toString().padStart(2, '0')}
                         </text>
 
                         {/** Current Period */}
                         <text x="3.5" y="10.5" fill={Theme.Subtitle} fontFamily="Karla" fontWeight="bold" fontSize="1.5" alignmentBaseline="hanging">
-                            Lunch
+                            {this.today.getPercentage(new Date()).period.getName(this.gradebook)}
                         </text>
 
                         {/** Schedule Name */}
