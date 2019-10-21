@@ -47,7 +47,7 @@ export default class PeriodStream
         {
             if (!this.current)
             {
-                throw "err_null_current_period";
+                throw new Error("err_null_current_period");
             }
             return this.current;
         }
@@ -60,7 +60,7 @@ export default class PeriodStream
 
         if (!this.current)
         {
-            throw "err_null_current_period";
+            throw new Error("err_null_current_period");
         }
         return this.current;
     }
@@ -121,7 +121,7 @@ export default class PeriodStream
         if (!found)
         {
             alert(`Schedule "${id}" wasn't found!`);
-            throw "err_schedule_not_found";
+            throw new Error("err_schedule_not_found");
         }
         return { id: found.id, periods: found.periods, name: name, date: date, offset: parseInt(this.calendar.offset) };
     }
