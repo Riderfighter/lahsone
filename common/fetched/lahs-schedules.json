@@ -106,12 +106,12 @@
         "periods": [
             {
                 "name": "$0",
-                "start": "7:10",
+                "start": "7:15",
                 "type": "passing"
             },
             {
                 "name": "$0",
-                "start": "7:15",
+                "start": "7:20",
                 "type": "class"
             }
         ]
