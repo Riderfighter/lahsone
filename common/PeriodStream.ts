@@ -84,9 +84,7 @@ export default class PeriodStream
         let schedule = this.getSchedule(tomorrowOf(period.schedule.date));
         while (schedule.periods.length <= 0) // Tomorrow(++)
         {
-            //alert("gluglu " + schedule.date);
             schedule = this.getSchedule(tomorrowOf(schedule.date));
-            //
         }
 
         return period.next = new Period(0, schedule);
@@ -133,6 +131,7 @@ export default class PeriodStream
  * Wrapper for the calendar type in input JSON files
  */
 export type Calendar = {
+    offset: string,
     normal: { [key in Weekday]: string },
     overrides: { date: string, id: string, name: string }[]
 };

@@ -36,7 +36,7 @@ export class Schedule extends React.Component
     {
         return (
             <li
-                key={period.toString()}
+                key={index}
                 style={{background: index % 2 === 1 ? Theme.ScheduleHighlight : "inherit", display: 'flex'}}
             >
                 <div style={{width: '20%', textAlign: 'center', color: Theme.Content}}>
@@ -83,7 +83,7 @@ export class Schedule extends React.Component
                             {this.periods.get(new Date()).schedule.name}
                         </text>
                     </svg>
-
+                    { /** */}
                     <div className="schedule-periods">
                         {
                             this.periods.get(new Date()).schedule.periods
