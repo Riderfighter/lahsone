@@ -95,7 +95,7 @@ export default class PeriodStream
      * @param date Date to look for a schedule 
      * @returns The schedule for the given date & name override
      */
-    private getSchedule(date: Date): Schedule & { name: string, date: Date }
+    private getSchedule(date: Date): Schedule & { name: string, date: Date, offset: number }
     {
         let id: string;
         let name: string;
@@ -123,7 +123,7 @@ export default class PeriodStream
             alert(`Schedule "${id}" wasn't found!`);
             throw "err_schedule_not_found";
         }
-        return { id: found.id, periods: found.periods, name: name, date: date };
+        return { id: found.id, periods: found.periods, name: name, date: date, offset: parseInt(this.calendar.offset) };
     }
 }
 

@@ -6,14 +6,15 @@ import PeriodStream from "../common/PeriodStream";
 
 import LAHSSchedules from '../common/fetched/lahs-schedules.json';
 import LAHSCalendar from '../common/fetched/lahs-calendar.json';
-import { Stream } from "stream";
-import Period from "../common/Period";
 import { setInterval } from "timers";
 
 export class Schedule extends React.Component
 {
     private periods: PeriodStream = new PeriodStream(LAHSCalendar, LAHSSchedules, new Date());
     private gradebook: Gradebook = new Gradebook();
+
+    private interval: NodeJS.Timeout | undefined;
+    private mounted: boolean = false;
 
     constructor(props: Readonly<{}>)
     {
@@ -24,12 +25,24 @@ export class Schedule extends React.Component
 
     componentDidMount()
     {
-        setInterval(() => {
+        this.mounted = true;
+        this.interval = setInterval(() => {
+            if (!this.mounted) return;
             this.setState(state =>
                 ({
                     period: this.periods.get(new Date())
                 }));
         }, 1000);
+    }
+
+    componentWillUnmount()
+    {
+        this.mounted = false;
+        if (!this.interval)
+        {
+            return;
+        }
+        clearInterval(this.interval);
     }
 
     private periodList(period: {name: string, start: string }, index: number)

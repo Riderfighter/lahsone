@@ -9,14 +9,13 @@ export default class Period
     public next: Period | undefined;
 
     public readonly index: number;
-    public readonly schedule: Schedule & { name: string, date: Date };
+    public readonly schedule: Schedule & { name: string, date: Date, offset: number };
 
-    constructor(index: number, schedule: Schedule & { name: string, date: Date })
+    constructor(index: number, schedule: Schedule & { name: string, date: Date, offset: number })
     {
         this.name = schedule.periods[index].name;
         this.type = schedule.periods[index].type;
         this.start = parseTime(schedule.periods[index].start, schedule.date);
-        this.start.setMilliseconds(this.start.getMilliseconds() - 1100);
 
         this.index = index;
         this.schedule = schedule;
@@ -30,9 +29,10 @@ export default class Period
     {
         if (this.next === undefined)
         {
-            throw "next wasn't initialized";
+            throw new Error("next wasn't initialized");
         }
 
+        date.setTime(date.getTime() +  this.schedule.offset);
         return subtract(this.next.start, date);
     }
 
@@ -43,7 +43,7 @@ export default class Period
     {
         if (this.next === undefined)
         {
-            throw "next wasn't initialized";
+            throw new Error("next wasn't initialized");
         }
 
         return subtract(this.next.start, this.start);
