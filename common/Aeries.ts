@@ -1,6 +1,8 @@
 import NodeRSA from 'node-rsa';
 import Crypto from 'crypto';
 import dateFormat from "dateformat";
+import GradebookClass from "./Gradebook";
+
 
 export default class AeriesUtilities {
     private privKey = new NodeRSA('-----BEGIN PRIVATE KEY-----\n' +
@@ -25,26 +27,19 @@ export default class AeriesUtilities {
     private readonly appType = "PSP";
     private readonly userType = "Student";
     private readonly timeFormat = "GMT:yyyy-mm-dd hh:MM TT";
+    public studentGradebook = new GradebookClass();
+    private authToken = "";
+    private authenticated = false;
 
     constructor() {
         this.privKey.setOptions({encryptionScheme: "pkcs1", signingScheme: "pkcs1"})
     }
 
-    public getNewSecret() {
-        let data = this.getSecretHash();
+    public generateSecretKey() {
+        let data = this.generateHash();
         return {
             secretKey: this.privKey.encryptPrivate(new Buffer(data.hash, "base64")).toString("base64"),
             date: data.date
-        }
-    }
-
-    private getSecretHash() {
-        let sha256 = Crypto.createHash("sha256");
-        let currentData = dateFormat(new Date(), this.timeFormat);
-        sha256.update(this.androidRawSecret + currentData);
-        return {
-            hash: sha256.digest().toString("base64"),
-            date: currentData
         }
     }
 
@@ -57,11 +52,31 @@ export default class AeriesUtilities {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
             body: postBody
-        }).then(r => console.log(r.text()));
+        }).then(r => r.json()).then(data => {
+            if (data.hasOwnProperty("success")) {
+                this.authenticated = false;
+                return data;
+            }
+            this.authToken = data.AccessToken;
+            this.studentGradebook.setupStudent(data);
+            this.authenticated = true;
+            this.getClassSummary();
+            return data;
+        });
+    }
+
+    private generateHash() {
+        let sha256 = Crypto.createHash("sha256");
+        let currentData = dateFormat(new Date(), this.timeFormat);
+        sha256.update(this.androidRawSecret + currentData);
+        return {
+            hash: sha256.digest().toString("base64"),
+            date: currentData
+        }
     }
 
     private preparePostBody(email: string, password: string) {
-        const secretHash = this.getNewSecret();
+        const secretHash = this.generateSecretKey();
         let details = {
             "AppType": this.appType,
             "ClientId": this.clientId,
@@ -73,5 +88,37 @@ export default class AeriesUtilities {
             "UserType": this.userType
         };
         return new URLSearchParams(details);
+    }
+
+    private getClassSummary() {
+        if (this.authenticated) {
+            fetch("https://mvla.asp.aeries.net/student/mobileapi/v1//student/100022188/classsummary", {
+                credentials: "include",
+                headers: {
+                    "Authorization": `Bearer ${this.authToken}`
+                }
+            }).then(res =>
+                res.json()
+            ).then(data => {
+                this.studentGradebook.setupClasses(data);
+                this.getGradebooks()
+            })
+        }
+    }
+
+    private getGradebooks() {
+        if (this.authenticated) {
+            // @ts-ignore
+            this.studentGradebook.currentStudent.classes.forEach(studentClass => {
+                fetch(`https://mvla.asp.aeries.net/student/mobileapi/v1/20/student/${this.studentGradebook.currentStudent.studentid}/gradebooks/${studentClass.gradebooknumber}/${studentClass.termcode}`, {
+                    credentials: "include",
+                    headers: {
+                        "Authorization": `Bearer ${this.authToken}`
+                    }
+                }).then(res => res.json()).then(data => {
+                    this.studentGradebook.setupGradebook(data);
+                })
+            });
+        }
     }
 }

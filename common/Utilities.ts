@@ -1,4 +1,4 @@
-export default class Util {
+export default class Utilities {
     private readonly possibleGreetings = [
         "A dashboard for all things lahs",
         "We're like bell.plus but better",

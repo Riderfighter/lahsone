@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { NavigationBar } from "./NavigationBar";
+import {Link} from "react-router-dom";
+import {NavigationBar} from "./NavigationBar";
 import Theme from "./Theme";
 
 export class Logo extends React.Component<React.SVGProps<SVGSVGElement>>
@@ -19,5 +19,3 @@ export class Logo extends React.Component<React.SVGProps<SVGSVGElement>>
         );
     }
 }
-
-// export default withRouter(Logo);
