@@ -20,26 +20,3 @@ export default class Utilities {
 
     private Hi = () => {};
 }
-
-export class Strutil
-{
-    public static replaceAll(str: string, find: string, replace: string): string
-    {
-        return str.replace(new RegExp(find, 'g'), replace);
-    }
-
-    public static pad(str: string, spaces: number, char: string): string
-    {
-        return Strutil.replaceAll(str.padStart((str.length + spaces) / 2, '`').padEnd(spaces, '`'), '`', char);
-    }
-
-    public static padStart(str: string, spaces: number, char: string): string
-    {
-        return Strutil.replaceAll(str.padStart(spaces, '`'), '`', char);
-    }
-
-    public static padEnd(str: string, spaces: number, char: string): string
-    {
-        return Strutil.replaceAll(str.padEnd(spaces, '`'), '`', char);
-    }
-}

@@ -1,0 +1,23 @@
+{
+    "normal": {
+        "sunday": "free",
+        "monday": "regular",
+        "tuesday": "tutorial",
+        "wednesday": "even-block",
+        "thursday": "odd-block",
+        "friday": "regular",
+        "saturday": "free"
+    },
+    "overrides": [
+        {
+            "date":  "20/12/2019-03/01/2020",
+            "id": "free",
+            "name": "Christmas Break"
+        },
+        {
+            "date": "16/10/2019",
+            "id": "minimum",
+            "name":  "SAT Minimum"
+        }
+    ]
+}

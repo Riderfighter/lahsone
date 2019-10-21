@@ -35,7 +35,7 @@ export default class GradebookClass {
         this.currentStudent.classes.forEach(classData => {
             //@ts-ignore
             if (classData.gradebooknumber === gradebookData.GradebookNumber) {
-                gradebookData.Categories.forEach(category => {
+                gradebookData.Categories.forEach((category) => {
                     let newCategory: Category = {
                         name: category.Name,
                         numberofassignments: category.NumberOfAssignment,
