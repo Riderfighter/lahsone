@@ -1,5 +1,6 @@
 import NodeRSA from 'node-rsa';
-import Crypto from 'crypto';
+import {SHA256} from 'crypto-js';
+import Base64 from "crypto-js/enc-base64";
 import dateFormat from "dateformat";
 import GradebookClass from "./Gradebook";
 
@@ -66,11 +67,10 @@ export default class AeriesUtilities {
     }
 
     private generateHash() {
-        let sha256 = Crypto.createHash("sha256");
         let currentData = dateFormat(new Date(), this.timeFormat);
-        sha256.update(this.androidRawSecret + currentData);
+        let sha256 = SHA256(this.androidRawSecret + currentData);
         return {
-            hash: sha256.digest().toString("base64"),
+            hash: sha256.toString(Base64),
             date: currentData
         }
     }
