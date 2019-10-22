@@ -11,7 +11,7 @@ export default class Utilities {
         "Ad astra per aspera",
         "Downloading your personal information...",
         "Zucc is coming for your data!!",
-        "We did not cost thousands of dollars to produce."
+        "We did not cost thousands of dollars to produce. We cost millions."
     ];
 
     selectGreeting() {
