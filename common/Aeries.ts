@@ -92,7 +92,7 @@ export default class AeriesUtilities {
 
     private getClassSummary() {
         if (this.authenticated) {
-            fetch("https://mvla.asp.aeries.net/student/mobileapi/v1//student/100022188/classsummary", {
+            fetch(`https://mvla.asp.aeries.net/student/mobileapi/v1//student/${this.studentGradebook.currentStudent.studentid}/classsummary`, {
                 credentials: "include",
                 headers: {
                     "Authorization": `Bearer ${this.authToken}`
