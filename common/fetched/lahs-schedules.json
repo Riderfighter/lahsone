@@ -75,12 +75,12 @@
             },
             {
                 "name": "$6",
-                "start": "13:45",
+                "start": "13:40",
                 "type": "passing"
             },
             {
                 "name": "$6",
-                "start": "13:50",
+                "start": "13:45",
                 "type": "class"
             },
             {
@@ -105,12 +105,12 @@
         "periods": [
             {
                 "name": "$0",
-                "start": "7:10",
+                "start": "7:15",
                 "type": "passing"
             },
             {
                 "name": "$0",
-                "start": "7:15",
+                "start": "7:20",
                 "type": "class"
             }
         ]
