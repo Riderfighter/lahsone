@@ -1,8 +1,7 @@
 [
     {
         "id": "regular",
-      "offset": 1200,
-      "periods":
+        "periods":
         [
             {
                 "name": "$0",
