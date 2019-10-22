@@ -149,13 +149,23 @@
                 "type": "class"
             },
             {
+                "name": "Tutorial",
+                "start": "10:50",
+                "type": "passing"
+            },
+            {
+                "name": "Tutorial",
+                "start": "10:55",
+                "type": "tutorial"
+            },
+            {
                 "name": "$4",
-                "start": "10:40",
+                "start": "11:25",
                 "type": "passing"
             },
             {
                 "name": "$4",
-                "start": "10:45",
+                "start": "11:30",
                 "type": "class"
             },
             {
