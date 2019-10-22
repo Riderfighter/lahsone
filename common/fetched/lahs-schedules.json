@@ -112,6 +112,137 @@
                 "name": "$0",
                 "start": "7:20",
                 "type": "class"
+            },
+            {
+                "name": "$1",
+                "start": "8:05",
+                "type": "passing"
+            },
+            {
+                "name": "$1",
+                "start": "8:10",
+                "type": "class"
+            },
+            {
+                "name": "$2",
+                "start": "8:55",
+                "type": "passing"
+            },
+            {
+                "name": "$2",
+                "start": "9:00",
+                "type": "class"
+            },
+            {
+                "name": "Brunch",
+                "start": "9:50",
+                "type": "free"
+            },
+            {
+                "name": "$3",
+                "start": "10:00",
+                "type": "passing"
+            },
+            {
+                "name": "$3",
+                "start": "10:05",
+                "type": "class"
+            },
+            {
+                "name": "$4",
+                "start": "10:40",
+                "type": "passing"
+            },
+            {
+                "name": "$4",
+                "start": "10:45",
+                "type": "class"
+            },
+            {
+                "name": "Lunch",
+                "start": "12:15",
+                "type": "class"
+            },
+            {
+                "name": "$5",
+                "start": "13:00",
+                "type": "passing"
+            },
+            {
+                "name": "$5",
+                "start": "13:05",
+                "type": "class"
+            },
+            {
+                "name": "$6",
+                "start": "13:50",
+                "type": "passing"
+            },
+            {
+                "name": "$6",
+                "start": "13:55",
+                "type": "class"
+            }
+        ]
+    },
+    {
+        "id": "even-block",
+        "periods":
+        [
+            {
+                "name": "$0",
+                "start": "7:10",
+                "type": "passing"
+            },
+            {
+                "name": "$0",
+                "start": "7:15",
+                "type": "class"
+            },
+            {
+                "name": "$2",
+                "start": "8:45",
+                "type": "passing"
+            },
+            {
+                "name": "$2",
+                "start": "8:50",
+                "type": "class"
+            },
+            {
+                "name": "Brunch",
+                "start": "10:25",
+                "type": "free"
+            },
+            {
+                "name": "$4",
+                "start": "10:40",
+                "type": "passing"
+            },
+            {
+                "name": "$4",
+                "start": "10:45",
+                "type": "class"
+            },
+            {
+                "name": "Lunch",
+                "start": "12:15",
+                "type": "free"
+            },
+            {
+                "name": "$6",
+                "start": "13:00",
+                "type": "passing"
+            },
+            {
+                "name": "$6",
+                "start": "13:05",
+                "type": "class"
+            },
+            {
+                "name": "Free",
+                "start": "14:35",
+                "type": "free"
             }
         ]
     },
