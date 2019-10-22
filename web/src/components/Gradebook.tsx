@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/Gradebook.scss";
 
 export class Gradebook extends React.Component
 {
