@@ -6,7 +6,7 @@ import PeriodStream from "../common/PeriodStream";
 
 import LAHSSchedules from '../common/fetched/lahs-schedules.json';
 import LAHSCalendar from '../common/fetched/lahs-calendar.json';
-import { setInterval } from "timers";
+import {setInterval} from "timers";
 
 export class Schedule extends React.Component
 {
@@ -19,20 +19,26 @@ export class Schedule extends React.Component
     constructor(props: Readonly<{}>)
     {
         super(props);
-        
+
         this.state = { period: this.periods.get(new Date()) };
     }
 
-    componentDidMount()
-    {
+    timeout(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    componentDidMount() {
         this.mounted = true;
-        this.interval = setInterval(() => {
-            if (!this.mounted) return;
-            this.setState(state =>
-                ({
-                    period: this.periods.get(new Date())
-                }));
-        }, 1000);
+        this.timeout(new Date().getMilliseconds()).then(() => {
+                this.interval = setInterval(() => {
+                    if (!this.mounted) return;
+                    this.setState(state =>
+                        ({
+                            period: this.periods.get(new Date())
+                        }));
+                }, 1000);
+            }
+        );
     }
 
     componentWillUnmount()
@@ -80,7 +86,7 @@ export class Schedule extends React.Component
                         {/** Percentage Pie */}
                         <circle r="10" cx="10" cy="10" fill={Theme.SchedulePie} filter="url(#SchedulePieShadow)"/>
                         <circle r="5.1" cx="10" cy="10" fill="transparent" stroke={Theme.Background} strokeWidth="10" strokeDasharray={((this.state as any).period.percent(new Date()) * Math.PI / 10) + " " + (Math.PI * 10)} transform="rotate(-90) translate(-20)" />
-                    
+
                         {/** Time Left */}
                         <text x="10" y="10" fill={Theme.Title} fontFamily="Karla" fontWeight="bold" fontSize="3" textAnchor="middle">
                             {(this.state as any).period.timeLeft(new Date()).toString()}
