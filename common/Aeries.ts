@@ -81,7 +81,7 @@ export default class AeriesUtilities {
      */
     public authenticateAeries(email: string, password: string) {
         const postBody = this.preparePostBody(email, password);
-        fetch("https://mvla.asp.aeries.net/student/mobileapi/v1/authentication", {
+        return fetch("https://mvla.asp.aeries.net/student/mobileapi/v1/authentication", {
             credentials: "include",
             method: "POST",
             headers: {
@@ -91,13 +91,11 @@ export default class AeriesUtilities {
         }).then(r => r.json()).then(data => {
             if (data.hasOwnProperty("success")) {
                 this.authenticated = false;
-                return data;
             }
             this.authToken = data.AccessToken;
             this.studentGradebook.setupStudent(data);
             this.authenticated = true;
             this.getClassSummary();
-            return data;
         });
     }
 

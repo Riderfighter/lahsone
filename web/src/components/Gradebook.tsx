@@ -1,6 +1,5 @@
 import React from "react";
 import "../styles/Gradebook.scss";
-import '../styles/Gradebook.scss';
 import AeriesUtilities from "../common/Aeries";
 
 export class Gradebook extends React.Component {
@@ -40,7 +39,7 @@ class Popup extends React.Component {
     state = {
         email: '',
         password: ''
-    }
+    };
     private AeriesUtil = new AeriesUtilities();
     constructor(props) {
         super(props);
