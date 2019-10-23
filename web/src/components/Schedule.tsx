@@ -7,6 +7,7 @@ import PeriodStream from "../common/PeriodStream";
 import LAHSSchedules from '../common/fetched/lahs-schedules.json';
 import LAHSCalendar from '../common/fetched/lahs-calendar.json';
 import { setInterval } from "timers";
+import Period from "../common/Period";
 
 export class Schedule extends React.Component
 {
@@ -45,7 +46,7 @@ export class Schedule extends React.Component
         clearInterval(this.interval);
     }
 
-    private periodList(period: {name: string, start: string }, index: number)
+    private periodList(period: {name: string, start: string, type: string }, index: number)
     {
         return (
             <li
@@ -56,7 +57,7 @@ export class Schedule extends React.Component
                     {period.start}
                 </div>
                 <div style={{width: '60%', textAlign: 'center', color: Theme.Subtitle, fontWeight: 'bold'}}>
-                    {period.name}
+                    {Period.formatName(period)}
                 </div>
                 <div style={{width: '20%', textAlign: 'center', color: Theme.Content}}>
                     {period.start}
@@ -88,7 +89,7 @@ export class Schedule extends React.Component
 
                         {/** Current Period */}
                         <text x="3.5" y="10.5" fill={Theme.Subtitle} fontFamily="Karla" fontWeight="bold" fontSize="1.5" alignmentBaseline="hanging">
-                            {this.periods.get(new Date()).name}
+                            {this.periods.get(new Date()).formatName()}
                         </text>
 
                         {/** Schedule Name */}

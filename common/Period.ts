@@ -1,5 +1,7 @@
 import {Schedule} from "./PeriodStream";
 import {parseTime, subtract, TimeSpan} from "./Dutil";
+import GradebookClass from "./Gradebook";
+import { format2 } from "./Strutil";
 
 export default class Period
 {
@@ -56,5 +58,29 @@ export default class Period
     public percent(date: Date): number
     {
         return 100 - 100 * (this.timeLeft(date).toSeconds() / this.totalTime().toSeconds());
+    }
+
+    /**
+     * Formats the name with optional gradebook parameter
+     * @param gradebook Gradebook to fetch classnames from
+     */
+    public static formatName(period: { name: string, type: string }, gradebook: GradebookClass | undefined = undefined): string
+    {
+        return format2(period.name, n => {
+            if (gradebook === undefined)
+            {
+                return period.type === 'passing' ? `Passing to ${n}` :`Period ${n}`;
+            }
+            return `TODO schedule-gradebook link`
+        });
+    }
+
+    /**
+     * Formats the name with optional gradebook parameter
+     * @param gradebook Gradebook to fetch classnames from
+     */
+    public formatName(gradebook: GradebookClass | undefined = undefined): string
+    {
+        return Period.formatName(this, gradebook);
     }
 }
