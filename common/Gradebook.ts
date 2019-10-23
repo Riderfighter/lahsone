@@ -6,7 +6,7 @@ export default class GradebookClass {
     public setupStudent(studentinfo: any) {
         this.currentStudent = {
             studentid: studentinfo.Students[0].Demographics.StudentID,
-            name: studentinfo.Students[0].Demographics.firstName,
+            name: studentinfo.Students[0].Demographics.FirstName,
             classes: []
         };
     }
