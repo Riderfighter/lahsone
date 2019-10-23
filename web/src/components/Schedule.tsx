@@ -55,7 +55,10 @@ export class Schedule extends React.Component
     private periodList()
     {
         let i = -1;
-        return this.periods.schedule(new Date()).periods.map((p, realIndex) => {
+        const s = this.periods.schedule(new Date());
+        if (!s) { return null; }
+        
+        return s.periods.map((p, realIndex) => {
             if (p.type === 'passing') { return null; }
             i++;
             return (

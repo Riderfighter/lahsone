@@ -1,145 +1,161 @@
-import Period from './Period';
-import { Weekday, getWeekday, parseDates, dateInRange, tomorrowOf, yesterdayOf } from './Dutil';
-import { formalize } from './Strutil';
+import Period from './Period';
+import { Weekday, getWeekday, parseDates, dateInRange, tomorrowOf, yesterdayOf, sameDay } from './Dutil';
+import { formalize } from './Strutil';
 
-export default class PeriodStream
+export default class PeriodStream
 {
-    private calendar: Calendar;
-    private schedules: Schedule[];
+    private calendar: Calendar;
+    private schedules: Schedule[];
 
-    private current: Period | undefined;
+    private current: Period | undefined;
+    private cached: Schedule & { name: string, date: Date, offset: number } | undefined;
 
-    constructor(calendar: Calendar, schedules: Schedule[], date: Date | undefined = undefined)
-    {
-        this.calendar = calendar;
-        this.schedules = schedules;
+    constructor(calendar: Calendar, schedules: Schedule[], date: Date | undefined = undefined)
+    {
+        this.calendar = calendar;
+        this.schedules = schedules;
 
-        if (date !== undefined)
-        {
-            this.load(date);
-        }
-    }
+        if (date !== undefined)
+        {
+            this.load(date);
+            this.cached = this.schedule(date);
+        }
+    }
 
-    /**
-     * Resets the stream and loads the period of the given date
-     * @param date Date of the currently-happening date
-     */
-    public load(date: Date): void
-    {
-        let schedule = this.getSchedule(date);
+    /**
+     * Resets the stream and loads the period of the given date
+     * @param date Date of the currently-happening date
+     */
+    public load(date: Date): void
+    {
+        let schedule = this.getSchedule(date);
 
-        while (schedule.periods.length <= 0)
-        {
-            schedule = this.getSchedule(yesterdayOf(schedule.date))
-        }
+        while (schedule.periods.length <= 0)
+        {
+            schedule = this.getSchedule(yesterdayOf(schedule.date))
+        }
 
-        this.current = new Period(0, schedule);
-        this.nextOf(this.current);
-    }
+        this.current = new Period(0, schedule);
+        this.nextOf(this.current);
+    }
 
-    /**
-     * Get the current period
-     * @param date If provided, do a smart increment to match the date
-     */
-    public get(date: Date | undefined = undefined): Period
-    {
-        if (!date) // Return with no re-assignment
-        {
-            if (!this.current)
-            {
-                throw new Error("err_null_current_period");
-            }
-            return this.current;
-        }
+    /**
+     * Get the current period
+     * @param date If provided, do a smart increment to match the date
+     */
+    public get(date: Date | undefined = undefined): Period
+    {
+        if (!date) // Return with no re-assignment
+        {
+            if (!this.current)
+            {
+                throw new Error("err_null_current_period");
+            }
+            return this.current;
+        }
 
-        while (this.current && this.current.next && this.current.next.start < date)
-        {
-            this.current = this.current.next;
-            this.nextOf(this.current);
-        }
+        while (this.current && this.current.next && this.current.next.start < date)
+        {
+            this.current = this.current.next;
+            this.nextOf(this.current);
+        }
 
-        if (!this.current)
-        {
-            throw new Error("err_null_current_period");
-        }
-        return this.current;
-    }
+        if (!this.current)
+        {
+            throw new Error("err_null_current_period");
+        }
+        return this.current;
+    }
 
-    /**
-     * Get the period after the target period and assign it if necessary
-     * @param period Target period
-     */
-    public nextOf(period: Period): Period
-    {
-        if (period.next !== undefined) // Already calculated
-        {
-            return period.next;
-        }
+    /**
+     * Get the period after the target period and assign it if necessary
+     * @param period Target period
+     */
+    public nextOf(period: Period): Period
+    {
+        if (period.next !== undefined) // Already calculated
+        {
+            return period.next;
+        }
 
-        if (period.index < period.schedule.periods.length - 1) // Same day
-        {
-            return period.next = new Period(period.index + 1, period.schedule);
-        }
+        if (period.index < period.schedule.periods.length - 1) // Same day
+        {
+            return period.next = new Period(period.index + 1, period.schedule);
+        }
 
-        let schedule = this.getSchedule(tomorrowOf(period.schedule.date));
-        while (schedule.periods.length <= 0) // Tomorrow(++)
-        {
-            schedule = this.getSchedule(tomorrowOf(schedule.date));
-        }
+        let schedule = this.getSchedule(tomorrowOf(period.schedule.date));
+        while (schedule.periods.length <= 0) // Tomorrow(++)
+        {
+            schedule = this.getSchedule(tomorrowOf(schedule.date));
+        }
 
-        return period.next = new Period(0, schedule);
-    }
+        return period.next = new Period(0, schedule);
+    }
 
-    /**
-     * Reads the calendar and returns the schedule for the given date
-     * @param date Date to look for a schedule 
-     * @returns The schedule for the given date & name override
-     */
-    private getSchedule(date: Date): Schedule & { name: string, date: Date, offset: number }
-    {
-        let id: string;
-        let name: string;
+    /**
+     * Get the schedule for a date
+     * @param date Date of schedule, will be cached
+     */
+    public schedule(date: Date): Schedule & { name: string, date: Date, offset: number } | undefined
+    {
+        if (this.cached && sameDay(date, this.cached.date))
+        {
+            return this.cached;
+        }
+        return this.cached = this.getSchedule(date);
+    }
 
-        // Normal
-        const weekday = getWeekday(date);
-        id = this.calendar.normal[weekday];
-        name = `${formalize(weekday)} Schedule`;
+    /**
+     * Reads the calendar and returns the schedule for the given date
+     * @param date Date to look for a schedule 
+     * @returns The schedule for the given date & name override
+     */
+    private getSchedule(date: Date): Schedule & { name: string, date: Date, offset: number }
+    {
+        let id: string;
+        let name: string;
 
-        // Scan Overrides
-        this.calendar.overrides.some(i => {
-            const dates = parseDates(i.date, '-');
+        // Normal
+        const weekday = getWeekday(date);
+        id = this.calendar.normal[weekday];
+        name = `${formalize(weekday)} Schedule`;
 
-            if (!dateInRange(dates[0], dates[dates.length], date)) { return false; }
+        // Scan Overrides
+        this.calendar.overrides.some(i => {
+            const dates = parseDates(i.date, '-');
 
-            id = i.id;
-            name = i.name;
+            if (!dateInRange(dates[0], dates[dates.length], date)) { return false; }
 
-            return true;
-        });
+            id = i.id;
+            name = i.name;
 
-        const found = this.schedules.find(a => a.id === id);
-        if (!found)
-        {
-            alert(`Schedule "${id}" wasn't found!`);
-            throw new Error("err_schedule_not_found");
-        }
-        return { id: found.id, periods: found.periods, name: name, date: date, offset: parseInt(this.calendar.offset) };
-    }
+            return true;
+        });
+
+        const found = this.schedules.find(a => a.id === id);
+        if (!found)
+        {
+            alert(`Schedule "${id}" wasn't found!`);
+            throw new Error("err_schedule_not_found");
+        }
+        return { id: found.id, periods: found.periods, name: name, date: date, offset: parseInt(this.calendar.offset) };
+    }
 }
 
 /**
- * Wrapper for the calendar type in input JSON files
- */
-export type Calendar = {
-    offset: string,
-    normal: { [key in Weekday]: string },
-    overrides: { date: string, id: string, name: string }[]
+ * Wrapper for the calendar type in input JSON files
+ */
+export type Calendar = {
+    offset: string,
+    normal: { [key in Weekday]: string },
+    overrides: { date: string, id: string, name: string }[]
 };
 
 /**
- * Wrapper for a schedule in input JSON files
- */
-export type Schedule = {
-    id: string,
-    periods: { name: string, start: string, type: string }[]
+ * Wrapper for a schedule in input JSON files
+ */
+export type Schedule = {
+    id: string,
+    periods: { name: string, start: string, type: string }[]
 };
+
