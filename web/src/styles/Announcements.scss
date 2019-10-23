@@ -1,19 +1,34 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
 .announcement-body {
   display: flex;
   flex-flow: column;
   height: 90%;
   width: 80%;
-  font: normal 3.25vw "Roboto Mono";
+  font: lighter 3.25vw "Roboto Mono";
   border-radius: 4px;
   justify-content: center;
   box-shadow: 0 0 5px 4px rgba(0, 0, 0, 0.02);
   .announcement-title {
     margin: 0;
-    width: 100%;
+    width: calc(100% - 5%);
     background-color: rgba(113,133,195, 0.95);
-    text-align: center;
+    text-align: left;
+    padding-left: 5%;
     height: 1.5em;
-    border-radius: 0;
+    border-radius: 0 0 0 3px;
+
+    b {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 6.25vw;
+      float: right;
+      padding-right: 5%;
+    }
+
+    b:hover {
+      cursor: pointer;
+    }
   }
   .announcement-message {
     color: rgb(67, 67, 67);
