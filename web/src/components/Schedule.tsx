@@ -46,24 +46,33 @@ export class Schedule extends React.Component
         clearInterval(this.interval);
     }
 
-    private periodList(period: {name: string, start: string, type: string }, index: number)
+    private periodList()
     {
-        return (
-            <li
-                key={index}
-                style={{background: index % 2 === 1 ? Theme.ScheduleHighlight : "inherit", display: 'flex'}}
-            >
-                <div style={{width: '20%', textAlign: 'center', color: Theme.Content}}>
-                    {period.start}
-                </div>
-                <div style={{width: '60%', textAlign: 'center', color: Theme.Subtitle, fontWeight: 'bold'}}>
-                    {Period.formatName(period)}
-                </div>
-                <div style={{width: '20%', textAlign: 'center', color: Theme.Content}}>
-                    {period.start}
-                </div>
-            </li>
-        );
+        let i = -1;
+        return (this.state as any).period.schedule.periods.map((p, realIndex) => {
+            if (p.type === 'passing') { return null; }
+            i++;
+            return (
+                <li
+                key={realIndex}
+                style={{background: i % 2 === 1 ? Theme.ScheduleHighlight : "inherit", display: 'flex'}}
+                >
+                    <div style={{width: '20%', textAlign: 'center', color: Theme.Content}}>
+                        {p.start}
+                    </div>
+                    <div style={{width: '60%', textAlign: 'center', color: Theme.Subtitle, fontWeight: 'bold'}}>
+                        {Period.formatName(p)}
+                    </div>
+                    <div style={{width: '20%', textAlign: 'center', color: Theme.Content}}>
+                        {
+                            realIndex + 1 < (this.state as any).period.schedule.periods.length
+                                ? (this.state as any).period.schedule.periods[realIndex + 1].start
+                                : ""
+                        }
+                    </div>
+                </li>
+            );
+        });
     }
 
     render()
@@ -89,21 +98,17 @@ export class Schedule extends React.Component
 
                         {/** Current Period */}
                         <text x="3.5" y="10.5" fill={Theme.Subtitle} fontFamily="Karla" fontWeight="bold" fontSize="1.5" alignmentBaseline="hanging">
-                            {this.periods.get(new Date()).formatName()}
+                            {(this.state as any).period.formatName()}
                         </text>
 
                         {/** Schedule Name */}
                         <text x="3.5" y="11.5" fill={Theme.Content} fontFamily="Karla" fontSize="1" fontStyle="italic" alignmentBaseline="hanging">
-                            {this.periods.get(new Date()).schedule.name}
+                            {(this.state as any).period.schedule.name}
                         </text>
                     </svg>
-                    { /** */}
+                    { /** Schedule Periods List */}
                     <div className="schedule-periods">
-                        {
-                            this.periods.get(new Date()).schedule.periods
-                                .filter(p => p.type !== 'passing')
-                                .map((p, i) => this.periodList(p, i))
-                        }
+                        {this.periodList()}
                     </div>
                 </div>
             </div>
