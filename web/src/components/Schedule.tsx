@@ -74,7 +74,7 @@ export class Schedule extends React.Component
                     <svg className="schedule-pie" height="100%" viewBox="-1 -1 22 22">
                         <filter id="SchedulePieShadow" width="180%" height="180%">
                             {/** see https://www.desmos.com/calculator/x6gt6cuc8g */}
-                            <feDropShadow dx="0" dy="0" stdDeviation="1" floodOpacity="0.075"/>
+                            <feDropShadow dx="0" dy="0" stdDeviation="1" floodOpacity="0.05"/>
                         </filter>
 
 
