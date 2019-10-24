@@ -1,12 +1,12 @@
 import { replaceAll, join } from "./Strutil";
-import { Weekday, DateRange, parseDateRange } from "./Dutil";
+import { Weekday, DateRange, parseDateRange, getWeekday, dateInRange } from "./Dutil";
 
 /**
  * A container for schedules and when they take place
  */
 export default class Calendar
 {
-    public readonly schedules: Schedule[];
+    public readonly schedules: {[id: string]: Schedule};
     
     private default: {[key in Weekday]: string};
     private overrides: {id: string, name: string, range: DateRange}[];
@@ -14,7 +14,7 @@ export default class Calendar
     constructor(schedules: string, calendar: string)
     {
         // Init fields
-        this.schedules = [];
+        this.schedules = {};
         this.default = {} as any;
         this.overrides = [];
 
@@ -25,22 +25,21 @@ export default class Calendar
         {
             const lines = e.split('\n');
             
-            this.schedules[i].periods = {} as Period[];
-
             // Line 0: "* id # Name"
             const tokens = lines[0].split(' ');
-            this.schedules[i].id = tokens[1];
-            this.schedules[i].name = join(tokens, ' ', 3);
+            this.schedules[tokens[1]].periods = {} as Period[];
+            this.schedules[tokens[1]].id = tokens[1];
+            this.schedules[tokens[1]].name = join(tokens, ' ', 3);
 
             // Line 1-last: "start Name"
             for (let j = 1; j < lines.length; j++)
             {
-                this.schedules[i].periods[j - 1] = {} as Period;
-                const space = lines[i].indexOf(' ');
+                this.schedules[tokens[1]].periods[j - 1] = {} as Period;
+                const space = lines[j].indexOf(' ');
 
-                this.schedules[i].periods[j - 1].start = lines[i].substring(0, space);
-                this.schedules[i].periods[j - 1].name = lines[i].substring(space + 1);
-                this.schedules[i].periods[j - 1].passing = this.schedules[i].periods[i - 1].name.includes('Passing to');
+                this.schedules[tokens[1]].periods[j - 1].start = lines[j].substring(0, space);
+                this.schedules[tokens[1]].periods[j - 1].name = lines[j].substring(space + 1);
+                this.schedules[tokens[1]].periods[j - 1].passing = this.schedules[tokens[1]].periods[j - 1].name.includes('Passing to');
             }
         });
         /*-- END PARSE SCHEDULES --*/
@@ -76,6 +75,28 @@ export default class Calendar
         /*-- END PARSE CALENDAR --*/
     }
 
+    /**
+     * Find a schedule for any given day
+     * @param day Day of the schedule to find
+     */
+    public get(day: Date): Schedule & { day: Date }
+    {
+        // Check overrides
+        const override = this.overrides.find(e => dateInRange(e.range.start, e.range.end, day));
+        if (override)
+        {
+            return {
+                id: override.id,
+                name: override.name ? override.name : this.schedules[override.id].name,
+                periods: this.schedules[override.id].periods,
+                day: day
+            };
+        }
+        
+        // Fall-back to default
+        const $out = this.schedules[this.default[getWeekday(day)]];
+        return { id: $out.id, name: $out.name, periods: $out.periods, day: day };
+    }
 }
 
 export type Schedule = {
