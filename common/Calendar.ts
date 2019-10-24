@@ -7,27 +7,31 @@ import { Weekday, DateRange, parseDateRange, getWeekday, dateInRange } from "./D
 export default class Calendar
 {
     public readonly schedules: {[id: string]: Schedule};
-    
+    public readonly correction: number;
+
     private default: {[key in Weekday]: string};
     private overrides: {id: string, name: string, range: DateRange}[];
 
-    constructor(schedules: string, calendar: string)
+    constructor(schedules: string, calendar: string, correction: string)
     {
+        this.correction = parseInt(correction);
+
         // Init fields
         this.schedules = {};
         this.default = {} as any;
         this.overrides = [];
 
         /*-- BEGIN PARSE SCHEDULES --*/
-        replaceAll(schedules,'\n\n\n','\n\n') // Clean up file
-            .split('\n\n') // Split by schedule
-            .forEach((e, i) => // Populate out
+        replaceAll(schedules,'\r\n\r\n\r\n','\r\n\r\n') // Clean up file
+            .split('\r\n\r\n') // Split by schedule
+            .forEach(e => // Populate out
         {
-            const lines = e.split('\n');
+            const lines = e.split('\r\n');
             
             // Line 0: "* id # Name"
             const tokens = lines[0].split(' ');
-            this.schedules[tokens[1]].periods = {} as Period[];
+            this.schedules[tokens[1]] = {} as any;
+            this.schedules[tokens[1]].periods = [];
             this.schedules[tokens[1]].id = tokens[1];
             this.schedules[tokens[1]].name = join(tokens, ' ', 3);
 
@@ -43,7 +47,7 @@ export default class Calendar
             }
         });
         /*-- END PARSE SCHEDULES --*/
-
+        
         /*-- BEGIN PARSE CALENDAR --*/
         calendar.split('\n').forEach(line =>
         {
@@ -92,9 +96,9 @@ export default class Calendar
                 day: day
             };
         }
-        
+
         // Fall-back to default
-        const $out = this.schedules[this.default[getWeekday(day)]];
+        const $out = this.schedules[this.default[getWeekday(day)].trim()];
         return { id: $out.id, name: $out.name, periods: $out.periods, day: day };
     }
 }

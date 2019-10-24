@@ -1,25 +1,17 @@
 import Period from './Period';
-import { Weekday, getWeekday, parseDates, dateInRange, tomorrowOf, yesterdayOf, sameDay } from './Dutil';
-import { formalize } from './Strutil';
+import { tomorrowOf, yesterdayOf } from './Dutil';
+import Calendar from './Calendar';
 
 export default class PeriodStream
 {
-    private calendar: Calendar;
-    private schedules: Schedule[];
+    public readonly calendar: Calendar;
 
     private current: Period | undefined;
-    private cached: Schedule & { name: string, date: Date, offset: number } | undefined;
 
-    constructor(calendar: Calendar, schedules: Schedule[], date: Date | undefined = undefined)
+    constructor(calendar: Calendar, now: Date)
     {
         this.calendar = calendar;
-        this.schedules = schedules;
-
-        if (date !== undefined)
-        {
-            this.load(date);
-            this.cached = this.schedule(date);
-        }
+        this.load(now);
     }
 
     /**
@@ -28,14 +20,14 @@ export default class PeriodStream
      */
     public load(date: Date): void
     {
-        let schedule = this.getSchedule(date);
+        let schedule = this.calendar.get(date);
 
         while (schedule.periods.length <= 0)
         {
-            schedule = this.getSchedule(yesterdayOf(schedule.date))
+            schedule = this.calendar.get(yesterdayOf(schedule.day));
         }
 
-        this.current = new Period(0, schedule);
+        this.current = new Period(0, schedule, this.calendar.correction);
         this.nextOf(this.current);
     }
 
@@ -80,82 +72,16 @@ export default class PeriodStream
 
         if (period.index < period.schedule.periods.length - 1) // Same day
         {
-            return period.next = new Period(period.index + 1, period.schedule);
+            return period.next = new Period(period.index + 1, period.schedule, this.calendar.correction);
         }
 
-        let schedule = this.getSchedule(tomorrowOf(period.schedule.date));
+        let schedule = this.calendar.get(tomorrowOf(period.schedule.day));
         while (schedule.periods.length <= 0) // Tomorrow(++)
         {
-            schedule = this.getSchedule(tomorrowOf(schedule.date));
+            schedule = this.calendar.get(tomorrowOf(schedule.day));
         }
 
-        return period.next = new Period(0, schedule);
-    }
-
-    /**
-     * Get the schedule for a date
-     * @param date Date of schedule, will be cached
-     */
-    public schedule(date: Date): Schedule & { name: string, date: Date, offset: number } | undefined
-    {
-        if (this.cached && sameDay(date, this.cached.date))
-        {
-            return this.cached;
-        }
-        return this.cached = this.getSchedule(date);
-    }
-
-    /**
-     * Reads the calendar and returns the schedule for the given date
-     * @param date Date to look for a schedule 
-     * @returns The schedule for the given date & name override
-     */
-    private getSchedule(date: Date): Schedule & { name: string, date: Date, offset: number }
-    {
-        let id: string;
-        let name: string;
-
-        // Normal
-        const weekday = getWeekday(date);
-        id = this.calendar.normal[weekday];
-        name = `${formalize(weekday)} Schedule`;
-
-        // Scan Overrides
-        this.calendar.overrides.some(i => {
-            const dates = parseDates(i.date, '-');
-
-            if (!dateInRange(dates[0], dates[dates.length], date)) { return false; }
-
-            id = i.id;
-            name = i.name;
-
-            return true;
-        });
-
-        const found = this.schedules.find(a => a.id === id);
-        if (!found)
-        {
-            alert(`Schedule "${id}" wasn't found!`);
-            throw new Error("err_schedule_not_found");
-        }
-        return { id: found.id, periods: found.periods, name: name, date: date, offset: parseInt(this.calendar.offset) };
+        return period.next = new Period(0, schedule, this.calendar.correction);
     }
 }
-
-/**
- * Wrapper for the calendar type in input JSON files
- */
-export type Calendar = {
-    offset: string,
-    normal: { [key in Weekday]: string },
-    overrides: { date: string, id: string, name: string }[]
-};
-
-/**
- * Wrapper for a schedule in input JSON files
- */
-export type Schedule = {
-    id: string,
-    periods: { name: string, start: string, type: string }[]
-};
 

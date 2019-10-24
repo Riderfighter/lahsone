@@ -1,19 +1,17 @@
 import React from "react";
 import '../styles/Schedule.scss';
 import Theme from "./Theme";
-import Gradebook from "../common/Gradebook";
-import PeriodStream from "../common/PeriodStream";
 
-import LAHSSchedules from '../common/fetched/lahs-schedules.json';
-import LAHSCalendar from '../common/fetched/lahs-calendar.json';
+import PeriodStream from "../common/PeriodStream";
 import { setInterval } from "timers";
 import Period from "../common/Period";
+import Calendar from "../common/Calendar";
 
 export class Schedule extends React.Component
 {
-    private periods: PeriodStream = new PeriodStream(LAHSCalendar, LAHSSchedules, new Date());
-    private gradebook: Gradebook = new Gradebook();
+    private stream: PeriodStream | undefined;
 
+    private bellData: any = {};
     private interval: NodeJS.Timeout | undefined;
     private mounted: boolean = false;
 
@@ -21,7 +19,27 @@ export class Schedule extends React.Component
     {
         super(props);
 
-        this.state = { period: this.periods.get(new Date()) };
+        this.loadBellData("schedules");
+        this.loadBellData("calendar");
+        this.loadBellData("correction");
+    }
+
+    private loadBellData(name: "schedules" | "calendar" | "correction")
+    {
+        fetch(`bell/${name}.txt`).then(r => r.text()).then(txt =>
+        {
+            this.bellData[name] = txt;
+            if (this.bellData.schedules !== undefined
+                && this.bellData.calendar !== undefined
+                && this.bellData.correction !== undefined)
+            {
+                this.stream = new PeriodStream(
+                    new Calendar(this.bellData.schedules, this.bellData.calendar, this.bellData.correction),
+                    new Date()
+                );
+                this.state = {period: this.stream.get(new Date())};
+            }
+        });
     }
 
     timeout(ms) {
@@ -31,12 +49,16 @@ export class Schedule extends React.Component
     componentDidMount() {
         this.mounted = true;
         this.timeout(new Date().getMilliseconds()).then(() => {
-                this.interval = setInterval(() => {
+                this.interval = setInterval(() =>
+                {
                     if (!this.mounted) return;
-                    this.setState(state =>
-                        ({
-                            period: this.periods.get(new Date())
-                        }));
+                    this.setState(_ =>
+                    {
+                        if (this.stream === undefined) return;
+                        return {
+                            period: this.stream.get(new Date())
+                        };
+                    });
                 }, 1000);
             }
         );
@@ -54,12 +76,14 @@ export class Schedule extends React.Component
 
     private periodList()
     {
+        if (!this.stream) { return null; }
+
         let i = -1;
-        const s = this.periods.schedule(new Date());
+        const s = this.stream.calendar.get(new Date());
         if (!s) { return null; }
 
         return s.periods.map((p, realIndex) => {
-            if (p.type === 'passing') { return null; }
+            if (p.passing) { return null; }
             i++;
             return (
                 <li
@@ -86,6 +110,10 @@ export class Schedule extends React.Component
 
     render()
     {
+        if (!this.stream)
+        {
+            return null;
+        }
         return (
             <div className="app-body">
                 <div className="schedule-body">

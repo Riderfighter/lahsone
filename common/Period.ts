@@ -1,26 +1,28 @@
-import {Schedule} from "./PeriodStream";
 import {parseTime, subtract, TimeSpan} from "./Dutil";
 import GradebookClass from "./Gradebook";
 import { format2 } from "./Strutil";
+import { Schedule } from "./Calendar";
 
 export default class Period
 {
     public readonly name: string;
-    public readonly type: string;
+    public readonly passing: boolean;
     public readonly start: Date;
     public next: Period | undefined;
 
     public readonly index: number;
-    public readonly schedule: Schedule & { name: string, date: Date, offset: number };
+    public readonly schedule: Schedule & {day: Date};
+    public readonly correction: number;
 
-    constructor(index: number, schedule: Schedule & { name: string, date: Date, offset: number })
+    constructor(index: number, schedule: Schedule & {day: Date}, correction: number)
     {
         this.name = schedule.periods[index].name;
-        this.type = schedule.periods[index].type;
-        this.start = parseTime(schedule.periods[index].start, schedule.date);
+        this.passing = schedule.periods[index].passing;
+        this.start = parseTime(schedule.periods[index].start, schedule.day);
 
         this.index = index;
         this.schedule = schedule;
+        this.correction = correction;
     }
 
     /**
@@ -34,7 +36,7 @@ export default class Period
             throw new Error("next wasn't initialized");
         }
 
-        date.setTime(date.getTime() +  this.schedule.offset);
+        date.setTime(date.getTime() +  this.correction);
         return subtract(this.next.start, date);
     }
 
@@ -64,12 +66,12 @@ export default class Period
      * Formats the name with optional gradebook parameter
      * @param gradebook Gradebook to fetch classnames from
      */
-    public static formatName(period: { name: string, type: string }, gradebook: GradebookClass | undefined = undefined): string
+    public static formatName(period: { name: string, passing: boolean }, gradebook: GradebookClass | undefined = undefined): string
     {
         return format2(period.name, n => {
             if (gradebook === undefined)
             {
-                return period.type === 'passing' ? `Passing to Period ${n}` :`Period ${n}`;
+                return period.passing ? `Passing to Period ${n}` :`Period ${n}`;
             }
             return `TODO schedule-gradebook link`
         });
