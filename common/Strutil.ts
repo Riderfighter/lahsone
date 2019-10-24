@@ -81,3 +81,14 @@ export function format2(str: string, replace: (n: number) => string): string
 
     return str;
 }
+
+/**
+ * Joins a string array from an index
+ * @param arr String array
+ * @param separator Separator string
+ * @param index Index to start from
+ */
+export function join(arr: string[], separator: string , index: number = 0)
+{
+    return arr.filter((v, i) => i >= index).join(separator);
+}

@@ -1,5 +1,5 @@
-import { replaceAll } from "./Strutil";
-import { Weekday, DateRange } from "./Dutil";
+import { replaceAll, join } from "./Strutil";
+import { Weekday, DateRange, parseDateRange } from "./Dutil";
 
 /**
  * A container for schedules and when they take place
@@ -30,7 +30,7 @@ export default class Calendar
             // Line 0: "* id # Name"
             const tokens = lines[0].split(' ');
             this.schedules[i].id = tokens[1];
-            this.schedules[i].name = tokens.filter((v, i) => i >= 3).join(" ");
+            this.schedules[i].name = join(tokens, ' ', 3);
 
             // Line 1-last: "start Name"
             for (let j = 1; j < lines.length; j++)
@@ -46,16 +46,33 @@ export default class Calendar
         /*-- END PARSE SCHEDULES --*/
 
         /*-- BEGIN PARSE CALENDAR --*/
-        for (let line in calendar.split('\n'))
+        calendar.split('\n').forEach(line =>
         {
             const tokens = line.split(' ');
+            
             switch(tokens[0])
             {
-                case '*': return;
+                // Ignores
+                case '*': case '': case undefined: return;
 
-            }
+                // Default Week
+                case 'Sun': this.default.sunday = tokens[1]; break;
+                case 'Mon': this.default.monday = tokens[1]; break;
+                case 'Tue': this.default.tuesday = tokens[1]; break;
+                case 'Wed': this.default.wednesday = tokens[1]; break;
+                case 'Thu': this.default.thursday = tokens[1]; break;
+                case 'Fri': this.default.friday = tokens[1]; break;
+                case 'Sat': this.default.saturday = tokens[1]; break;
             
-        }
+                // Special Days
+                default:
+                    this.overrides.push({
+                        id: tokens[1],
+                        name: join(tokens, ' ', 3),
+                        range: parseDateRange(tokens[0], '-', false)
+                    });
+            }
+        });
         /*-- END PARSE CALENDAR --*/
     }
 

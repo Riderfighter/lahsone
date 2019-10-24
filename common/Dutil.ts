@@ -16,13 +16,27 @@ export function parseDate(str: string, european: boolean = true): Date
 }
 
 /**
- * Parses multiple dates of format dd/mm/yyyy separated by a given splitter
- * @param str String representation of the dates in dd/mm/yyyy {separator} dd/mm/yyyy...
+ * Parses multiple dates separated by a given splitter
+ * @param str String representation of the dates
  * @param splitter String which splits different dates
+ * @param european Are the date(s) in dd/mm/yyyy(european) or mm/dd/yyyy(American)
  */
-export function parseDates(str: string, splitter: string): Date[]
+export function parseDates(str: string, splitter: string, european = true): Date[]
 {
-    return str.split(splitter).map(i => parseDate(i.trim()));
+    return str.split(splitter).map(i => parseDate(i.trim(), european));
+}
+
+/**
+ * Parse a date range
+ * @param str String representation of the date range
+ * @param splitter String which splits different dates
+ * @param european Are the date(s) in dd/mm/yyyy(european) or mm/dd/yyyy(American)
+ */
+export function parseDateRange(str: string, splitter: string, european = true): DateRange
+{
+    const dates = parseDates(str, splitter, european);
+
+    return {start: dates[0], end: dates[dates.length - 1]};
 }
 
 /**
