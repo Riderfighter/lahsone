@@ -53,7 +53,11 @@ class Popup extends React.Component {
 
     loginTest(event){
         alert((this.state as any).email);
-        this.AeriesUtil.authenticateAeries((this.state as any).email, (this.state as any).password);
+        this.AeriesUtil.authenticateAeries((this.state as any).email, (this.state as any).password).then(() => {
+                console.log(this.AeriesUtil.studentGradebook.currentStudent)
+            }
+        );
+        event.preventDefault();
     }
 
     handleChange(event) {
