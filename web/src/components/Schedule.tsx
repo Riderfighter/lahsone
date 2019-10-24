@@ -19,6 +19,7 @@ export class Schedule extends React.Component
     {
         super(props);
 
+        this.state = { period: undefined }
         this.loadBellData("schedules");
         this.loadBellData("calendar");
         this.loadBellData("correction");
@@ -37,7 +38,7 @@ export class Schedule extends React.Component
                     new Calendar(this.bellData.schedules, this.bellData.calendar, this.bellData.correction),
                     new Date()
                 );
-                this.state = {period: this.stream.get(new Date())};
+                this.setState(({period: this.stream.get(new Date())}));
             }
         });
     }

@@ -21,12 +21,14 @@ export default class Calendar
         this.default = {} as any;
         this.overrides = [];
 
+        // Clean up files
+        schedules = replaceAll(replaceAll(schedules, '\r', ''), '\n\n\n', '\n\n');
+        calendar = replaceAll(calendar, '\r', '');
+
         /*-- BEGIN PARSE SCHEDULES --*/
-        replaceAll(schedules,'\r\n\r\n\r\n','\r\n\r\n') // Clean up file
-            .split('\r\n\r\n') // Split by schedule
-            .forEach(e => // Populate out
+        schedules.split('\n\n').forEach(e =>
         {
-            const lines = e.split('\r\n');
+            const lines = e.split('\n');
             
             // Line 0: "* id # Name"
             const tokens = lines[0].split(' ');
