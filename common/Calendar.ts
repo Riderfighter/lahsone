@@ -1,4 +1,4 @@
-import { replaceAll, join } from "./Strutil";
+import { replaceAll, join, formatBraces } from "./Strutil";
 import { Weekday, DateRange, parseDateRange, getWeekday, dateInRange } from "./Dutil";
 
 /**
@@ -44,7 +44,7 @@ export default class Calendar
                 const space = lines[j].indexOf(' ');
 
                 this.schedules[tokens[1]].periods[j - 1].start = lines[j].substring(0, space);
-                this.schedules[tokens[1]].periods[j - 1].name = lines[j].substring(space + 1);
+                this.schedules[tokens[1]].periods[j - 1].name = formatBraces(lines[j].substring(space + 1), '{', '}', n => `$${n}`);
                 this.schedules[tokens[1]].periods[j - 1].passing = this.schedules[tokens[1]].periods[j - 1].name.includes('Passing to');
             }
         });
