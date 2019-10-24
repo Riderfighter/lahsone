@@ -1,8 +1,9 @@
 /**
- * Parses a dd/mm/yyyy date
- * @param str String representation of the date in dd/mm/yyyy format
+ * Parses a date
+ * @param str String representation of the date
+ * @param european Is the date in dd/mm/yyyy(european) or mm/dd/yyyy(American)
  */
-export function parseDate(str: string): Date
+export function parseDate(str: string, european: boolean = true): Date
 {
     const slash1 = str.indexOf('/');
     const slash2 = str.indexOf('/', slash1 + 1);
@@ -11,7 +12,7 @@ export function parseDate(str: string): Date
     const mm = parseInt(str.substring(slash1 + 1, slash2));
     const yyyy = parseInt(str.substring(slash2 + 1));
 
-    return new Date(yyyy, mm, dd);
+    return european ? new Date(yyyy, mm, dd) : new Date(yyyy, dd, mm);
 }
 
 /**
@@ -68,6 +69,11 @@ export function dateInRange(min: Date, max: Date, value: Date): boolean
 {
     return value >= min && value <= max; 
 }
+
+/**
+ * A range of time
+ */
+export type DateRange = { start: Date, end: Date };
 
 /**
  * Get tomorrow's date
