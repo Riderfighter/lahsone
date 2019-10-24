@@ -54,7 +54,7 @@ export default class GradebookClass {
                             let newAssignment: Assignment = {
                                 assignmentnumber: assignment.AssignmentNumber,
                                 description: assignment.Description,
-                                isgraded: assignment.isGraded,
+                                isgraded: assignment.IsGraded,
                                 score: assignment.Score,
                                 maxscore: assignment.MaxScore,
                                 percentage: assignment.Percent,
@@ -115,4 +115,5 @@ type Assignment = {
     score: number
     maxscore: number
     percentage: number
+    dropedit?: boolean
 }
