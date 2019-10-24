@@ -91,11 +91,12 @@ export default class AeriesUtilities {
         }).then(r => r.json()).then(data => {
             if (data.hasOwnProperty("success")) {
                 this.authenticated = false;
+            } else {
+                this.authToken = data.AccessToken;
+                this.studentGradebook.setupStudent(data);
+                this.authenticated = true;
+                this.getClassSummary();
             }
-            this.authToken = data.AccessToken;
-            this.studentGradebook.setupStudent(data);
-            this.authenticated = true;
-            this.getClassSummary();
         });
     }
 
