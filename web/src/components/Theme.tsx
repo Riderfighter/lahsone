@@ -1,7 +1,7 @@
 /**
  * CHANGE THE DIRECTORY HERE TO CHANGE THEMES
  */
-import theme from '../common/themes/default-dark.json'
+import theme from '../common/themes/default-light.json'
 
 export default class Theme
 {
