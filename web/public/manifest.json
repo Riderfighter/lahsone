@@ -10,7 +10,7 @@
   "version": "1.0",
   "permissions": [
     "*://mvla.asp.aeries.net/*",
-    "*://bell.plus/*",
+    "*://bell.plus/api/data/lahs/*",
     "webRequest",
     "webRequestBlocking"
   ],
