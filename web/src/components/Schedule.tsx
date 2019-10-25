@@ -27,7 +27,7 @@ export class Schedule extends React.Component
 
     private loadBellData(name: "schedules" | "calendar" | "correction")
     {
-        fetch(`bell/${name}.txt`).then(r => r.text()).then(txt =>
+        fetch(`https://bell.plus/api/data/lahs/${name}`).then(r => r.text()).then(txt =>
         {
             this.bellData[name] = txt;
             if (this.bellData.schedules !== undefined
