@@ -49,8 +49,8 @@ export default class Theme
     public static SchedulePie: string = theme.SchedulePie;
 
     /**
-     * 
+     *
      */
     public static ScheduleHighlight: string = theme.ScheduleHighlight;
-    
+
 }
