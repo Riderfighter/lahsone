@@ -73,7 +73,7 @@ export class Gradebook extends React.Component {
             <div className="app-body">
                 {(this.state as any).showPopup ?
                     this.makePopup() : [<p className="app-message">
-                        Welcome to Gradebook
+                        Welcome to the Gradebook
                     </p>, <a className="button1" onClick={this.togglePopup.bind(this)}>Login to Aeries</a>]
                 }
             </div>
