@@ -76,9 +76,6 @@ export default class Calendar
                         name: join(tokens, ' ', 3),
                         range: parseDateRange(tokens[0], '-', false)
                     });
-                    console.log("Start " + parseDateRange(tokens[0], '-', false).start)
-                    console.log("End " + parseDateRange(tokens[0], '-', false).end)
-
             }
         });
         /*-- END PARSE CALENDAR --*/
