@@ -52,7 +52,7 @@ export class Gradebook extends React.Component {
         event.preventDefault();
     }
 
-    makePopup() {
+    loginMenu() {
         return (
             <div className='popup'>
                 <div className='popup_inner'>
@@ -68,13 +68,19 @@ export class Gradebook extends React.Component {
         )
     }
 
+    welcomeMenu() {
+        return [
+            <p className="app-message"> Welcome to the Gradebook </p>,
+            <a className="button1" onClick={this.togglePopup.bind(this)}>Login to Aeries</a>
+        ]
+    }
+
+
     render() {
         return (
             <div className="app-body">
                 {(this.state as any).showPopup ?
-                    this.makePopup() : [<p className="app-message">
-                        Welcome to the Gradebook
-                    </p>, <a className="button1" onClick={this.togglePopup.bind(this)}>Login to Aeries</a>]
+                    this.loginMenu() : this.welcomeMenu()
                 }
             </div>
         );
