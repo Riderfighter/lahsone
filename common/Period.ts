@@ -71,7 +71,7 @@ export default class Period
         return format2(period.name, n => {
             if (gradebook === undefined)
             {
-                return period.passing ? `Passing to Period ${n}` :`Period ${n}`;
+                return `Period ${n}`;
             }
             return `TODO schedule-gradebook link`
         });
