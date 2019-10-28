@@ -3,7 +3,7 @@ import '../styles/Schedule.scss';
 import Theme from "./Theme";
 
 import PeriodStream from "../common/PeriodStream";
-import { setInterval } from "timers";
+import {setInterval} from "timers";
 import Period from "../common/Period";
 import Calendar from "../common/Calendar";
 
@@ -19,7 +19,7 @@ export class Schedule extends React.Component
     {
         super(props);
 
-        this.state = { period: undefined }
+        this.state = {period: undefined};
         this.loadBellData("schedules");
         this.loadBellData("calendar");
         this.loadBellData("correction");
@@ -27,8 +27,9 @@ export class Schedule extends React.Component
 
     private loadBellData(name: "schedules" | "calendar" | "correction")
     {
-        fetch(`bell/${name}.txt`).then(r => r.text()).then(txt =>
+        fetch(`http://bell.plus/api/data/lahs/${name}`).then(r => r.text()).then(txt =>
         {
+            console.log(txt);
             this.bellData[name] = txt;
             if (this.bellData.schedules !== undefined
                 && this.bellData.calendar !== undefined

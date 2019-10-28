@@ -83,6 +83,34 @@ export function format2(str: string, replace: (n: number) => string): string
 }
 
 /**
+ * Formats a string where arguments are defined by braces
+ * @param str String to format
+ * @param open Open brace character(ie. '{')
+ * @param close Closing brace character(ie. '}')
+ * @param replace Replace function which takes the number in between braces
+ */
+export function formatBraces(str: string, open: string, close: string, replace: (n: number) => string): string
+{
+    const oind = str.indexOf(open);
+    if (oind < 0) { return str; }
+
+    let num: string = '';
+    for (let i = oind; i < str.length; i++)
+    {
+        const char = str.charAt(i);
+        if (char === close)
+        {
+            return str.substring(0, oind) + replace(parseInt(num)) +  str.substring(i + 1);
+        }
+        else if (char >= '0' && char <= '9')
+        {
+            num += char;
+        }
+    }
+    throw new Error("Unmatched brace!");
+}
+
+/**
  * Joins a string array from an index
  * @param arr String array
  * @param separator Separator string

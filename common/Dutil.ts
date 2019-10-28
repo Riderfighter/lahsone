@@ -35,6 +35,12 @@ export function parseDates(str: string, splitter: string, european = true):
 export function parseDateRange(str: string, splitter: string, european = true): DateRange
 {
     const dates = parseDates(str, splitter, european);
+    if (dates.length === 1)
+    {
+        dates[1] = new Date(dates[0]);
+    }
+    dates[0].setHours(0, 0, 0, 0);
+    dates[dates.length - 1].setHours(23, 59, 59, 999);
 
     return {start: dates[0], end: dates[dates.length - 1]};
 }

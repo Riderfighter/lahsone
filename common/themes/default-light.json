@@ -1,0 +1,10 @@
+{
+    "Background": "#F3F3F3",
+    "Logo": "#434343",
+    "LogoSuperscript": "#1F1F1F",
+    "Title":  "#111111",
+    "Subtitle": "#222222",
+    "Content": "#424242",
+    "SchedulePie": "#9CC884",
+    "ScheduleHighlight": "#EDEDED"
+}

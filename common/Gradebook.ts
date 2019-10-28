@@ -12,7 +12,7 @@ export default class GradebookClass {
     }
 
     public setupClasses(classData: any) {
-        classData[0].ClassSummary.forEach(classPeriod => {
+        classData[0].ClassSummary.filter(studentclass => studentclass.Term !== "Dropped Gradebooks").forEach(classPeriod => {
             let newClass: Class = {
                 period: classPeriod.Period,
                 gradebooknumber: classPeriod.GradeBookNumber,
@@ -54,7 +54,7 @@ export default class GradebookClass {
                             let newAssignment: Assignment = {
                                 assignmentnumber: assignment.AssignmentNumber,
                                 description: assignment.Description,
-                                isgraded: assignment.isGraded,
+                                isgraded: assignment.IsGraded,
                                 score: assignment.Score,
                                 maxscore: assignment.MaxScore,
                                 percentage: assignment.Percent,
@@ -115,4 +115,5 @@ type Assignment = {
     score: number
     maxscore: number
     percentage: number
+    dropedit?: boolean
 }
