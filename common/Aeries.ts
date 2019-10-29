@@ -55,12 +55,15 @@ export default class AeriesUtilities {
     public studentGradebook = new GradebookClass();
     private authToken = "";
     private authenticated = false;
+    private email: string | null = window.localStorage.getItem("aeriesEmail");
+    private password: string | null = window.localStorage.getItem("aeriesPassword");
+    public hasCredentials = this.email !== null && this.password !== null;
 
     /**
      * Sets up Aeries.ts's RSA encryption scheme
      */
     constructor() {
-        this.privKey.setOptions({encryptionScheme: "pkcs1", signingScheme: "pkcs1"})
+        this.privKey.setOptions({encryptionScheme: "pkcs1", signingScheme: "pkcs1"});
     }
 
     /**
@@ -79,7 +82,9 @@ export default class AeriesUtilities {
      * @param email The email of the user to be authenticated.
      * @param password The password of the user to be authenticated.
      */
-    public authenticateAeries(email: string, password: string) {
+    public authenticateAeries(email: string | null = this.email, password: string | null = this.password) {
+        if (email == null || password == null)
+            throw new Error("email or password MUST have a value.");
         const postBody = this.preparePostBody(email, password);
         return fetch("https://mvla.asp.aeries.net/student/mobileapi/v1/authentication", {
             credentials: "include",
@@ -96,6 +101,10 @@ export default class AeriesUtilities {
                 this.studentGradebook.setupStudent(data);
                 this.authenticated = true;
                 this.getClassSummary();
+                if (email !== this.email || password !== this.password) {
+                    window.localStorage.setItem("aeriesEmail", email);
+                    window.localStorage.setItem("aeriesPassword", password);
+                }
             }
         });
     }

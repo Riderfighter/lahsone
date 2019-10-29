@@ -45,10 +45,16 @@ export class Gradebook extends React.Component {
     }
 
     loginTest(event) {
-        this.AeriesUtil.authenticateAeries((this.state as any).email, (this.state as any).password).then(() => {
+        if (this.AeriesUtil.hasCredentials) {
+            this.AeriesUtil.authenticateAeries().then(() => {
                 console.log(this.AeriesUtil.studentGradebook.currentStudent);
-            }
-        );
+            })
+        } else {
+            this.AeriesUtil.authenticateAeries((this.state as any).email, (this.state as any).password).then(() => {
+                    console.log(this.AeriesUtil.studentGradebook.currentStudent);
+                }
+            );
+        }
         event.preventDefault();
     }
 
