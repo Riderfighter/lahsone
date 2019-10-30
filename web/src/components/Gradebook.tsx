@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/Gradebook.scss";
 import AeriesUtilities from "../common/Aeries";
+import update from 'immutability-helper';
 
 export class Gradebook extends React.Component {
     private AeriesUtil = new AeriesUtilities();
@@ -13,10 +14,20 @@ export class Gradebook extends React.Component {
             showPopup: false,
             showGradebook: false,
             showtext: 'block',
-            name: '',
-            email: '',
-            password: ''
+            insideofgradebook: (<div><h1>Loading...</h1></div>)
         };
+    }
+
+    componentDidMount(): void {
+        if (this.AeriesUtil.hasCredentials) {
+            this.AeriesUtil.authenticateAeries().then(() => {
+                this.setState(update(this.state, {insideofgradebook: {$set: this.renderGradebook()}}));
+            });
+        } else if (!(this.state as any).showPopup) {
+            this.setState(update(this.state, {insideofgradebook: {$set: this.renderWelcomeMenu()}}));
+        } else if ((this.state as any).showPopup) {
+            this.setState(update(this.state, {insideofgradebook: {$set: this.renderLoginMenu()}}));
+        }
     }
 
     callbackFunction = (childData) => {
@@ -58,7 +69,7 @@ export class Gradebook extends React.Component {
         event.preventDefault();
     }
 
-    loginMenu() {
+    renderLoginMenu() {
         return (
             <div className='popup'>
                 <div className='popup_inner'>
@@ -74,19 +85,31 @@ export class Gradebook extends React.Component {
         )
     }
 
-    welcomeMenu() {
-        return [
-            <p className="app-message"> Welcome to the Gradebook </p>,
-            <a className="button1" onClick={this.togglePopup.bind(this)}>Login to Aeries</a>
-        ]
+    renderWelcomeMenu() {
+        return (
+            <div>
+                <p className="app-message"> Welcome to the Gradebook </p>,
+                <a className="button1" onClick={this.togglePopup.bind(this)}>Login to Aeries</a>
+            </div>
+        )
+    }
+
+    renderGradebook() {
+        return (
+            <div>
+                <h1>
+                    Welcome {this.AeriesUtil.studentGradebook.currentStudent.name}.
+                </h1>
+            </div>
+        );
     }
 
 
     render() {
         return (
             <div className="app-body">
-                {(this.state as any).showPopup ?
-                    this.loginMenu() : this.welcomeMenu()
+                {
+                    (this.state as any).insideofgradebook
                 }
             </div>
         );
