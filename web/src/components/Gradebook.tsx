@@ -12,7 +12,6 @@ export class Gradebook extends React.Component {
         this.state = {
             show: false,
             showPopup: false,
-            showGradebook: false,
             showtext: 'block',
             insideofgradebook: (<div><h1>Loading...</h1></div>)
         };
@@ -30,23 +29,20 @@ export class Gradebook extends React.Component {
         }
     }
 
-    callbackFunction = (childData) => {
-        this.setState({name: childData})
-    };
 
 
     togglePopup() {
         if ((this.state as any).showtext == 'none') {
             console.log((this.state as any).showtext);
-            this.setState({
-                showPopup: !(this.state as any).showPopup,
-                showtext: 'block'
-            });
+            this.setState(update(this.state, {
+                showPopup: {$set: !(this.state as any).showPopup},
+                showtext: {$set: 'block'}
+            }));
         } else {
-            this.setState({
-                showPopup: !(this.state as any).showPopup,
-                showtext: 'none'
-            });
+            this.setState(update(this.state, {
+                showPopup: {$set: !(this.state as any).showPopup},
+                showtext: {$set: 'none'}
+            }));
         }
 
     }
@@ -74,9 +70,9 @@ export class Gradebook extends React.Component {
             <div className='popup'>
                 <div className='popup_inner'>
                     <form onSubmit={this.loginTest}>
-                        <input placeholder={"Email"} value={(this.state as any).email}
+                        <input placeholder={"Email"}
                                onChange={(e) => (this.setState({email: e.target.value}))}/>
-                        <input placeholder={"Password"} type={'password'} value={(this.state as any).password}
+                        <input placeholder={"Password"} type={'password'}
                                onChange={(e) => (this.setState({password: e.target.value}))}/>
                         <input type="submit" value="Submit"/>
                     </form>
