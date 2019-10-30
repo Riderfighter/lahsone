@@ -7,7 +7,7 @@ export class Gradebook extends React.Component {
     private AeriesUtil = new AeriesUtilities();
     constructor(props: any) {
         super(props);
-        this.loginTest = this.loginTest.bind(this);
+        this.loginToAeries = this.loginToAeries.bind(this);
         this.state = {
             showPopup: false,
             showtext: 'block',
@@ -26,8 +26,7 @@ export class Gradebook extends React.Component {
     }
 
 
-
-    togglePopup() {
+    changeToLogin() {
         this.setState(update(this.state, {
             showPopup: {$set: !(this.state as any).showPopup,},
             showtext: {$set: 'none'},
@@ -35,7 +34,7 @@ export class Gradebook extends React.Component {
         }));
     }
 
-    loginTest(event) {
+    loginToAeries(event) {
         this.AeriesUtil.authenticateAeries((this.state as any).email, (this.state as any).password).then(() => {
                 this.setState(update(this.state, {insideofgradebook: {$set: this.renderGradebook()}}));
             }
@@ -47,7 +46,7 @@ export class Gradebook extends React.Component {
         return (
             <div className='popup'>
                 <div className='popup_inner'>
-                    <form onSubmit={this.loginTest}>
+                    <form onSubmit={this.loginToAeries}>
                         <input placeholder={"Email"}
                                onChange={(e) => (this.setState({email: e.target.value}))}/>
                         <input placeholder={"Password"} type={'password'}
@@ -63,7 +62,7 @@ export class Gradebook extends React.Component {
         return (
             [
                 <p className="app-message"> Welcome to the Gradebook </p>,
-                <a className="button1" onClick={this.togglePopup.bind(this)}>Login to Aeries</a>
+                <a className="button1" onClick={this.changeToLogin.bind(this)}>Login to Aeries</a>
             ]
         )
     }
