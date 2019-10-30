@@ -100,11 +100,11 @@ export default class AeriesUtilities {
                 this.authToken = data.AccessToken;
                 this.studentGradebook.setupStudent(data);
                 this.authenticated = true;
-                this.getClassSummary();
                 if (email !== this.email || password !== this.password) {
                     window.localStorage.setItem("aeriesEmail", email);
                     window.localStorage.setItem("aeriesPassword", password);
                 }
+                return this.getClassSummary();
             }
         });
     }
@@ -146,7 +146,7 @@ export default class AeriesUtilities {
      */
     private getClassSummary() {
         if (this.authenticated) {
-            fetch(`https://mvla.asp.aeries.net/student/mobileapi/v1//student/${this.studentGradebook.currentStudent.studentid}/classsummary`, {
+            return fetch(`https://mvla.asp.aeries.net/student/mobileapi/v1//student/${this.studentGradebook.currentStudent.studentid}/classsummary`, {
                 credentials: "include",
                 headers: {
                     "Authorization": `Bearer ${this.authToken}`
@@ -155,7 +155,7 @@ export default class AeriesUtilities {
                 res.json()
             ).then(data => {
                 this.studentGradebook.setupClasses(data);
-                this.getGradebooks()
+                return this.getGradebooks()
             })
         }
     }
@@ -164,18 +164,21 @@ export default class AeriesUtilities {
      * Fetches gradebook information JSON data
      */
     private getGradebooks() {
-        if (this.authenticated) {
-            // @ts-ignore
-            this.studentGradebook.currentStudent.classes.forEach(studentClass => {
-                fetch(`https://mvla.asp.aeries.net/student/mobileapi/v1/20/student/${this.studentGradebook.currentStudent.studentid}/gradebooks/${studentClass.gradebooknumber}/${studentClass.termcode}`, {
-                    credentials: "include",
-                    headers: {
-                        "Authorization": `Bearer ${this.authToken}`
-                    }
-                }).then(res => res.json()).then(data => {
-                    this.studentGradebook.setupGradebook(data);
-                })
-            });
-        }
+        return new Promise((resolve) => {
+            if (this.authenticated) {
+                // @ts-ignore
+                this.studentGradebook.currentStudent.classes.forEach(studentClass => {
+                    fetch(`https://mvla.asp.aeries.net/student/mobileapi/v1/20/student/${this.studentGradebook.currentStudent.studentid}/gradebooks/${studentClass.gradebooknumber}/${studentClass.termcode}`, {
+                        credentials: "include",
+                        headers: {
+                            "Authorization": `Bearer ${this.authToken}`
+                        }
+                    }).then(res => res.json()).then(data => {
+                        this.studentGradebook.setupGradebook(data);
+                    })
+                });
+            }
+            resolve()
+        })
     }
 }

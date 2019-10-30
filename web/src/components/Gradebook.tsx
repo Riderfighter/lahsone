@@ -5,6 +5,7 @@ import update from 'immutability-helper';
 
 export class Gradebook extends React.Component {
     private AeriesUtil = new AeriesUtilities();
+
     constructor(props: any) {
         super(props);
         this.loginToAeries = this.loginToAeries.bind(this);
