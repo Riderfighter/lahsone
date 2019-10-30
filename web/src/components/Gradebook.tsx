@@ -10,7 +10,6 @@ export class Gradebook extends React.Component {
         this.loginTest = this.loginTest.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
-            show: false,
             showPopup: false,
             showtext: 'block',
             insideofgradebook: (<div><h1>Loading...</h1></div>)
@@ -33,15 +32,15 @@ export class Gradebook extends React.Component {
 
     togglePopup() {
         if ((this.state as any).showtext == 'none') {
-            console.log((this.state as any).showtext);
             this.setState(update(this.state, {
-                showPopup: {$set: !(this.state as any).showPopup},
+                showPopup: {$set: !(this.state as any).showPopup,},
                 showtext: {$set: 'block'}
             }));
         } else {
             this.setState(update(this.state, {
-                showPopup: {$set: !(this.state as any).showPopup},
-                showtext: {$set: 'none'}
+                showPopup: {$set: !(this.state as any).showPopup,},
+                showtext: {$set: 'none'},
+                insideofgradebook: {$set: this.renderLoginMenu()}
             }));
         }
 
@@ -52,16 +51,10 @@ export class Gradebook extends React.Component {
     }
 
     loginTest(event) {
-        if (this.AeriesUtil.hasCredentials) {
-            this.AeriesUtil.authenticateAeries().then(() => {
-                console.log(this.AeriesUtil.studentGradebook.currentStudent);
-            })
-        } else {
-            this.AeriesUtil.authenticateAeries((this.state as any).email, (this.state as any).password).then(() => {
-                    console.log(this.AeriesUtil.studentGradebook.currentStudent);
-                }
-            );
-        }
+        this.AeriesUtil.authenticateAeries((this.state as any).email, (this.state as any).password).then(() => {
+                this.setState(update(this.state, {insideofgradebook: {$set: this.renderGradebook()}}));
+            }
+        );
         event.preventDefault();
     }
 
