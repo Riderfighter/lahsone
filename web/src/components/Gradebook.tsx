@@ -28,19 +28,11 @@ export class Gradebook extends React.Component {
 
 
     togglePopup() {
-        if ((this.state as any).showtext == 'none') {
-            this.setState(update(this.state, {
-                showPopup: {$set: !(this.state as any).showPopup,},
-                showtext: {$set: 'block'}
-            }));
-        } else {
-            this.setState(update(this.state, {
-                showPopup: {$set: !(this.state as any).showPopup,},
-                showtext: {$set: 'none'},
-                insideofgradebook: {$set: this.renderLoginMenu()}
-            }));
-        }
-
+        this.setState(update(this.state, {
+            showPopup: {$set: !(this.state as any).showPopup,},
+            showtext: {$set: 'none'},
+            insideofgradebook: {$set: this.renderLoginMenu()}
+        }));
     }
 
     loginTest(event) {
