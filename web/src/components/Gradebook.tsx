@@ -22,8 +22,6 @@ export class Gradebook extends React.Component {
             });
         } else if (!(this.state as any).showPopup) {
             this.setState(update(this.state, {insideofgradebook: {$set: this.renderWelcomeMenu()}}));
-        } else if ((this.state as any).showPopup) {
-            this.setState(update(this.state, {insideofgradebook: {$set: this.renderLoginMenu()}}));
         }
     }
 
