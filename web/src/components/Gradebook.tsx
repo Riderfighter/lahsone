@@ -8,7 +8,6 @@ export class Gradebook extends React.Component {
     constructor(props: any) {
         super(props);
         this.loginTest = this.loginTest.bind(this);
-        this.handleChange = this.handleChange.bind(this);
         this.state = {
             showPopup: false,
             showtext: 'block',
@@ -46,10 +45,6 @@ export class Gradebook extends React.Component {
 
     }
 
-    handleChange(event) {
-        this.setState({value: event.target.value});
-    }
-
     loginTest(event) {
         this.AeriesUtil.authenticateAeries((this.state as any).email, (this.state as any).password).then(() => {
                 this.setState(update(this.state, {insideofgradebook: {$set: this.renderGradebook()}}));
@@ -76,20 +71,18 @@ export class Gradebook extends React.Component {
 
     renderWelcomeMenu() {
         return (
-            <div>
+            [
                 <p className="app-message"> Welcome to the Gradebook </p>,
                 <a className="button1" onClick={this.togglePopup.bind(this)}>Login to Aeries</a>
-            </div>
+            ]
         )
     }
 
     renderGradebook() {
         return (
-            <div>
-                <h1>
-                    Welcome {this.AeriesUtil.studentGradebook.currentStudent.name}.
-                </h1>
-            </div>
+            <h1>
+                Welcome {this.AeriesUtil.studentGradebook.currentStudent.name}.
+            </h1>
         );
     }
 
