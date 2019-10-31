@@ -164,21 +164,20 @@ export default class AeriesUtilities {
      * Fetches gradebook information JSON data
      */
     private getGradebooks() {
-        return new Promise((resolve) => {
-            if (this.authenticated) {
-                // @ts-ignore
-                this.studentGradebook.currentStudent.classes.forEach(studentClass => {
-                    fetch(`https://mvla.asp.aeries.net/student/mobileapi/v1/20/student/${this.studentGradebook.currentStudent.studentid}/gradebooks/${studentClass.gradebooknumber}/${studentClass.termcode}`, {
-                        credentials: "include",
-                        headers: {
-                            "Authorization": `Bearer ${this.authToken}`
-                        }
-                    }).then(res => res.json()).then(data => {
-                        this.studentGradebook.setupGradebook(data);
-                    })
-                });
-            }
-            resolve()
-        })
+        if (this.authenticated) {
+            let listofpromises: Array<Promise<void>> = [];
+            // @ts-ignore
+            this.studentGradebook.currentStudent.classes.forEach(studentClass => {
+                listofpromises.push(fetch(`https://mvla.asp.aeries.net/student/mobileapi/v1/20/student/${this.studentGradebook.currentStudent.studentid}/gradebooks/${studentClass.gradebooknumber}/${studentClass.termcode}`, {
+                    credentials: "include",
+                    headers: {
+                        "Authorization": `Bearer ${this.authToken}`
+                    }
+                }).then(res => res.json()).then(data => {
+                    this.studentGradebook.setupGradebook(data);
+                }))
+            });
+            return Promise.all(listofpromises);
+        }
     }
 }
