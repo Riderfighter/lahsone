@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/Gradebook.scss";
+import "../styles/AjaxSpinner.scss"
 import AeriesUtilities from "../common/Aeries";
 import update from 'immutability-helper';
 
@@ -12,7 +13,22 @@ export class Gradebook extends React.Component {
         this.state = {
             showPopup: false,
             showtext: 'block',
-            insideofgradebook: (<div><h1>Loading...</h1></div>)
+            insideofgradebook: (<div style={{display: "flex", alignItems: "center", flexFlow: "column"}}>
+                <div className="lds-spinner">
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                </div>
+                <h1>Please Patient Yourself.</h1></div>)
         };
     }
 
