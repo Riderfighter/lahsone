@@ -28,7 +28,7 @@ export class Gradebook extends React.Component {
                     <div/>
                     <div/>
                 </div>
-                <h1>Please Patient Yourself.</h1></div>)
+                <h2>Please be patient.</h2></div>)
         };
     }
 
@@ -84,12 +84,28 @@ export class Gradebook extends React.Component {
         )
     }
 
+    getColor(value) {
+        //value from 0 to 1
+        var hue = ((value) * 120).toString(10);
+        return ["hsla(", hue, ",100%,50%, 0.3)"].join("");
+    }
+
     renderGradebook() {
-        return (
-            <h1>
-                Welcome {this.AeriesUtil.studentGradebook.currentStudent.name}.
-            </h1>
-        );
+        return [
+            <ul className="gradebook-list">
+                {this.AeriesUtil.studentGradebook.currentStudent.classes.map((Class) => <li className="gradebook-entry"
+                                                                                            style={{
+                                                                                                backgroundColor: this.getColor(Class.gradepercent / 100),
+                                                                                                height: `calc(100%/${this.AeriesUtil.studentGradebook.currentStudent.classes.length})`,
+                                                                                                alignItems: "center",
+                                                                                                justifyContent: "center"
+                                                                                            }}>
+                    <div style={{justifySelf: "left", width: "100%", padding: "5px"}}>{Class.classname}</div>
+                    <div style={{justifySelf: "center", width: "100%", padding: "5px"}}>{`${Class.grade}`}</div>
+                    <div style={{justifySelf: "right", width: "100%", padding: "5px"}}>{`${Class.gradepercent}%`}</div>
+                </li>)}
+            </ul>
+        ];
     }
 
 

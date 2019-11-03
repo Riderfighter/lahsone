@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/NavigationBar.scss"
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import "./Theme";
 import Theme from "./Theme";
 
@@ -107,67 +107,71 @@ export class NavigationBar extends React.Component
         }
 
         return (
-            <div className="navigation-bar" style={{background: Theme.Background}}>
-                <svg version="1.1" width={(this.state as any).width} height={(this.state as any).height * 0.2}>
-                    <defs>
-                        {/** Selected tab gradient */}
-                        <linearGradient id="NavBarGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%"   stopColor={Theme.Background + "00"} opacity="0%"/>
-                            <stop offset="50%" stopColor={Theme.Background}/>
-                        </linearGradient>
-                        
-                        {/** Unselected tab shadow */}
-                        <filter id="NavBarUnselectedTab" x="0" y="-1.5vh" width={(this.state as any).width} height="300%">
-                            {/** see https://www.desmos.com/calculator/x6gt6cuc8g */}
-                            <feDropShadow stdDeviation={Math.sqrt(0.431506 * window.innerHeight) + 1.30962} floodOpacity="0.075"/>
-                        </filter>
-                    </defs>
+            <svg version="1.1" width={(this.state as any).width} height={(this.state as any).height * 0.2}
+                 style={{position: "fixed", bottom: "-3px"}}>
+                <defs>
+                    {/** Selected tab gradient */}
+                    <linearGradient id="NavBarGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor={Theme.Background + "00"} opacity="0%"/>
+                        <stop offset="50%" stopColor={Theme.Background}/>
+                    </linearGradient>
 
-                    <rect fill={Theme.Background} width={(this.state as any).width} height="25vh" y={this.baseHeight()} filter="url(#NavBarUnselectedTab)"/>
+                    {/** Unselected tab shadow */}
+                    <filter id="NavBarUnselectedTab" x="0" y="-1.5vh" width={(this.state as any).width} height="300%">
+                        {/** see https://www.desmos.com/calculator/x6gt6cuc8g */}
+                        <feDropShadow stdDeviation={Math.sqrt(0.431506 * window.innerHeight) + 1.30962}
+                                      floodOpacity="0.075"/>
+                    </filter>
+                </defs>
 
-                    {/** Button 1 */}
-                    <Link to="/Announcements" onClick={() => NavigationBar.setSelectedTab(0)}>
-                        <g>
-                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight()}/>
-                            
-                            {/** Announcements Icon */}
-                            <circle cx={this.getTabSize() * 0.5} cy={this.baseHeight() * 2} r='3.75vh' fill='#7185C3' />
-                        </g>
-                    </Link>
-                    {/** Button 2 */}
-                    <Link to="/Schedule" onClick={() => NavigationBar.setSelectedTab(1)}>
-                        <g>
-                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight()} x={this.getTabSize() * 1}/>
-                        
-                            {/** Bell Schedule Icon */}
-                            <circle cx={this.getTabSize() * 1.5} cy={this.baseHeight() * 2} r='3.75vh' fill='#74A863'/>
-                        </g>
-                    </Link>
+                <rect fill={Theme.Background} width={(this.state as any).width} height="25vh" y={this.baseHeight()}
+                      filter="url(#NavBarUnselectedTab)"/>
 
-                    {/** Button 3 */}
-                    <Link to="/Gradebook" onClick={() => NavigationBar.setSelectedTab(2)}>
-                        <g>
-                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight()} x={this.getTabSize() * 2}/>
-                            
-                            {/** Grades Icon */}
-                            <circle cx={this.getTabSize() * 2.5} cy={this.baseHeight() * 2} r='3.75vh' fill='#ECC460'/>
-                        </g>
-                    </Link>
+                {/** Button 1 */}
+                <Link to="/Announcements" onClick={() => NavigationBar.setSelectedTab(0)}>
+                    <g>
+                        <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight()}/>
 
-                    {/** Button 4 */}
-                    <Link to="/Appointments" onClick={() => NavigationBar.setSelectedTab(3)}>
-                        <g>
-                            <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight()} x={this.getTabSize() * 3}/>
-                            
-                            {/** Appointments Icon */}
-                            <circle cx={this.getTabSize() * 3.5} cy={this.baseHeight() * 2} r='3.75vh' fill='#CB4B4D'/>
-                        </g>
-                    </Link>
+                        {/** Announcements Icon */}
+                        <circle cx={this.getTabSize() * 0.5} cy={this.baseHeight() * 2} r='3.75vh' fill='#7185C3'/>
+                    </g>
+                </Link>
+                {/** Button 2 */}
+                <Link to="/Schedule" onClick={() => NavigationBar.setSelectedTab(1)}>
+                    <g>
+                        <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight()}
+                              x={this.getTabSize() * 1}/>
 
-                    {/** Selected Tab */}
-                    <path d={this.generateNavBar()} fill="url(#NavBarGradient)"/>
-                </svg>
-            </div>
+                        {/** Bell Schedule Icon */}
+                        <circle cx={this.getTabSize() * 1.5} cy={this.baseHeight() * 2} r='3.75vh' fill='#74A863'/>
+                    </g>
+                </Link>
+
+                {/** Button 3 */}
+                <Link to="/Gradebook" onClick={() => NavigationBar.setSelectedTab(2)}>
+                    <g>
+                        <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight()}
+                              x={this.getTabSize() * 2}/>
+
+                        {/** Grades Icon */}
+                        <circle cx={this.getTabSize() * 2.5} cy={this.baseHeight() * 2} r='3.75vh' fill='#ECC460'/>
+                    </g>
+                </Link>
+
+                {/** Button 4 */}
+                <Link to="/Appointments" onClick={() => NavigationBar.setSelectedTab(3)}>
+                    <g>
+                        <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight()}
+                              x={this.getTabSize() * 3}/>
+
+                        {/** Appointments Icon */}
+                        <circle cx={this.getTabSize() * 3.5} cy={this.baseHeight() * 2} r='3.75vh' fill='#CB4B4D'/>
+                    </g>
+                </Link>
+
+                {/** Selected Tab */}
+                <path d={this.generateNavBar()} fill="url(#NavBarGradient)"/>
+            </svg>
         );
     }
 }
