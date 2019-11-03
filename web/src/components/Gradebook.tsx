@@ -90,19 +90,49 @@ export class Gradebook extends React.Component {
         return ["hsla(", hue, ",100%,50%, 0.3)"].join("");
     }
 
+    calcPercentage(Class, withPercent: boolean = false) {
+        if (Class.gradepercent == 0 && Class.grade != "") {
+            let totalpoints = 0;
+            let actualpoints = 0;
+            Class.gradebook.forEach(category => {
+                category.assignments.forEach(assignment => {
+                    if (assignment.isgraded) {
+                        totalpoints += assignment.maxscore;
+                        actualpoints += assignment.score;
+                    }
+                })
+            });
+            if (!withPercent)
+                return ((actualpoints / totalpoints) * 100).toFixed(1);
+            return `${((actualpoints / totalpoints) * 100).toFixed(1)}%`
+        }
+        if (Class.grade == "") {
+            if (!withPercent)
+                return;
+            return "N/A"
+        }
+        if (!withPercent)
+            return Class.gradepercent;
+        return `${Class.gradepercent}%`
+    }
+
     renderGradebook() {
         return [
             <ul className="gradebook-list">
                 {this.AeriesUtil.studentGradebook.currentStudent.classes.map((Class) => <li className="gradebook-entry"
                                                                                             style={{
-                                                                                                backgroundColor: this.getColor(Class.gradepercent / 100),
+                                                                                                backgroundColor: this.getColor(this.calcPercentage(Class) / 100),
                                                                                                 height: `calc(100%/${this.AeriesUtil.studentGradebook.currentStudent.classes.length})`,
                                                                                                 alignItems: "center",
                                                                                                 justifyContent: "center"
                                                                                             }}>
                     <div style={{justifySelf: "left", width: "100%", padding: "5px"}}>{Class.classname}</div>
-                    <div style={{justifySelf: "center", width: "100%", padding: "5px"}}>{`${Class.grade}`}</div>
-                    <div style={{justifySelf: "right", width: "100%", padding: "5px"}}>{`${Class.gradepercent}%`}</div>
+                    <div style={{justifySelf: "center", width: "100%", padding: "5px"}}>{Class.grade}</div>
+                    <div style={{
+                        justifySelf: "right",
+                        width: "100%",
+                        padding: "5px"
+                    }}>{this.calcPercentage(Class, true)}</div>
                 </li>)}
             </ul>
         ];
