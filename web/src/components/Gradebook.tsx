@@ -13,7 +13,7 @@ export class Gradebook extends React.Component {
         this.state = {
             showPopup: false,
             showtext: 'block',
-            insideofgradebook: (<div style={{display: "flex", alignItems: "center", flexFlow: "column"}}>
+            insideofgradebook: (
                 <div className="lds-spinner">
                     <div/>
                     <div/>
@@ -27,8 +27,7 @@ export class Gradebook extends React.Component {
                     <div/>
                     <div/>
                     <div/>
-                </div>
-            </div>)
+                </div>)
         };
     }
 
@@ -86,7 +85,7 @@ export class Gradebook extends React.Component {
 
     getColor(value) {
         //value from 0 to 1
-        var hue = ((value) * 120).toString(10);
+        var hue = (value * 100).toString(10);
         return ["hsla(", hue, ",100%,50%, 0.3)"].join("");
     }
 
@@ -112,8 +111,8 @@ export class Gradebook extends React.Component {
             return "N/A"
         }
         if (!withPercent)
-            return Class.gradepercent;
-        return `${Class.gradepercent}%`
+            return Class.gradepercent.toFixed(1);
+        return `${Class.gradepercent.toFixed(1)}%`
     }
 
     renderGradebook() {
@@ -121,7 +120,7 @@ export class Gradebook extends React.Component {
             <ul className="gradebook-list">
                 {this.AeriesUtil.studentGradebook.currentStudent.classes.map((Class) => <li className="gradebook-entry"
                                                                                             style={{
-                                                                                                backgroundColor: this.getColor(this.calcPercentage(Class) / 100),
+                                                                                                backgroundColor: this.getColor((this.calcPercentage(Class) / 100).toFixed(1)),
                                                                                                 height: `calc(100%/${this.AeriesUtil.studentGradebook.currentStudent.classes.length})`,
                                                                                                 alignItems: "center",
                                                                                                 justifyContent: "center"
