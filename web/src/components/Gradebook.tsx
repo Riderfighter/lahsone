@@ -28,7 +28,7 @@ export class Gradebook extends React.Component {
                     <div/>
                     <div/>
                 </div>
-                <h2>Please be patient.</h2></div>)
+            </div>)
         };
     }
 
