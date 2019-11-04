@@ -7,7 +7,7 @@
     "default_popup": "index.html",
     "default_title": "lahsone"
   },
-  "version": "1.0",
+  "version": "0.0.0.1",
   "permissions": [
     "*://mvla.asp.aeries.net/*",
     "*://bell.plus/*",
