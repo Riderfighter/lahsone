@@ -11,6 +11,7 @@
   "permissions": [
     "*://mvla.asp.aeries.net/*",
     "*://bell.plus/*",
+    "*://announcements.catapultcms.com/*",
     "webRequest",
     "webRequestBlocking"
   ],

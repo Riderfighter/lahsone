@@ -1,24 +1,68 @@
 import React from "react";
 import '../styles/Announcements.scss';
 import Theme from "./Theme";
-import dateFormat from "dateformat";
+import LAHSAnnouncements from "../common/LAHSAnnouncements";
+import update from 'immutability-helper';
 
 
 export class Announcements extends React.Component
 {
+    private announcements = new LAHSAnnouncements();
+
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            announcementbody: (
+                <div className="lds-spinner">
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                </div>)
+        };
+    }
+
+    componentDidMount(): void {
+        this.announcements.getAnnouncements().then(data => {
+            let newannouncementbody: JSX.Element[] = [];
+            data.forEach(json => {
+                newannouncementbody.push(<div className="announcement-body">
+                    <h1 className="announcement-title" style={{color: "#ffffff"}}>
+                        {json.HRMarkAsPriority ? json.HRPriorityStartDate : json.HRPostDate}
+                    </h1>
+                    <p className="announcement-message" style={{color: Theme.Content}}
+                       dangerouslySetInnerHTML={{__html: json.Description}}/>
+                </div>)
+            });
+            this.setState(update(this.state, {
+                announcementbody: {
+                    $set: <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        width: "100%",
+                        height: "100%",
+                        overflowY: "scroll"
+                    }}>{newannouncementbody}</div>
+                }
+            }))
+        })
+    }
+
     render()
     {
         return (
             <div className="app-body">
-                <div className="announcement-body">
-                    <h1 className="announcement-title" style={{color: "#ffffff"}}>
-                        {dateFormat(new Date(), "mm/dd/yy")}
-                        <b className="fa fa-angle-right"/>
-                    </h1>
-                    <p className="announcement-message" style={{color: Theme.Content}}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div>
+                {
+                    (this.state as any).announcementbody
+                }
             </div>
         );
     }

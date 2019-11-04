@@ -18,7 +18,10 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
             });
         return {requestHeaders: headers};
     },
-    {urls: ['*://mvla.asp.aeries.net/*', '*://bell.plus/*'], types: ["xmlhttprequest"]},
+    {
+        urls: ['*://mvla.asp.aeries.net/*', '*://bell.plus/*', '*://announcements.catapultcms.com/*'],
+        types: ["xmlhttprequest"]
+    },
     ['blocking', 'requestHeaders']
 );
 
@@ -28,6 +31,9 @@ chrome.webRequest.onHeadersReceived.addListener(
         details.responseHeaders.push({name: 'Access-Control-Allow-Credentials', value: 'true'});
         return {responseHeaders: details.responseHeaders}
     },
-    {urls: ['*://mvla.asp.aeries.net/*', '*://bell.plus/*'], types: ["xmlhttprequest"]},
+    {
+        urls: ['*://mvla.asp.aeries.net/*', '*://bell.plus/*', '*://announcements.catapultcms.com/*'],
+        types: ["xmlhttprequest"]
+    },
     ['blocking', 'responseHeaders']
 );

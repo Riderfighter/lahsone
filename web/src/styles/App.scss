@@ -22,13 +22,13 @@ section {
   display: flex;
   flex-flow: column;
   justify-content: center;
-  align-items: center;
 
   .app-message {
     font: normal 10vw "Josefin Sans";
     text-align: center;
     margin-top: 0;
     margin-bottom: 0;
+    align-self: center;
 
     .logo-one {
       color: black;
@@ -43,6 +43,7 @@ section {
     padding-top: 5px;
     width: 75%;
     text-align: center;
+    align-self: center;
   }
 }
 

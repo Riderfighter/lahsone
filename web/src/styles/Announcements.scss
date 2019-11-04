@@ -3,11 +3,11 @@
 .announcement-body {
   display: flex;
   flex-flow: column;
-  height: 90%;
   width: 80%;
   font: lighter 3.25vw "Roboto Mono";
   border-radius: 4px;
   justify-content: center;
+  margin: 10px auto;
   box-shadow: 0 0 5px 4px rgba(0, 0, 0, 0.02);
   .announcement-title {
     margin: 0;
@@ -38,6 +38,5 @@
     font-size: 4.5vw;
     height: 100%;
     text-align: left;
-    overflow-y: scroll;
   }
 }
