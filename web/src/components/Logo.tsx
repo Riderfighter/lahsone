@@ -9,7 +9,7 @@ export class Logo extends React.Component<React.SVGProps<SVGSVGElement>>
     {
         return (
             <Link to="/" onClick={() => NavigationBar.setSelectedTab(-2)}>
-                <svg version="1.1" viewBox="15 15 150 70" height="20vh" fill="none" stroke="none" strokeLinecap="square"
+                <svg version="1.1" viewBox="15 15 150 70" height="10vh" fill="none" stroke="none" strokeLinecap="square"
                      strokeMiterlimit="10" xmlns="http://www.w3.org/2000/svg">
                     <g>
                         <path fill={Theme.Logo}
