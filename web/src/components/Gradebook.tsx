@@ -6,28 +6,28 @@ import update from 'immutability-helper';
 
 export class Gradebook extends React.Component {
     private AeriesUtil = new AeriesUtilities();
-
+    private spinner = (
+        <div className="lds-spinner">
+            <div/>
+            <div/>
+            <div/>
+            <div/>
+            <div/>
+            <div/>
+            <div/>
+            <div/>
+            <div/>
+            <div/>
+            <div/>
+            <div/>
+        </div>);
     constructor(props: any) {
         super(props);
         this.loginToAeries = this.loginToAeries.bind(this);
         this.state = {
             showPopup: false,
             showtext: 'block',
-            insideofgradebook: (
-                <div className="lds-spinner">
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                    <div/>
-                </div>)
+            insideofgradebook: this.spinner
         };
     }
 
@@ -51,6 +51,7 @@ export class Gradebook extends React.Component {
     }
 
     loginToAeries(event) {
+        this.setState(update(this.state, {insideofgradebook: {$set: this.spinner}}));
         this.AeriesUtil.authenticateAeries((this.state as any).email, (this.state as any).password).then(() => {
                 this.setState(update(this.state, {insideofgradebook: {$set: this.renderGradebook()}}));
             }
@@ -77,7 +78,6 @@ export class Gradebook extends React.Component {
     renderWelcomeMenu() {
         return (
             [
-                <p className="app-message"> Welcome to the Gradebook </p>,
                 <a className="button1" onClick={this.changeToLogin.bind(this)}>Login to Aeries</a>
             ]
         )

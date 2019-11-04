@@ -13,6 +13,4 @@ export default class Utilities {
     selectGreeting() {
         return this.possibleGreetings[Math.floor(Math.random() * this.possibleGreetings.length)];
     };
-
-    private Hi = () => {};
 }
