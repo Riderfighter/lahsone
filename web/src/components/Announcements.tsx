@@ -33,7 +33,7 @@ export class Announcements extends React.Component
     componentDidMount(): void {
         this.announcements.getAnnouncements().then(data => {
             let newannouncementbody: JSX.Element[] = [];
-            data.forEach(json => {
+            data["PostList"].forEach(json => {
                 newannouncementbody.push(<div className="announcement-body">
                     <h1 className="announcement-title" style={{color: "#ffffff"}}>
                         {json.HRMarkAsPriority ? json.HRPriorityStartDate : json.HRPostDate}

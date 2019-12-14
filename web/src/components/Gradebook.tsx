@@ -52,10 +52,16 @@ export class Gradebook extends React.Component {
 
     loginToAeries(event) {
         this.setState(update(this.state, {insideofgradebook: {$set: this.spinner}}));
-        this.AeriesUtil.authenticateAeries((this.state as any).email, (this.state as any).password).then(() => {
-                this.setState(update(this.state, {insideofgradebook: {$set: this.renderGradebook()}}));
-            }
-        );
+        try {
+            this.AeriesUtil.authenticateAeries((this.state as any).email, (this.state as any).password).then(() => {
+                    this.setState(update(this.state, {insideofgradebook: {$set: this.renderGradebook()}}));
+                }
+            ).catch((e) => {
+                this.changeToLogin()
+            });
+        } catch (e) {
+            this.changeToLogin()
+        }
         event.preventDefault();
     }
 
@@ -68,7 +74,7 @@ export class Gradebook extends React.Component {
                                onChange={(e) => (this.setState({email: e.target.value}))}/>
                         <input placeholder={"Password"} type={'password'}
                                onChange={(e) => (this.setState({password: e.target.value}))}/>
-                        <input type="submit" value="Submit"/>
+                        <input className="button1" type="submit" value="Submit"/>
                     </form>
                 </div>
             </div>
@@ -85,8 +91,8 @@ export class Gradebook extends React.Component {
 
     getColor(value) {
         //value from 0 to 1
-        var hue = (value * 100).toString(10);
-        return ["hsla(", hue, ",100%,50%, 0.3)"].join("");
+        let hue = (value * 100);
+        return `hsla(${hue}, 100% ,50%, 0.3)`;
     }
 
     calcPercentage(Class, withPercent: boolean = false) {

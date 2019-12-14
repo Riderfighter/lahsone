@@ -32,6 +32,7 @@
   }
   .announcement-message {
     color: rgb(67, 67, 67);
+    user-select: text;
     margin: 4% 0;
     padding: 0 4%;
     font-family: "Karla", serif;

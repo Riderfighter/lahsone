@@ -94,8 +94,8 @@ export default class AeriesUtilities {
             },
             body: postBody
         }).then(r => r.json()).then(data => {
-            if (data.hasOwnProperty("success")) {
-                this.authenticated = false;
+            if ("success" in data) {
+                throw new Error(data["error"]);
             } else {
                 this.authToken = data.AccessToken;
                 this.studentGradebook.setupStudent(data);

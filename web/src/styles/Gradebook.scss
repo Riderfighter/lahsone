@@ -25,13 +25,29 @@ input {
   background-color: rgb(243, 243, 243);
   border: none;
   padding: 4px 10px;
-  text-align:center;
+  text-align: center;
+  font-family: Roboto, sans-serif;
+  font-weight: 300;
   border-bottom: 1px solid rgba(113, 133, 195, 0.95);
   display: block;
+  margin-top: 4px;
   margin-right: auto;
   margin-left: auto;
   outline: none;
   cursor: pointer;
+
+  &[type=submit] {
+    color: rgba(113, 133, 195, 0.95);
+    padding: .35em 1.2em;
+    text-align: center;
+    border: 0.1em solid rgba(113, 133, 195, 0.95);
+  }
+
+  &[type=submit]:hover {
+    color: rgba(113, 133, 195, 0.95);
+    background: rgb(243, 243, 243);
+    cursor: pointer;
+  }
 }
 
 #hide{
@@ -45,7 +61,8 @@ input {
 .gradebook-list {
   flex: 1;
   width: 75%;
-  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  max-height: 60vh;
+  box-shadow: 0 0 5px 4px rgba(0, 0, 0, .02);
   margin: auto;
   padding: 0;
 
