@@ -29,7 +29,6 @@ export class Schedule extends React.Component
     {
         fetch(`http://bell.plus/api/data/lahs/${name}`).then(r => r.text()).then(txt =>
         {
-            console.log(txt);
             this.bellData[name] = txt;
             if (this.bellData.schedules !== undefined
                 && this.bellData.calendar !== undefined
@@ -141,7 +140,8 @@ export class Schedule extends React.Component
                         </text>
 
                         {/** Schedule Name */}
-                        <text x="3.5" y="11.5" fill={Theme.Content} fontFamily="Karla" fontSize="1" fontStyle="italic" alignmentBaseline="hanging">
+                        <text x="3.5" y="12.5" fill={Theme.Content} fontFamily="Karla" fontSize="1" fontStyle="italic"
+                              alignmentBaseline="hanging">
                             {(this.state as any).period.schedule.name}
                         </text>
                     </svg>

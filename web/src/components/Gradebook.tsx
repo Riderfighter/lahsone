@@ -90,9 +90,37 @@ export class Gradebook extends React.Component {
     }
 
     getColor(value) {
+        console.log(value);
         //value from 0 to 1
-        let hue = (value * 100);
-        return `hsla(${hue}, 100% ,50%, 0.3)`;
+        // let hue = (value * 100);
+        // return `hsla(${hue}, 100% ,50%, 0.3)`;
+        let percentColors = [
+            {pct: 0.0, color: {r: 0xff, g: 0x00, b: 0}},
+            {pct: 0.5, color: {r: 0xff, g: 0xff, b: 0}},
+            {pct: 1.0, color: {r: 0x00, g: 0xff, b: 0}}
+        ];
+
+        let i = 1;
+        for (i; i < percentColors.length - 1; i++) {
+            if (value < percentColors[i].pct) {
+                break;
+            }
+        }
+        let lower = percentColors[i - 1];
+        let upper = percentColors[i];
+        let range = upper.pct - lower.pct;
+        let rangePct = (value - lower.pct) / range;
+        let pctLower = 1 - rangePct;
+        let pctUpper = rangePct;
+        let color = {
+            r: Math.floor(lower.color.r * pctLower + upper.color.r * pctUpper),
+            g: Math.floor(lower.color.g * pctLower + upper.color.g * pctUpper),
+            b: Math.floor(lower.color.b * pctLower + upper.color.b * pctUpper)
+        };
+        let output = `rgba(${[color.r, color.g, color.b].join(',')}, 0.3)`;
+        console.log(output);
+        return output;
+        // or output as hex if preferred
     }
 
     calcPercentage(Class, withPercent: boolean = false) {

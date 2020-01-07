@@ -17,11 +17,11 @@ export default class LAHSAnnouncements {
     private static getDay() {
         const monthArray: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         let temp = new Date();
-        return encodeURI(`${monthArray[temp.getMonth() - 1]} ${temp.getDay()}, ${temp.getFullYear()}`);
+        return encodeURI(`${monthArray[temp.getMonth()]} ${temp.getDate()}, ${temp.getFullYear()}`);
     }
 
     public getAnnouncements() {
-        return fetch(`https://announcements.catapultcms.com/Connector/Post/PagedSearch/1/!!blank!!/!!blank!!/!!all!!/!!all!!/802/!!all!!/!!all!!/!!all!!/${LAHSAnnouncements.getDay()}/10/false/false?timestamp=${LAHSAnnouncements.getDate()}`, {
+        return fetch(`https://announcements.catapultcms.com/Connector/Post/PagedSearch/1/!!blank!!/!!blank!!/!!all!!/!!all!!/802/!!all!!/!!all!!/!!all!!/${LAHSAnnouncements.getDay()}/10/false/false/false?timestamp=${LAHSAnnouncements.getDate()}`, {
             headers: {
                 "CatapultHeaderAuthToken": this.authToken
             }

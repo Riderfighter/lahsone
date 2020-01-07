@@ -5,14 +5,11 @@
  */
 export function parseDate(str: string, european: boolean = true): Date
 {
-    const slash1 = str.indexOf('/');
-    const slash2 = str.indexOf('/', slash1 + 1);
-
-    const dd = parseInt(str.substring(0, slash1));
-    const mm = parseInt(str.substring(slash1 + 1, slash2));
-    const yyyy = parseInt(str.substring(slash2 + 1));
-
-    return european ? new Date(yyyy, mm, dd) : new Date(yyyy, dd, mm);
+    const parts = str.split("/");
+    const year = parseInt(parts[2], 10);
+    const day = parseInt(parts[1], 10);
+    const month = parseInt(parts[0], 10) - 1;
+    return european ? new Date(year, day, month) : new Date(year, month, day);
 }
 
 /**
