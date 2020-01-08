@@ -174,8 +174,8 @@ export class TimeSpan
 
     toString()
     {
-        return (this.h === 0 ? "" : this.h + ":")
-            + this.m.toString().padStart(2, '0') + ":"
-            + this.s.toString().padStart(2, '0');
+        return (this.h <= 0 ? "" : this.h + ":")
+            + Math.max(this.m % 60, 0).toString().padStart(2, '0') + ":"
+            + Math.max(this.s % 60, 0).toString().padStart(2, '0');
     }
 }
