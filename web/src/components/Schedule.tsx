@@ -109,6 +109,23 @@ export class Schedule extends React.Component
         });
     }
 
+    private schedulePie(percent: number) : string
+    {
+        let radius = 10.2;
+
+        // percent --> degree
+        percent *= 360 / 100;
+        percent %= 360;
+
+        console.log(percent);
+
+        var r = ( percent * Math.PI / 180 );
+        var x = Math.sin( r ) * radius;
+        var y = Math.cos( r ) * - radius;
+        var mid = ( percent > 180 ) ? 1 : 0;
+        return`M 0 0 v ${-radius} A ${radius} ${radius} 1 ` + mid + ' 1 ' +  x  + ' ' +  y  + ' z';
+    }
+
     render()
     {
         if (!this.stream)
@@ -127,7 +144,8 @@ export class Schedule extends React.Component
 
                         {/** Percentage Pie */}
                         <circle r="10" cx="10" cy="10" fill={Theme.SchedulePie} filter="url(#SchedulePieShadow)"/>
-                        <circle r="5.1" cx="10" cy="10" fill="transparent" stroke={Theme.Background} strokeWidth="10" strokeDasharray={((this.state as any).period.percent(new Date()) * Math.PI / 10) + " " + (Math.PI * 10)} transform="rotate(-90) translate(-20)" />
+                        {/*<circle r="5.1" cx="10" cy="10" fill="transparent" stroke={Theme.Background} strokeWidth="10" strokeDasharray={((this.state as any).period.percent(new Date()) * Math.PI / 10) + " " + (Math.PI * 10)} transform="rotate(-90) translate(-20)" />*/}
+                        <path transform="translate(10, 10)" fill={Theme.Background} d={this.schedulePie((this.state as any).period.percent(new Date()))}/>
 
                         {/** Time Left */}
                         <text x="10" y="10" fill={Theme.Title} fontFamily="Karla" fontWeight="bold" fontSize="3" textAnchor="middle">
