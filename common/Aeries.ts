@@ -154,8 +154,11 @@ export default class AeriesUtilities {
             }).then(res =>
                 res.json()
             ).then(data => {
-                this.studentGradebook.setupClasses(data);
-                return this.getGradebooks()
+                if (data) {
+                    this.studentGradebook.setupClasses(data);
+                    return this.getGradebooks()
+                }
+                throw new Error("School gradebook is currently closed.")
             })
         }
     }

@@ -35,6 +35,12 @@ export class Gradebook extends React.Component {
         if (this.AeriesUtil.hasCredentials) {
             this.AeriesUtil.authenticateAeries().then(() => {
                 this.setState(update(this.state, {insideofgradebook: {$set: this.renderGradebook()}}));
+            }).catch(() => {
+                this.setState(update(this.state, {
+                    insideofgradebook: {
+                        $set: <div className="app-message">School gradebook is currently closed.</div>
+                    }
+                }))
             });
         } else if (!(this.state as any).showPopup) {
             this.setState(update(this.state, {insideofgradebook: {$set: this.renderWelcomeMenu()}}));

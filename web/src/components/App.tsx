@@ -10,7 +10,6 @@ import {NavigationBar} from './NavigationBar';
 import {Announcements} from './Announcements';
 import {Schedule} from './Schedule';
 import {Gradebook} from './Gradebook';
-import {Appointments} from './Appointments';
 import Theme from './Theme';
 
 const App: React.FC = () => {
@@ -32,9 +31,9 @@ const App: React.FC = () => {
                         <Route path="/Gradebook">
                             <Gradebook/>
                         </Route>
-                        <Route path="/Appointments">
-                            <Appointments/>
-                        </Route>
+                        {/*<Route path="/Appointments">*/}
+                        {/*    <Appointments/>*/}
+                        {/*</Route>*/}
                     </Switch>
                 </section>
                 <NavigationBar/>

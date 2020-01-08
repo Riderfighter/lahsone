@@ -6,7 +6,7 @@ import Theme from "./Theme";
 
 export class NavigationBar extends React.Component
 {
-    private totalTabs = 4;
+    private totalTabs = 3;
 
     private static instance: NavigationBar;
 
@@ -159,15 +159,15 @@ export class NavigationBar extends React.Component
                 </Link>
 
                 {/** Button 4 */}
-                <Link to="/Appointments" onClick={() => NavigationBar.setSelectedTab(3)}>
-                    <g>
-                        <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight()}
-                              x={this.getTabSize() * 3}/>
+                {/*<Link to="/Appointments" onClick={() => NavigationBar.setSelectedTab(3)}>*/}
+                {/*    <g>*/}
+                {/*        <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight()}*/}
+                {/*              x={this.getTabSize() * 3}/>*/}
 
-                        {/** Appointments Icon */}
-                        <circle cx={this.getTabSize() * 3.5} cy={this.baseHeight() * 2} r='3.75vh' fill='#CB4B4D'/>
-                    </g>
-                </Link>
+                {/*        /!** Appointments Icon *!/*/}
+                {/*        <circle cx={this.getTabSize() * 3.5} cy={this.baseHeight() * 2} r='3.75vh' fill='#CB4B4D'/>*/}
+                {/*    </g>*/}
+                {/*</Link>*/}
 
                 {/** Selected Tab */}
                 <path d={this.generateNavBar()} fill="url(#NavBarGradient)"/>
