@@ -158,7 +158,6 @@ export default class AeriesUtilities {
                     this.studentGradebook.setupClasses(data);
                     return this.getGradebooks()
                 }
-                throw new Error("School gradebook is currently closed.")
             })
         }
     }

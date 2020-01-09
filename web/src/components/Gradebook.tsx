@@ -3,6 +3,7 @@ import "../styles/Gradebook.scss";
 import "../styles/AjaxSpinner.scss"
 import AeriesUtilities from "../common/Aeries";
 import update from 'immutability-helper';
+import {type} from "os";
 
 export class Gradebook extends React.Component {
     private AeriesUtil = new AeriesUtilities();
