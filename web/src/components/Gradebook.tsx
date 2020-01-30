@@ -3,7 +3,6 @@ import "../styles/Gradebook.scss";
 import "../styles/AjaxSpinner.scss"
 import AeriesUtilities from "../common/Aeries";
 import update from 'immutability-helper';
-import {type} from "os";
 
 export class Gradebook extends React.Component {
     private AeriesUtil = new AeriesUtilities();
@@ -97,16 +96,11 @@ export class Gradebook extends React.Component {
     }
 
     getColor(value) {
-        console.log(value);
-        //value from 0 to 1
-        // let hue = (value * 100);
-        // return `hsla(${hue}, 100% ,50%, 0.3)`;
         let percentColors = [
-            {pct: 0.0, color: {r: 0xff, g: 0x00, b: 0}},
-            {pct: 0.5, color: {r: 0xff, g: 0xff, b: 0}},
+            {pct: 0.5, color: {r: 0xff, g: 0x00, b: 0}},
+            // {pct: 0.5, color: {r: 0xff, g: 0xff, b: 0}},
             {pct: 1.0, color: {r: 0x00, g: 0xff, b: 0}}
         ];
-
         let i = 1;
         for (i; i < percentColors.length - 1; i++) {
             if (value < percentColors[i].pct) {
@@ -142,18 +136,11 @@ export class Gradebook extends React.Component {
                     }
                 })
             });
-            if (!withPercent)
-                return ((actualpoints / totalpoints) * 100).toFixed(1);
-            return `${((actualpoints / totalpoints) * 100).toFixed(1)}%`
+            return !withPercent ? ((actualpoints / totalpoints) * 100).toFixed(1) : `${((actualpoints / totalpoints) * 100).toFixed(1)}%`;
         }
-        if (Class.grade == "") {
-            if (!withPercent)
-                return;
-            return "N/A"
-        }
-        if (!withPercent)
-            return Class.gradepercent.toFixed(1);
-        return `${Class.gradepercent.toFixed(1)}%`
+        if (Class.grade == "")
+            return !withPercent ? undefined : "N/A";
+        return !withPercent ? Class.gradepercent.toFixed(1) : `${Class.gradepercent.toFixed(1)}%`;
     }
 
     renderGradebook() {
