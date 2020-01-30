@@ -119,7 +119,6 @@ export class Gradebook extends React.Component {
             b: Math.floor(lower.color.b * pctLower + upper.color.b * pctUpper)
         };
         let output = `rgba(${[color.r, color.g, color.b].join(',')}, 0.3)`;
-        console.log(output);
         return output;
         // or output as hex if preferred
     }

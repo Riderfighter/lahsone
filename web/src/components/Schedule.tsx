@@ -117,8 +117,6 @@ export class Schedule extends React.Component
         percent *= 360 / 100;
         percent %= 360;
 
-        console.log(percent);
-
         var r = ( percent * Math.PI / 180 );
         var x = Math.sin( r ) * radius;
         var y = Math.cos( r ) * - radius;
