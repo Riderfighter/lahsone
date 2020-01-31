@@ -35,7 +35,8 @@ export class Gradebook extends React.Component {
         if (this.AeriesUtil.hasCredentials) {
             this.AeriesUtil.authenticateAeries().then(() => {
                 this.setState(update(this.state, {insideofgradebook: {$set: this.renderGradebook()}}));
-            }).catch(() => {
+            }).catch((e) => {
+                console.log(e);
                 this.setState(update(this.state, {
                     insideofgradebook: {
                         $set: <div className="app-message">School gradebook is currently closed.</div>
@@ -123,45 +124,68 @@ export class Gradebook extends React.Component {
         // or output as hex if preferred
     }
 
-    calcPercentage(Class, withPercent: boolean = false) {
-        if (Class.gradepercent == 0 && Class.grade != "") {
+    calcPercentage(Period, withPercent: boolean = false) {
+        if (Period.Percent === 0 && Period.CurrentMark !== "") {
             let totalpoints = 0;
             let actualpoints = 0;
-            Class.gradebook.forEach(category => {
-                category.assignments.forEach(assignment => {
-                    if (assignment.isgraded) {
-                        totalpoints += assignment.maxscore;
-                        actualpoints += assignment.score;
-                    }
-                })
+            Period.Assignments.forEach(assignment => {
+                if (assignment.IsGraded) {
+                    totalpoints += assignment.MaxScore;
+                    actualpoints += assignment.Score;
+                }
             });
             return !withPercent ? ((actualpoints / totalpoints) * 100).toFixed(1) : `${((actualpoints / totalpoints) * 100).toFixed(1)}%`;
         }
-        if (Class.grade == "")
+        if (Period.CurrentMark === "")
             return !withPercent ? undefined : "N/A";
-        return !withPercent ? Class.gradepercent.toFixed(1) : `${Class.gradepercent.toFixed(1)}%`;
+        return !withPercent ? Period.Percent.toFixed(1) : `${Period.Percent.toFixed(1)}%`;
     }
 
     renderGradebook() {
-        return [
-            <ul className="gradebook-list">
-                {this.AeriesUtil.studentGradebook.currentStudent.classes.map((Class) => <li className="gradebook-entry"
-                                                                                            style={{
-                                                                                                backgroundColor: this.getColor((this.calcPercentage(Class) / 100).toFixed(1)),
-                                                                                                height: `calc(100%/${this.AeriesUtil.studentGradebook.currentStudent.classes.length})`,
-                                                                                                alignItems: "center",
-                                                                                                justifyContent: "center"
-                                                                                            }}>
-                    <div style={{justifySelf: "left", width: "100%", padding: "5px"}}>{Class.classname}</div>
-                    <div style={{justifySelf: "center", width: "100%", padding: "5px"}}>{Class.grade}</div>
+        let gradelist: JSX.Element[] = [];
+        for (let period of this.AeriesUtil.studentGradebook.currentStudent.ClassSummaryData!.ClassSummary) {
+            // let color = () => {
+            //     let percent = this.calcPercentage(period) / 100;
+            //     if (percent !== undefined) {
+            //         return this.getColor((this.calcPercentage(period) / 100).toFixed(1));
+            //     }
+            //     return "#FFF";
+            // }
+            gradelist.push(
+                <li className="gradebook-entry"
+                    style={{
+                        // backgroundColor: color(),
+                        backgroundColor: this.getColor((this.calcPercentage(period) / 100).toFixed(1)),
+                        height: `calc(100%/${this.AeriesUtil.studentGradebook.currentStudent.ClassSummaryData!.ClassSummary.length})`,
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}>
+                    <div style={{
+                        justifySelf: "left",
+                        width: "100%",
+                        padding: "5px",
+                        textAlign: "center"
+                    }}>{period.GradeBookName}</div>
+                    <div style={{
+                        justifySelf: "center",
+                        width: "100%",
+                        padding: "5px",
+                        textAlign: "center"
+                    }}>{period.CurrentMark}</div>
                     <div style={{
                         justifySelf: "right",
                         width: "100%",
-                        padding: "5px"
-                    }}>{this.calcPercentage(Class, true)}</div>
-                </li>)}
+                        padding: "5px",
+                        textAlign: "center"
+                    }}>{this.calcPercentage(period, true)}</div>
+                </li>
+            )
+        }
+        return (
+            <ul className="gradebook-list">
+                {gradelist}
             </ul>
-        ];
+        );
     }
 
 

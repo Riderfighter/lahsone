@@ -146,7 +146,7 @@ export default class AeriesUtilities {
      */
     private getClassSummary() {
         if (this.authenticated) {
-            return fetch(`https://mvla.asp.aeries.net/student/mobileapi/v1//student/${this.studentGradebook.currentStudent.studentid}/classsummary`, {
+            return fetch(`https://mvla.asp.aeries.net/student/mobileapi/v1//student/${this!.studentGradebook!.currentStudent!.AuthenticationData!.DefaultStudentID}/classsummary`, {
                 credentials: "include",
                 headers: {
                     "Authorization": `Bearer ${this.authToken}`
@@ -168,9 +168,8 @@ export default class AeriesUtilities {
     private getGradebooks() {
         if (this.authenticated) {
             let listofpromises: Array<Promise<void>> = [];
-            // @ts-ignore
-            this.studentGradebook.currentStudent.classes.forEach(studentClass => {
-                listofpromises.push(fetch(`https://mvla.asp.aeries.net/student/mobileapi/v1/20/student/${this.studentGradebook.currentStudent.studentid}/gradebooks/${studentClass.gradebooknumber}/${studentClass.termcode}`, {
+            this.studentGradebook!.currentStudent!.ClassSummaryData!.ClassSummary.forEach(studentClass => {
+                listofpromises.push(fetch(`https://mvla.asp.aeries.net/student/mobileapi/v1/20/student/${this!.studentGradebook!.currentStudent!.AuthenticationData!.DefaultStudentID}/gradebooks/${studentClass.GradeBookNumber}/${studentClass.TermCode}`, {
                     credentials: "include",
                     headers: {
                         "Authorization": `Bearer ${this.authToken}`

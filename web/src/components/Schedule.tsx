@@ -117,11 +117,11 @@ export class Schedule extends React.Component
         percent *= 360 / 100;
         percent %= 360;
 
-        var r = ( percent * Math.PI / 180 );
-        var x = Math.sin( r ) * radius;
-        var y = Math.cos( r ) * - radius;
-        var mid = ( percent > 180 ) ? 1 : 0;
-        return`M 0 0 v ${-radius} A ${radius} ${radius} 1 ` + mid + ' 1 ' +  x  + ' ' +  y  + ' z';
+        const r = (percent * Math.PI / 180);
+        const x = Math.sin(r) * radius;
+        const y = Math.cos(r) * -radius;
+        const mid = (percent > 180) ? 1 : 0;
+        return `M 0 0 v ${-radius} A ${radius} ${radius} 1 ` + mid + ' 1 ' + x + ' ' + y + ' z';
     }
 
     render()
