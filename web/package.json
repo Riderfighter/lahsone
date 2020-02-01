@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/chrome": "^0.0.93",
     "@types/crypto-js": "^3.1.43",
     "@types/dateformat": "^3.0.1",
     "@types/jest": "24.0.18",

@@ -4,7 +4,6 @@ export default class GradebookClass {
         ClassSummaryData: undefined
     };
 
-
     public setupStudent(studentinfo: Authentication) {
         this.currentStudent.AuthenticationData = studentinfo;
     }
@@ -136,7 +135,6 @@ interface Class {
     ShowWhatIf: boolean
     Categories: Category[]
     Assignments: Assignment[]
-
 }
 
 interface Category {
@@ -202,42 +200,3 @@ interface Period {
     LastUpdated: string
     Class?: Class
 }
-
-
-// type Student = {
-//     studentid: number
-//     name: string
-//     classes: Class[]
-// }
-
-// type Class = {
-//     period: number
-//     gradebooknumber: number
-//     termcode: string
-//     classname: string
-//     teachername: string
-//     roomnumber: string
-//     grade: string
-//     gradepercent: number
-//     missingassignments: number
-//     gradebook: Category[]
-// };
-
-// type Category = {
-//     name: string
-//     numberofassignments: number
-//     grade: string
-//     pointsearned: number
-//     pointspossible: number
-//     assignments: Assignment[]
-// }
-//
-// type Assignment = {
-//     assignmentnumber: number
-//     description: string
-//     isgraded: boolean
-//     score: number
-//     maxscore: number
-//     percentage: number
-//     dropedit?: boolean
-// }

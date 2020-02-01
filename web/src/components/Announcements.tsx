@@ -31,11 +31,21 @@ export class Announcements extends React.Component
     }
 
     componentDidMount(): void {
+        let announcementOnClick = (event) => {
+            event.preventDefault();
+            let messageBody = event.target.parentNode.childNodes[1];
+            if (messageBody.style.maxHeight || messageBody.style.margin) {
+                messageBody.style.maxHeight = null;
+            } else {
+                messageBody.style.maxHeight = `${messageBody.scrollHeight}px`;
+            }
+        };
+
         this.announcements.getAnnouncements().then(data => {
             let newannouncementbody: JSX.Element[] = [];
             data["PostList"].forEach(json => {
                 newannouncementbody.push(<div className="announcement-body">
-                    <h1 className="announcement-title" style={{color: "#ffffff"}}>
+                    <h1 className="announcement-title" style={{color: "#ffffff"}} onClick={announcementOnClick}>
                         {json.HRMarkAsPriority ? json.HRPriorityStartDate : json.HRPostDate}
                     </h1>
                     <p className="announcement-message" style={{color: Theme.Content}}

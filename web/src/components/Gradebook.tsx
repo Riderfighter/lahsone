@@ -63,7 +63,7 @@ export class Gradebook extends React.Component {
             this.AeriesUtil.authenticateAeries((this.state as any).email, (this.state as any).password).then(() => {
                     this.setState(update(this.state, {insideofgradebook: {$set: this.renderGradebook()}}));
                 }
-            ).catch((e) => {
+            ).catch(() => {
                 this.changeToLogin()
             });
         } catch (e) {
@@ -99,7 +99,7 @@ export class Gradebook extends React.Component {
     getColor(value) {
         let percentColors = [
             {pct: 0.5, color: {r: 0xff, g: 0x00, b: 0}},
-            // {pct: 0.5, color: {r: 0xff, g: 0xff, b: 0}},
+            // {pct: 0.5, color: {r: 0xff, g: 0xff, b: 0}}, This was the 50% color mark
             {pct: 1.0, color: {r: 0x00, g: 0xff, b: 0}}
         ];
         let i = 1;
@@ -121,7 +121,6 @@ export class Gradebook extends React.Component {
         };
         let output = `rgba(${[color.r, color.g, color.b].join(',')}, 0.3)`;
         return output;
-        // or output as hex if preferred
     }
 
     calcPercentage(Period, withPercent: boolean = false) {
@@ -144,17 +143,9 @@ export class Gradebook extends React.Component {
     renderGradebook() {
         let gradelist: JSX.Element[] = [];
         for (let period of this.AeriesUtil.studentGradebook.currentStudent.ClassSummaryData!.ClassSummary) {
-            // let color = () => {
-            //     let percent = this.calcPercentage(period) / 100;
-            //     if (percent !== undefined) {
-            //         return this.getColor((this.calcPercentage(period) / 100).toFixed(1));
-            //     }
-            //     return "#FFF";
-            // }
             gradelist.push(
                 <li className="gradebook-entry"
                     style={{
-                        // backgroundColor: color(),
                         backgroundColor: this.getColor((this.calcPercentage(period) / 100).toFixed(1)),
                         height: `calc(100%/${this.AeriesUtil.studentGradebook.currentStudent.ClassSummaryData!.ClassSummary.length})`,
                         alignItems: "center",
