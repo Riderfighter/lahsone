@@ -16,18 +16,7 @@
     padding-left: 5%;
     height: 1.5em;
     border-radius: 0 0 3px 0;
-
-    b {
-      display: flex;
-      justify-content: flex-end;
-      font-size: 6.25vw;
-      float: right;
-      padding-right: 5%;
-    }
-
-    b:hover {
-      cursor: pointer;
-    }
+    cursor: pointer;
   }
   .announcement-message {
     color: rgb(67, 67, 67);
