@@ -140,7 +140,7 @@ export class NavigationBar extends React.Component
                 <Link to="/Schedule" onClick={() => NavigationBar.setSelectedTab(1)}>
                     <g>
                         <rect fill={Theme.Background} width={this.getTabSize()} height="25vh" y={this.baseHeight()}
-                              x={this.getTabSize() * 1}/>
+                              x={this.getTabSize()}/>
 
                         {/** Bell Schedule Icon */}
                         <circle cx={this.getTabSize() * 1.5} cy={this.baseHeight() * 2} r='3.75vh' fill='#74A863'/>

@@ -36,8 +36,10 @@ export class Announcements extends React.Component
             let messageBody = event.target.parentNode.childNodes[1];
             if (messageBody.style.maxHeight || messageBody.style.margin) {
                 messageBody.style.maxHeight = null;
+                messageBody.style.padding = "0 4%";
             } else {
                 messageBody.style.maxHeight = `${messageBody.scrollHeight}px`;
+                messageBody.style.padding = "2% 4%";
             }
         };
 
