@@ -108,7 +108,7 @@ export class NavigationBar extends React.Component
 
         return (
             <svg version="1.1" width={(this.state as any).width} height={(this.state as any).height * 0.2}
-                 style={{position: "fixed", bottom: "-3px", backgroundColor: Theme.Background}}>
+                 style={{position: "fixed", bottom: "-3px", background: Theme.Background}}>
                 <defs>
                     {/** Selected tab gradient */}
                     <linearGradient id="NavBarGradient" x1="0%" y1="0%" x2="0%" y2="100%">
